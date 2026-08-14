@@ -34,7 +34,6 @@ import com.equipmentrental.billing.dto.response.DepositReportResponse;
 import com.equipmentrental.billing.dto.response.InvoiceHistoryResponse;
 import com.equipmentrental.billing.dto.response.DepositHistoryResponse;
 import com.equipmentrental.billing.dto.response.CustomerBillingTransactionResponse;
-import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/v1/billing")
