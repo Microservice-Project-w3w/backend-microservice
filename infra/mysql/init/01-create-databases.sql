@@ -874,6 +874,549 @@ CREATE INDEX idx_restricted_customer
 CREATE INDEX idx_restricted_status
     ON restricted_customers(organization_id, status);
 CREATE DATABASE IF NOT EXISTS inventory_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+       USE inventory_db;
+
+-- =========================================================
+-- 1. CATALOG
+-- =========================================================
+
+CREATE TABLE equipment_categories (
+                                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                      organization_id BIGINT NOT NULL,
+                                      code VARCHAR(50) NOT NULL,
+                                      name VARCHAR(150) NOT NULL,
+                                      description VARCHAR(500),
+                                      active BOOLEAN NOT NULL DEFAULT TRUE,
+                                      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                          ON UPDATE CURRENT_TIMESTAMP,
+
+                                      CONSTRAINT uk_equipment_category_org_code
+                                          UNIQUE (organization_id, code)
+);
+
+CREATE TABLE equipment_types (
+                                 id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                 organization_id BIGINT NOT NULL,
+                                 category_id BIGINT NOT NULL,
+                                 code VARCHAR(50) NOT NULL,
+                                 name VARCHAR(150) NOT NULL,
+                                 description VARCHAR(500),
+                                 active BOOLEAN NOT NULL DEFAULT TRUE,
+                                 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                 updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                     ON UPDATE CURRENT_TIMESTAMP,
+
+                                 CONSTRAINT uk_equipment_type_org_code
+                                     UNIQUE (organization_id, code),
+
+                                 CONSTRAINT fk_equipment_type_category
+                                     FOREIGN KEY (category_id)
+                                         REFERENCES equipment_categories(id)
+);
+
+CREATE TABLE brands (
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        organization_id BIGINT NOT NULL,
+                        code VARCHAR(50) NOT NULL,
+                        name VARCHAR(150) NOT NULL,
+                        description VARCHAR(500),
+                        active BOOLEAN NOT NULL DEFAULT TRUE,
+                        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                            ON UPDATE CURRENT_TIMESTAMP,
+
+                        CONSTRAINT uk_brand_org_code
+                            UNIQUE (organization_id, code)
+);
+
+CREATE TABLE equipment_models (
+                                  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                  organization_id BIGINT NOT NULL,
+                                  equipment_type_id BIGINT NOT NULL,
+                                  brand_id BIGINT NOT NULL,
+                                  code VARCHAR(50) NOT NULL,
+                                  name VARCHAR(150) NOT NULL,
+                                  manufacturer_model VARCHAR(150),
+                                  description VARCHAR(1000),
+                                  active BOOLEAN NOT NULL DEFAULT TRUE,
+                                  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                      ON UPDATE CURRENT_TIMESTAMP,
+
+                                  CONSTRAINT uk_equipment_model_org_code
+                                      UNIQUE (organization_id, code),
+
+                                  CONSTRAINT fk_equipment_model_type
+                                      FOREIGN KEY (equipment_type_id)
+                                          REFERENCES equipment_types(id),
+
+                                  CONSTRAINT fk_equipment_model_brand
+                                      FOREIGN KEY (brand_id)
+                                          REFERENCES brands(id)
+);
+
+-- =========================================================
+-- 2. WAREHOUSE
+-- =========================================================
+
+CREATE TABLE warehouses (
+                            id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                            organization_id BIGINT NOT NULL,
+                            branch_id BIGINT NOT NULL,
+                            code VARCHAR(50) NOT NULL,
+                            name VARCHAR(150) NOT NULL,
+                            address VARCHAR(500),
+                            active BOOLEAN NOT NULL DEFAULT TRUE,
+                            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                            updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                ON UPDATE CURRENT_TIMESTAMP,
+
+                            CONSTRAINT uk_warehouse_org_code
+                                UNIQUE (organization_id, code)
+);
+
+CREATE TABLE warehouse_locations (
+                                     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                     warehouse_id BIGINT NOT NULL,
+                                     code VARCHAR(50) NOT NULL,
+                                     name VARCHAR(150),
+                                     zone VARCHAR(100),
+                                     rack VARCHAR(100),
+                                     shelf VARCHAR(100),
+                                     active BOOLEAN NOT NULL DEFAULT TRUE,
+                                     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+                                     CONSTRAINT uk_warehouse_location_code
+                                         UNIQUE (warehouse_id, code),
+
+                                     CONSTRAINT fk_location_warehouse
+                                         FOREIGN KEY (warehouse_id)
+                                             REFERENCES warehouses(id)
+);
+
+-- =========================================================
+-- 3. PHYSICAL EQUIPMENT
+-- =========================================================
+
+CREATE TABLE equipment (
+                           id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                           organization_id BIGINT NOT NULL,
+                           branch_id BIGINT NOT NULL,
+
+                           warehouse_id BIGINT,
+                           warehouse_location_id BIGINT,
+
+                           model_id BIGINT NOT NULL,
+
+                           asset_code VARCHAR(100) NOT NULL,
+                           serial_number VARCHAR(150),
+                           imei VARCHAR(50),
+                           mac_address VARCHAR(50),
+                           qr_code VARCHAR(200),
+
+                           status VARCHAR(50) NOT NULL DEFAULT 'AVAILABLE',
+                           condition_status VARCHAR(50) NOT NULL DEFAULT 'GOOD',
+
+                           purchase_date DATE,
+                           purchase_price DECIMAL(15,2),
+
+                           note VARCHAR(1000),
+
+                           version BIGINT NOT NULL DEFAULT 0,
+
+                           created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                           updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                               ON UPDATE CURRENT_TIMESTAMP,
+
+                           CONSTRAINT uk_equipment_org_asset_code
+                               UNIQUE (organization_id, asset_code),
+
+                           CONSTRAINT uk_equipment_org_serial
+                               UNIQUE (organization_id, serial_number),
+
+                           CONSTRAINT uk_equipment_org_imei
+                               UNIQUE (organization_id, imei),
+
+                           CONSTRAINT uk_equipment_org_mac
+                               UNIQUE (organization_id, mac_address),
+
+                           CONSTRAINT uk_equipment_qr
+                               UNIQUE (qr_code),
+
+                           CONSTRAINT fk_equipment_model
+                               FOREIGN KEY (model_id)
+                                   REFERENCES equipment_models(id),
+
+                           CONSTRAINT fk_equipment_warehouse
+                               FOREIGN KEY (warehouse_id)
+                                   REFERENCES warehouses(id),
+
+                           CONSTRAINT fk_equipment_location
+                               FOREIGN KEY (warehouse_location_id)
+                                   REFERENCES warehouse_locations(id)
+);
+
+CREATE TABLE equipment_images (
+                                  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                  equipment_id BIGINT NOT NULL,
+                                  image_url VARCHAR(1000) NOT NULL,
+                                  primary_image BOOLEAN NOT NULL DEFAULT FALSE,
+                                  display_order INT NOT NULL DEFAULT 0,
+                                  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+                                  CONSTRAINT fk_equipment_image_equipment
+                                      FOREIGN KEY (equipment_id)
+                                          REFERENCES equipment(id)
+                                          ON DELETE CASCADE
+);
+
+CREATE TABLE equipment_accessories (
+                                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                                       equipment_id BIGINT NOT NULL,
+                                       name VARCHAR(150) NOT NULL,
+                                       serial_number VARCHAR(150),
+                                       quantity INT NOT NULL DEFAULT 1,
+                                       required_on_return BOOLEAN NOT NULL DEFAULT TRUE,
+                                       note VARCHAR(500),
+                                       created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+                                       CONSTRAINT fk_equipment_accessory_equipment
+                                           FOREIGN KEY (equipment_id)
+                                               REFERENCES equipment(id)
+                                               ON DELETE CASCADE
+);
+
+-- =========================================================
+-- 4. RESERVATION
+-- =========================================================
+
+CREATE TABLE equipment_reservations (
+                                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                        organization_id BIGINT NOT NULL,
+                                        branch_id BIGINT NOT NULL,
+
+                                        reservation_code VARCHAR(100) NOT NULL,
+                                        request_reference VARCHAR(150) NOT NULL,
+
+                                        rental_order_id BIGINT,
+
+                                        start_at DATETIME NOT NULL,
+                                        end_at DATETIME NOT NULL,
+                                        expires_at DATETIME,
+
+                                        status VARCHAR(50) NOT NULL DEFAULT 'HELD',
+
+                                        created_by BIGINT,
+                                        created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                        updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                            ON UPDATE CURRENT_TIMESTAMP,
+
+                                        version BIGINT NOT NULL DEFAULT 0,
+
+                                        CONSTRAINT uk_reservation_code
+                                            UNIQUE (reservation_code),
+
+                                        CONSTRAINT uk_reservation_request_reference
+                                            UNIQUE (organization_id, request_reference)
+);
+
+CREATE TABLE equipment_reservation_items (
+                                             id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                             reservation_id BIGINT NOT NULL,
+
+                                             equipment_type_id BIGINT NOT NULL,
+                                             equipment_id BIGINT NOT NULL,
+
+                                             start_at DATETIME NOT NULL,
+                                             end_at DATETIME NOT NULL,
+
+                                             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+                                             CONSTRAINT fk_reservation_item_reservation
+                                                 FOREIGN KEY (reservation_id)
+                                                     REFERENCES equipment_reservations(id)
+                                                     ON DELETE CASCADE,
+
+                                             CONSTRAINT fk_reservation_item_type
+                                                 FOREIGN KEY (equipment_type_id)
+                                                     REFERENCES equipment_types(id),
+
+                                             CONSTRAINT fk_reservation_item_equipment
+                                                 FOREIGN KEY (equipment_id)
+                                                     REFERENCES equipment(id)
+);
+
+-- =========================================================
+-- 5. GOODS RECEIPT
+-- =========================================================
+
+CREATE TABLE goods_receipts (
+                                id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                organization_id BIGINT NOT NULL,
+                                branch_id BIGINT NOT NULL,
+                                warehouse_id BIGINT NOT NULL,
+
+                                receipt_code VARCHAR(100) NOT NULL,
+                                status VARCHAR(50) NOT NULL DEFAULT 'DRAFT',
+
+                                created_by BIGINT,
+                                received_at DATETIME,
+
+                                created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                    ON UPDATE CURRENT_TIMESTAMP,
+
+                                CONSTRAINT uk_goods_receipt_code
+                                    UNIQUE (organization_id, receipt_code),
+
+                                CONSTRAINT fk_goods_receipt_warehouse
+                                    FOREIGN KEY (warehouse_id)
+                                        REFERENCES warehouses(id)
+);
+
+CREATE TABLE goods_receipt_items (
+                                     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                     receipt_id BIGINT NOT NULL,
+                                     equipment_id BIGINT NOT NULL,
+
+                                     note VARCHAR(500),
+
+                                     CONSTRAINT fk_goods_receipt_item_receipt
+                                         FOREIGN KEY (receipt_id)
+                                             REFERENCES goods_receipts(id)
+                                             ON DELETE CASCADE,
+
+                                     CONSTRAINT fk_goods_receipt_item_equipment
+                                         FOREIGN KEY (equipment_id)
+                                             REFERENCES equipment(id)
+);
+
+-- =========================================================
+-- 6. GOODS ISSUE
+-- =========================================================
+
+CREATE TABLE goods_issues (
+                              id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                              organization_id BIGINT NOT NULL,
+                              branch_id BIGINT NOT NULL,
+                              warehouse_id BIGINT NOT NULL,
+
+                              issue_code VARCHAR(100) NOT NULL,
+                              issue_type VARCHAR(50),
+                              status VARCHAR(50) NOT NULL DEFAULT 'DRAFT',
+
+                              created_by BIGINT,
+                              issued_at DATETIME,
+
+                              created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                              updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                  ON UPDATE CURRENT_TIMESTAMP,
+
+                              CONSTRAINT uk_goods_issue_code
+                                  UNIQUE (organization_id, issue_code),
+
+                              CONSTRAINT fk_goods_issue_warehouse
+                                  FOREIGN KEY (warehouse_id)
+                                      REFERENCES warehouses(id)
+);
+
+CREATE TABLE goods_issue_items (
+                                   id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                   issue_id BIGINT NOT NULL,
+                                   equipment_id BIGINT NOT NULL,
+
+                                   note VARCHAR(500),
+
+                                   CONSTRAINT fk_goods_issue_item_issue
+                                       FOREIGN KEY (issue_id)
+                                           REFERENCES goods_issues(id)
+                                           ON DELETE CASCADE,
+
+                                   CONSTRAINT fk_goods_issue_item_equipment
+                                       FOREIGN KEY (equipment_id)
+                                           REFERENCES equipment(id)
+);
+
+-- =========================================================
+-- 7. STOCK TRANSFER
+-- =========================================================
+
+CREATE TABLE stock_transfers (
+                                 id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                 organization_id BIGINT NOT NULL,
+
+                                 transfer_code VARCHAR(100) NOT NULL,
+
+                                 from_branch_id BIGINT NOT NULL,
+                                 from_warehouse_id BIGINT NOT NULL,
+
+                                 to_branch_id BIGINT NOT NULL,
+                                 to_warehouse_id BIGINT NOT NULL,
+
+                                 status VARCHAR(50) NOT NULL DEFAULT 'DRAFT',
+
+                                 created_by BIGINT,
+
+                                 created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                 updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                     ON UPDATE CURRENT_TIMESTAMP,
+
+                                 CONSTRAINT uk_stock_transfer_code
+                                     UNIQUE (organization_id, transfer_code),
+
+                                 CONSTRAINT fk_transfer_from_warehouse
+                                     FOREIGN KEY (from_warehouse_id)
+                                         REFERENCES warehouses(id),
+
+                                 CONSTRAINT fk_transfer_to_warehouse
+                                     FOREIGN KEY (to_warehouse_id)
+                                         REFERENCES warehouses(id)
+);
+
+CREATE TABLE stock_transfer_items (
+                                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                      transfer_id BIGINT NOT NULL,
+                                      equipment_id BIGINT NOT NULL,
+
+                                      note VARCHAR(500),
+
+                                      CONSTRAINT fk_transfer_item_transfer
+                                          FOREIGN KEY (transfer_id)
+                                              REFERENCES stock_transfers(id)
+                                              ON DELETE CASCADE,
+
+                                      CONSTRAINT fk_transfer_item_equipment
+                                          FOREIGN KEY (equipment_id)
+                                              REFERENCES equipment(id)
+);
+
+-- =========================================================
+-- 8. INVENTORY COUNT
+-- =========================================================
+
+CREATE TABLE inventory_counts (
+                                  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                  organization_id BIGINT NOT NULL,
+                                  branch_id BIGINT NOT NULL,
+                                  warehouse_id BIGINT NOT NULL,
+
+                                  count_code VARCHAR(100) NOT NULL,
+                                  status VARCHAR(50) NOT NULL DEFAULT 'DRAFT',
+
+                                  started_at DATETIME,
+                                  completed_at DATETIME,
+
+                                  created_by BIGINT,
+
+                                  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                                  updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+                                      ON UPDATE CURRENT_TIMESTAMP,
+
+                                  CONSTRAINT uk_inventory_count_code
+                                      UNIQUE (organization_id, count_code),
+
+                                  CONSTRAINT fk_inventory_count_warehouse
+                                      FOREIGN KEY (warehouse_id)
+                                          REFERENCES warehouses(id)
+);
+
+CREATE TABLE inventory_count_items (
+                                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                       inventory_count_id BIGINT NOT NULL,
+                                       equipment_id BIGINT NOT NULL,
+
+                                       expected BOOLEAN NOT NULL DEFAULT TRUE,
+                                       actually_found BOOLEAN NOT NULL DEFAULT FALSE,
+
+                                       observed_condition VARCHAR(50),
+
+                                       note VARCHAR(500),
+
+                                       CONSTRAINT uk_inventory_count_equipment
+                                           UNIQUE (inventory_count_id, equipment_id),
+
+                                       CONSTRAINT fk_inventory_count_item_count
+                                           FOREIGN KEY (inventory_count_id)
+                                               REFERENCES inventory_counts(id)
+                                               ON DELETE CASCADE,
+
+                                       CONSTRAINT fk_inventory_count_item_equipment
+                                           FOREIGN KEY (equipment_id)
+                                               REFERENCES equipment(id)
+);
+
+-- =========================================================
+-- 9. INVENTORY TRANSACTION / AUDIT HISTORY
+-- =========================================================
+
+CREATE TABLE inventory_transactions (
+                                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                        organization_id BIGINT NOT NULL,
+
+                                        equipment_id BIGINT NOT NULL,
+
+                                        transaction_type VARCHAR(50) NOT NULL,
+
+                                        from_branch_id BIGINT,
+                                        to_branch_id BIGINT,
+
+                                        from_warehouse_id BIGINT,
+                                        to_warehouse_id BIGINT,
+
+                                        reference_type VARCHAR(100),
+                                        reference_id BIGINT,
+
+                                        actor_id BIGINT,
+
+                                        note VARCHAR(1000),
+
+                                        occurred_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+                                        CONSTRAINT fk_inventory_transaction_equipment
+                                            FOREIGN KEY (equipment_id)
+                                                REFERENCES equipment(id)
+);
+
+-- =========================================================
+-- INDEXES
+-- =========================================================
+
+CREATE INDEX idx_equipment_scope
+    ON equipment (organization_id, branch_id);
+
+CREATE INDEX idx_equipment_model_status
+    ON equipment (model_id, status);
+
+CREATE INDEX idx_equipment_warehouse
+    ON equipment (warehouse_id);
+
+CREATE INDEX idx_reservation_scope_time
+    ON equipment_reservations (
+                               organization_id,
+                               branch_id,
+                               start_at,
+                               end_at,
+                               status
+        );
+
+CREATE INDEX idx_reservation_item_equipment
+    ON equipment_reservation_items (equipment_id);
+
+CREATE INDEX idx_inventory_transaction_equipment
+    ON inventory_transactions (equipment_id, occurred_at);
 CREATE DATABASE IF NOT EXISTS rental_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE rental_db;
 
