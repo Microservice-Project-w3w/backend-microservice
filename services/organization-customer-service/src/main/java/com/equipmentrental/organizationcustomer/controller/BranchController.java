@@ -19,11 +19,7 @@ public class BranchController {
     private final BranchService branchService;
 
 
-    // =====================================================
-    // 1. TẠO CHI NHÁNH
-    // POST /api/v1/organizations/{organizationId}/branches
-    // =====================================================
-
+   
     @PostMapping
     @PreAuthorize("hasAuthority('organization.branch.create') and @organizationScope.canAccessOrganization(#organizationId)")
     @ResponseStatus(HttpStatus.CREATED)
@@ -38,10 +34,6 @@ public class BranchController {
     }
 
 
-    // =====================================================
-    // 2. DANH SÁCH CHI NHÁNH
-    // GET /api/v1/organizations/{organizationId}/branches
-    // =====================================================
 
     @GetMapping
     @PreAuthorize("hasAuthority('organization.branch.read') and @organizationScope.canAccessOrganization(#organizationId)")

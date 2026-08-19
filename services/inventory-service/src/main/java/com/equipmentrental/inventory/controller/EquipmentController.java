@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.equipmentrental.inventory.dto.request.UpdateEquipmentRequest;
 import com.equipmentrental.inventory.dto.request.UpdateEquipmentStatusRequest;
+import com.equipmentrental.inventory.security.InventoryDataScopeGuard;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 
@@ -20,20 +22,23 @@ import java.util.List;
 public class EquipmentController {
 
     private final EquipmentService service;
+    private final InventoryDataScopeGuard dataScopeGuard;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('inventory.equipment.create')")
     public ResponseEntity<EquipmentResponse> create(
             @Valid
             @RequestBody
             CreateEquipmentRequest request
     ) {
-
+        dataScopeGuard.checkBranch(request.organizationId(), request.branchId());
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(service.create(request));
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('inventory.equipment.read')")
     public List<EquipmentResponse> getAll(
             @RequestParam Long organizationId,
 
@@ -49,29 +54,43 @@ public class EquipmentController {
             @RequestParam(required = false)
             EquipmentStatus status
     ) {
-
-        return service.getAll(
+        dataScopeGuard.checkOrganization(organizationId);
+        if (branchId != null) {
+            dataScopeGuard.checkReadableBranch(organizationId, branchId);
+        }
+        List<EquipmentResponse> values = service.getAll(
                 organizationId,
                 branchId,
                 warehouseId,
                 modelId,
                 status
         );
+        return dataScopeGuard.filterReadableBranches(
+                organizationId,
+                values,
+                EquipmentResponse::branchId
+        );
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('inventory.equipment.read')")
     public EquipmentResponse getById(
             @PathVariable Long id,
 
             @RequestParam Long organizationId
     ) {
-
-        return service.getById(
+        EquipmentResponse current = service.getById(
                 id,
                 organizationId
         );
+        dataScopeGuard.checkReadableBranch(
+                current.organizationId(),
+                current.branchId()
+        );
+        return current;
     }
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('inventory.equipment.update')")
     public EquipmentResponse update(
             @PathVariable Long id,
 
@@ -81,7 +100,12 @@ public class EquipmentController {
             @RequestBody
             UpdateEquipmentRequest request
     ) {
-
+        EquipmentResponse current = service.getById(id, organizationId);
+        dataScopeGuard.checkBranch(
+                current.organizationId(),
+                current.branchId()
+        );
+        dataScopeGuard.checkBranch(organizationId, request.branchId());
         return service.update(
                 id,
                 organizationId,
@@ -89,6 +113,7 @@ public class EquipmentController {
         );
     }
     @PatchMapping("/{id}/status")
+    @PreAuthorize("hasAuthority('inventory.equipment.change-status')")
     public EquipmentResponse changeStatus(
             @PathVariable Long id,
 
@@ -98,7 +123,11 @@ public class EquipmentController {
             @RequestBody
             UpdateEquipmentStatusRequest request
     ) {
-
+        EquipmentResponse current = service.getById(id, organizationId);
+        dataScopeGuard.checkBranch(
+                current.organizationId(),
+                current.branchId()
+        );
         return service.changeStatus(
                 id,
                 organizationId,
@@ -106,41 +135,57 @@ public class EquipmentController {
         );
     }
     @GetMapping("/by-serial/{serial}")
+    @PreAuthorize("hasAuthority('inventory.equipment.read')")
     public EquipmentResponse getBySerial(
             @PathVariable String serial,
             @RequestParam Long organizationId
     ) {
-
-        return service.getBySerial(
+        EquipmentResponse current = service.getBySerial(
                 organizationId,
                 serial
         );
+        dataScopeGuard.checkReadableBranch(
+                current.organizationId(),
+                current.branchId()
+        );
+        return current;
     }
 
     @GetMapping("/by-imei/{imei}")
+    @PreAuthorize("hasAuthority('inventory.equipment.read')")
     public EquipmentResponse getByImei(
             @PathVariable String imei,
             @RequestParam Long organizationId
     ) {
-
-        return service.getByImei(
+        EquipmentResponse current = service.getByImei(
                 organizationId,
                 imei
         );
+        dataScopeGuard.checkReadableBranch(
+                current.organizationId(),
+                current.branchId()
+        );
+        return current;
     }
 
     @GetMapping("/by-mac/{mac}")
+    @PreAuthorize("hasAuthority('inventory.equipment.read')")
     public EquipmentResponse getByMac(
             @PathVariable String mac,
             @RequestParam Long organizationId
     ) {
-
-        return service.getByMac(
+        EquipmentResponse current = service.getByMac(
                 organizationId,
                 mac
         );
+        dataScopeGuard.checkReadableBranch(
+                current.organizationId(),
+                current.branchId()
+        );
+        return current;
     }
     @GetMapping("/search")
+    @PreAuthorize("hasAuthority('inventory.equipment.read')")
     public List<EquipmentResponse> search(
 
             @RequestParam Long organizationId,
@@ -178,8 +223,11 @@ public class EquipmentController {
             @RequestParam(required = false)
             String macAddress
     ) {
-
-        return service.search(
+        dataScopeGuard.checkOrganization(organizationId);
+        if (branchId != null) {
+            dataScopeGuard.checkReadableBranch(organizationId, branchId);
+        }
+        List<EquipmentResponse> values = service.search(
                 organizationId,
                 branchId,
                 warehouseId,
@@ -192,6 +240,11 @@ public class EquipmentController {
                 serialNumber,
                 imei,
                 macAddress
+        );
+        return dataScopeGuard.filterReadableBranches(
+                organizationId,
+                values,
+                EquipmentResponse::branchId
         );
     }
 }

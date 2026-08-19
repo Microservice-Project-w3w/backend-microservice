@@ -6,7 +6,9 @@ import com.equipmentrental.inventory.dto.response.WarehouseResponse;
 import com.equipmentrental.inventory.service.WarehouseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.security.access.prepost.PreAuthorize;
+import com.equipmentrental.inventory.security.InventoryDataScopeGuard;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -15,40 +17,78 @@ import java.util.List;
 public class WarehouseController {
 
     private final WarehouseService service;
+    private final InventoryDataScopeGuard dataScopeGuard;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('inventory.warehouse.manage')")
     public WarehouseResponse create(
-            @RequestBody CreateWarehouseRequest request
+        @Valid @RequestBody CreateWarehouseRequest request
     ) {
+        dataScopeGuard.checkBranch(
+        request.organizationId(),
+        request.branchId()
+);
         return service.create(request);
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('inventory.warehouse.read')")
     public List<WarehouseResponse> findAll(
-            @RequestParam(required = false)
+            @RequestParam
             Long organizationId,
 
             @RequestParam(required = false)
             Long branchId
     ) {
-        return service.findAll(
+        if (branchId != null) {
+        dataScopeGuard.checkBranch(
                 organizationId,
                 branchId
+        );
+    } else {
+        dataScopeGuard.checkOrganization(
+                organizationId
+        );
+    }
+        List<WarehouseResponse> values = service.findAll(
+                organizationId,
+                branchId
+        );
+        return dataScopeGuard.filterAssignedBranches(
+                organizationId,
+                values,
+                WarehouseResponse::branchId
         );
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('inventory.warehouse.read')")
     public WarehouseResponse findById(
             @PathVariable Long id
     ) {
-        return service.findById(id);
+        WarehouseResponse current =
+            service.findById(id);
+
+    dataScopeGuard.checkBranch(
+            current.organizationId(),
+            current.branchId()
+    );
+        return current;
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('inventory.warehouse.manage')")
     public WarehouseResponse update(
             @PathVariable Long id,
-            @RequestBody UpdateWarehouseRequest request
+           @Valid@RequestBody UpdateWarehouseRequest request
     ) {
+         WarehouseResponse current =
+            service.findById(id);
+
+    dataScopeGuard.checkBranch(
+            current.organizationId(),
+            current.branchId()
+    );
         return service.update(
                 id,
                 request
@@ -56,11 +96,19 @@ public class WarehouseController {
     }
 
     @PatchMapping("/{id}/active")
+    @PreAuthorize("hasAuthority('inventory.warehouse.manage')")
     public WarehouseResponse changeActive(
             @PathVariable Long id,
 
             @RequestParam boolean active
     ) {
+         WarehouseResponse current =
+            service.findById(id);
+
+    dataScopeGuard.checkBranch(
+            current.organizationId(),
+            current.branchId()
+    );
         return service.changeActive(
                 id,
                 active

@@ -14,11 +14,22 @@ import com.equipmentrental.inventory.entity.EquipmentModel;
 import com.equipmentrental.inventory.specification.EquipmentSpecification;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class EquipmentService {
+
+    private static final Set<EquipmentStatus> ADMINISTRATIVE_STATUSES =
+            EnumSet.of(
+                    EquipmentStatus.DAMAGED,
+                    EquipmentStatus.MAINTENANCE,
+                    EquipmentStatus.LOST,
+                    EquipmentStatus.RETIRED,
+                    EquipmentStatus.INSPECTION
+            );
 
     private final EquipmentRepository equipmentRepository;
     private final EquipmentModelRepository modelRepository;
@@ -385,6 +396,13 @@ public class EquipmentService {
     // =========================================================
 
     @Transactional(readOnly = true)
+    public EquipmentResponse getById(Long id) {
+        Equipment equipment = equipmentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Không tìm thấy thiết bị"));
+        return toResponse(equipment);
+    }
+
+    @Transactional(readOnly = true)
     public EquipmentResponse getById(
             Long id,
             Long organizationId
@@ -481,6 +499,12 @@ public class EquipmentService {
             Long organizationId,
             EquipmentStatus status
     ) {
+
+        if (!ADMINISTRATIVE_STATUSES.contains(status)) {
+            throw new IllegalArgumentException(
+                    "Generic equipment status changes only allow administrative statuses"
+            );
+        }
 
         Equipment equipment =
                 equipmentRepository

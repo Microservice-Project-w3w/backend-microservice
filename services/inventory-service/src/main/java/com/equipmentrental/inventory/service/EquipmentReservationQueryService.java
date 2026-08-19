@@ -19,46 +19,44 @@ public class EquipmentReservationQueryService {
 
     @Transactional(readOnly = true)
     public List<EquipmentReservationResponse> findAll(
+            Long organizationId,
+            Long branchId,
             Long rentalOrderId,
             ReservationStatus status
     ) {
+        if (organizationId == null) {
+            throw new IllegalArgumentException(
+                    "organizationId is required"
+            );
+        }
 
         List<EquipmentReservation> reservations;
 
-        if (rentalOrderId != null
-                && status != null) {
-
+        if (branchId != null) {
             reservations =
-                    repository
-                            .findByRentalOrderIdAndStatus(
-                                    rentalOrderId,
-                                    status
-                            );
-
-        } else if (rentalOrderId != null) {
-
-            reservations =
-                    repository
-                            .findByRentalOrderId(
-                                    rentalOrderId
-                            );
-
-        } else if (status != null) {
-
-            reservations =
-                    repository
-                            .findByStatus(
-                                    status
-                            );
-
+                    repository.findByOrganizationIdAndBranchId(
+                            organizationId,
+                            branchId
+                    );
         } else {
-
             reservations =
-                    repository.findAll();
+                    repository.findByOrganizationId(
+                            organizationId
+                    );
         }
 
         return reservations
                 .stream()
+                .filter(reservation ->
+                        rentalOrderId == null
+                                || rentalOrderId.equals(
+                                reservation.getRentalOrderId()
+                        )
+                )
+                .filter(reservation ->
+                        status == null
+                                || status == reservation.getStatus()
+                )
                 .map(this::toResponse)
                 .toList();
     }
@@ -67,7 +65,6 @@ public class EquipmentReservationQueryService {
     public EquipmentReservationResponse findById(
             Long id
     ) {
-
         EquipmentReservation reservation =
                 repository
                         .findById(id)
@@ -84,35 +81,20 @@ public class EquipmentReservationQueryService {
     private EquipmentReservationResponse toResponse(
             EquipmentReservation reservation
     ) {
-
         return new EquipmentReservationResponse(
-
                 reservation.getId(),
-
                 reservation.getOrganizationId(),
-
                 reservation.getBranchId(),
-
                 reservation.getReservationCode(),
-
                 reservation.getRequestReference(),
-
                 reservation.getRentalOrderId(),
-
                 reservation.getStartAt(),
-
                 reservation.getEndAt(),
-
                 reservation.getExpiresAt(),
-
                 reservation.getStatus(),
-
                 reservation.getCreatedBy(),
-
                 reservation.getCreatedAt(),
-
                 reservation.getUpdatedAt(),
-
                 reservation.getVersion()
         );
     }

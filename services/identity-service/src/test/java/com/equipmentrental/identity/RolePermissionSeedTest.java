@@ -22,6 +22,8 @@ class RolePermissionSeedTest {
                 "MANAGER,rental.contract.approve,BRANCH",
                 "MANAGER,maintenance.ticket.read,BRANCH",
                 "SALES_STAFF,inventory.availability.read,BRANCH",
+                "ADMIN,inventory.reservation.read,SYSTEM",
+                "OPERATIONS_STAFF,inventory.reservation.read,BRANCH",
                 "OPERATIONS_STAFF,logistics.delivery.create,BRANCH",
                 "OPERATIONS_STAFF,logistics.delivery.schedule,BRANCH",
                 "CUSTOMER,rental.quotation.accept,OWN",
@@ -29,6 +31,9 @@ class RolePermissionSeedTest {
         assertThat(lines).doesNotContain(
                 "MANAGER,customer.profile.create,BRANCH",
                 "MANAGER,customer.profile.update,BRANCH",
+                "OPERATIONS_STAFF,inventory.catalog.manage,BRANCH",
+                "OPERATIONS_STAFF,inventory.brand.manage,BRANCH",
+                "OPERATIONS_STAFF,inventory.model.manage,BRANCH",
                 "CUSTOMER,rental.quotation.approve,OWN");
         assertThat(lines.stream().map(line -> line.substring(0, line.indexOf(','))).distinct())
                 .containsExactlyInAnyOrder(

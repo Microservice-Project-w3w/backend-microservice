@@ -7,9 +7,19 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 @Repository
 public interface EquipmentReservationRepository
         extends JpaRepository<EquipmentReservation, Long> {
+
+    List<EquipmentReservation> findByOrganizationId(
+            Long organizationId
+    );
+
+    List<EquipmentReservation> findByOrganizationIdAndBranchId(
+            Long organizationId,
+            Long branchId
+    );
 
     List<EquipmentReservation> findByRentalOrderId(
             Long rentalOrderId
@@ -23,11 +33,13 @@ public interface EquipmentReservationRepository
             Long rentalOrderId,
             ReservationStatus status
     );
+
     Optional<EquipmentReservation>
     findByOrganizationIdAndRequestReference(
             Long organizationId,
             String requestReference
     );
+
     boolean existsByOrganizationIdAndRequestReference(
             Long organizationId,
             String requestReference

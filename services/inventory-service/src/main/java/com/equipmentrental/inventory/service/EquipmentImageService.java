@@ -4,6 +4,7 @@ package com.equipmentrental.inventory.service;
 import com.equipmentrental.inventory.dto.request.CreateEquipmentImageRequest;
 import com.equipmentrental.inventory.dto.response.EquipmentImageResponse;
 import com.equipmentrental.inventory.entity.EquipmentImage;
+import com.equipmentrental.inventory.exception.ResourceNotFoundException;
 import com.equipmentrental.inventory.repository.EquipmentImageRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -52,6 +53,12 @@ public class EquipmentImageService {
                 .stream()
                 .map(this::map)
                 .toList();
+    }
+
+    public EquipmentImageResponse getById(Long id) {
+        return repository.findById(id)
+                .map(this::map)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipment image not found"));
     }
 
 

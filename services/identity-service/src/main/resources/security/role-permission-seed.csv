@@ -51,6 +51,7 @@ ADMIN,inventory.stock.out,SYSTEM
 ADMIN,inventory.stock.transfer,SYSTEM
 ADMIN,inventory.stock.audit,SYSTEM
 ADMIN,inventory.availability.read,SYSTEM
+ADMIN,inventory.reservation.read,SYSTEM
 ADMIN,inventory.reservation.create,SYSTEM
 ADMIN,inventory.reservation.confirm,SYSTEM
 ADMIN,inventory.reservation.release,SYSTEM
@@ -183,11 +184,8 @@ SALES_STAFF,rental.contract.create,BRANCH
 SALES_STAFF,rental.contract.read,BRANCH
 SALES_STAFF,rental.contract.update,BRANCH
 OPERATIONS_STAFF,inventory.catalog.read,BRANCH
-OPERATIONS_STAFF,inventory.catalog.manage,BRANCH
 OPERATIONS_STAFF,inventory.brand.read,BRANCH
-OPERATIONS_STAFF,inventory.brand.manage,BRANCH
 OPERATIONS_STAFF,inventory.model.read,BRANCH
-OPERATIONS_STAFF,inventory.model.manage,BRANCH
 OPERATIONS_STAFF,inventory.equipment.read,BRANCH
 OPERATIONS_STAFF,inventory.equipment.create,BRANCH
 OPERATIONS_STAFF,inventory.equipment.update,BRANCH
@@ -203,6 +201,7 @@ OPERATIONS_STAFF,inventory.stock.out,BRANCH
 OPERATIONS_STAFF,inventory.stock.transfer,BRANCH
 OPERATIONS_STAFF,inventory.stock.audit,BRANCH
 OPERATIONS_STAFF,inventory.availability.read,BRANCH
+OPERATIONS_STAFF,inventory.reservation.read,BRANCH
 OPERATIONS_STAFF,inventory.reservation.create,BRANCH
 OPERATIONS_STAFF,inventory.reservation.confirm,BRANCH
 OPERATIONS_STAFF,inventory.reservation.release,BRANCH

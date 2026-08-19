@@ -242,9 +242,6 @@ public class BillingService {
         return incurredFeeRepository.save(fee);
     }
 
-    // =========================================================
-    // PROCESS PAYMENT CŨ
-    // =========================================================
 
     @Transactional
     public Payment processPayment(
@@ -889,6 +886,14 @@ public class BillingService {
                                                 + request.getInvoiceId()
                                 )
                         );
+
+        if (!request.getOrganizationId().equals(invoice.getOrganizationId())
+                || !request.getBranchId().equals(invoice.getBranchId())
+                || !request.getCustomerId().equals(invoice.getCustomerId())) {
+            throw new IllegalArgumentException(
+                    "Payment scope does not match invoice scope"
+            );
+        }
 
         if (invoice.getStatus()
                 == InvoiceStatus.CANCELLED) {

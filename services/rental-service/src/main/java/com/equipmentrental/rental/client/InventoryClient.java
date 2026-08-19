@@ -7,6 +7,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.http.HttpHeaders;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -16,7 +19,20 @@ public class InventoryClient {
     private final RestClient restClient;
 
     public InventoryClient(@Value("${app.integration.inventory-base-url}") String baseUrl) {
-        this.restClient = RestClient.builder().baseUrl(baseUrl).build();
+        this.restClient = RestClient.builder()
+                .baseUrl(baseUrl)
+                .requestInterceptor((request, body, execution) -> {
+                    relayBearerToken(request.getHeaders());
+                    return execution.execute(request, body);
+                })
+                .build();
+    }
+
+    static void relayBearerToken(HttpHeaders headers) {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof JwtAuthenticationToken jwtAuthentication) {
+            headers.setBearerAuth(jwtAuthentication.getToken().getTokenValue());
+        }
     }
 
     public JsonNode availability(

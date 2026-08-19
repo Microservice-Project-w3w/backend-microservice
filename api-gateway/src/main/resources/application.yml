@@ -81,6 +81,24 @@ spring:
             - SetPath=/health
 
         # ==================================================
+        # INVENTORY SERVICE - PORT 8083
+        # ==================================================
+
+        # Danh mục, thiết bị, kho, tồn kho và đặt giữ thiết bị
+        - id: inventory-api
+          uri: ${INVENTORY_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/api/v1/inventory,/api/v1/inventory/**
+
+        # Health của Inventory
+        - id: inventory-health
+          uri: ${INVENTORY_SERVICE_URL:http://localhost:8083}
+          predicates:
+            - Path=/gateway/health/inventory
+          filters:
+            - SetPath=/health
+
+        # ==================================================
         # LOGISTICS SERVICE - PORT 8085
         # ==================================================
 

@@ -51,6 +51,7 @@ inventory.stock.out,Stock out,inventory,Xuất kho
 inventory.stock.transfer,Transfer stock,inventory,Điều chuyển kho
 inventory.stock.audit,Audit stock,inventory,Kiểm kê kho
 inventory.availability.read,Read availability,inventory,Kiểm tra thiết bị khả dụng
+inventory.reservation.read,Read reservations,inventory,Xem giữ chỗ thiết bị
 inventory.reservation.create,Create reservation,inventory,Tạo giữ chỗ thiết bị
 inventory.reservation.confirm,Confirm reservation,inventory,Xác nhận giữ chỗ thiết bị
 inventory.reservation.release,Release reservation,inventory,Giải phóng giữ chỗ thiết bị
