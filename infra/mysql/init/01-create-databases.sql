@@ -2111,3 +2111,832 @@ CREATE TABLE deposit_transactions (
 );
 
 CREATE DATABASE IF NOT EXISTS maintenance_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+       -- ============================================================
+-- RentAI Manager - Maintenance Service Database
+-- Target: MySQL 8.0+
+-- Database boundary:
+--   - ONLY maintenance-service data is stored here.
+--   - organization_id, branch_id, equipment_id, rental_order_id,
+--     user/customer ids are references to other services / JWT claims.
+--   - NO foreign keys are created to external-service databases.
+-- ============================================================
+
+CREATE DATABASE IF NOT EXISTS maintenance_db
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE maintenance_db;
+
+SET NAMES utf8mb4;
+
+-- ============================================================
+-- 1. MAINTENANCE REQUEST
+-- Source request for maintenance / repair.
+-- ============================================================
+CREATE TABLE maintenance_requests (
+                                      id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                      request_code VARCHAR(40) NOT NULL,
+
+                                      organization_id BIGINT UNSIGNED NOT NULL,
+                                      branch_id BIGINT UNSIGNED NOT NULL,
+                                      equipment_id BIGINT UNSIGNED NOT NULL,
+
+                                      rental_order_id BIGINT UNSIGNED NULL,
+                                      source_reference_id VARCHAR(100) NULL,
+                                      source_type VARCHAR(30) NOT NULL DEFAULT 'MANUAL'
+                                          COMMENT 'MANUAL, LOGISTICS, CUSTOMER_ISSUE, PREVENTIVE_PLAN, INTERNAL',
+
+                                      maintenance_type VARCHAR(30) NOT NULL
+                                          COMMENT 'PREVENTIVE, CORRECTIVE, DAMAGE, INSPECTION, EMERGENCY',
+                                      severity VARCHAR(20) NOT NULL
+                                          COMMENT 'LOW, MEDIUM, HIGH, CRITICAL',
+
+                                      title VARCHAR(255) NOT NULL,
+                                      description TEXT NULL,
+
+                                      status VARCHAR(30) NOT NULL DEFAULT 'OPEN'
+                                          COMMENT 'OPEN, IN_PROGRESS, CONVERTED_TO_WORK_ORDER, CANCELLED, CLOSED',
+
+                                      reported_by_user_id BIGINT UNSIGNED NULL,
+                                      reported_by_customer_id BIGINT UNSIGNED NULL,
+
+                                      cancelled_by_user_id BIGINT UNSIGNED NULL,
+                                      cancelled_at DATETIME(6) NULL,
+                                      cancel_reason VARCHAR(500) NULL,
+
+                                      closed_by_user_id BIGINT UNSIGNED NULL,
+                                      closed_at DATETIME(6) NULL,
+
+                                      created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                      updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                      PRIMARY KEY (id),
+                                      UNIQUE KEY uk_maintenance_requests_code (request_code),
+
+                                      KEY idx_mr_org_branch (organization_id, branch_id),
+                                      KEY idx_mr_org_equipment (organization_id, equipment_id),
+                                      KEY idx_mr_status (status),
+                                      KEY idx_mr_type (maintenance_type),
+                                      KEY idx_mr_severity (severity),
+                                      KEY idx_mr_created_at (created_at),
+                                      KEY idx_mr_rental_order (rental_order_id),
+                                      KEY idx_mr_source_reference (source_type, source_reference_id),
+
+                                      CONSTRAINT chk_mr_maintenance_type CHECK (
+                                          maintenance_type IN ('PREVENTIVE','CORRECTIVE','DAMAGE','INSPECTION','EMERGENCY')
+                                          ),
+                                      CONSTRAINT chk_mr_severity CHECK (
+                                          severity IN ('LOW','MEDIUM','HIGH','CRITICAL')
+                                          ),
+                                      CONSTRAINT chk_mr_source_type CHECK (
+                                          source_type IN ('MANUAL','LOGISTICS','CUSTOMER_ISSUE','PREVENTIVE_PLAN','INTERNAL')
+                                          ),
+                                      CONSTRAINT chk_mr_status CHECK (
+                                          status IN ('OPEN','IN_PROGRESS','CONVERTED_TO_WORK_ORDER','CANCELLED','CLOSED')
+                                          )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 2. MAINTENANCE WORK ORDER
+-- Main technical workflow for OPERATIONS_STAFF.
+-- ============================================================
+CREATE TABLE maintenance_work_orders (
+                                         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                         work_order_code VARCHAR(40) NOT NULL,
+
+                                         request_id BIGINT UNSIGNED NULL,
+
+                                         organization_id BIGINT UNSIGNED NOT NULL,
+                                         branch_id BIGINT UNSIGNED NOT NULL,
+                                         equipment_id BIGINT UNSIGNED NOT NULL,
+
+                                         assigned_user_id BIGINT UNSIGNED NULL,
+
+                                         status VARCHAR(30) NOT NULL DEFAULT 'OPEN'
+                                             COMMENT 'OPEN, ASSIGNED, IN_PROGRESS, WAITING_PARTS, COMPLETED, CLOSED, CANCELLED',
+                                         priority VARCHAR(20) NOT NULL DEFAULT 'MEDIUM'
+                                             COMMENT 'LOW, MEDIUM, HIGH, CRITICAL',
+
+                                         title VARCHAR(255) NULL,
+                                         description TEXT NULL,
+                                         diagnosis TEXT NULL,
+                                         action_taken TEXT NULL,
+                                         notes TEXT NULL,
+
+                                         expected_start_at DATETIME(6) NULL,
+                                         expected_complete_at DATETIME(6) NULL,
+                                         actual_start_at DATETIME(6) NULL,
+                                         actual_complete_at DATETIME(6) NULL,
+                                         closed_at DATETIME(6) NULL,
+
+                                         result VARCHAR(40) NULL
+        COMMENT 'REPAIRED, PARTIALLY_REPAIRED, NOT_REPAIRABLE, UNSAFE, NO_FAULT_FOUND',
+                                         result_notes TEXT NULL,
+
+                                         created_by_user_id BIGINT UNSIGNED NOT NULL,
+                                         completed_by_user_id BIGINT UNSIGNED NULL,
+                                         closed_by_user_id BIGINT UNSIGNED NULL,
+
+                                         cancelled_by_user_id BIGINT UNSIGNED NULL,
+                                         cancelled_at DATETIME(6) NULL,
+                                         cancel_reason VARCHAR(500) NULL,
+
+                                         created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                         updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                         PRIMARY KEY (id),
+                                         UNIQUE KEY uk_mwo_code (work_order_code),
+
+                                         KEY idx_mwo_request (request_id),
+                                         KEY idx_mwo_org_branch (organization_id, branch_id),
+                                         KEY idx_mwo_org_equipment (organization_id, equipment_id),
+                                         KEY idx_mwo_status (status),
+                                         KEY idx_mwo_priority (priority),
+                                         KEY idx_mwo_assigned_user (assigned_user_id),
+                                         KEY idx_mwo_expected_complete (expected_complete_at),
+                                         KEY idx_mwo_created_at (created_at),
+
+                                         CONSTRAINT fk_mwo_request
+                                             FOREIGN KEY (request_id)
+                                                 REFERENCES maintenance_requests(id)
+                                                 ON UPDATE RESTRICT
+                                                 ON DELETE SET NULL,
+
+                                         CONSTRAINT chk_mwo_status CHECK (
+                                             status IN ('OPEN','ASSIGNED','IN_PROGRESS','WAITING_PARTS','COMPLETED','CLOSED','CANCELLED')
+                                             ),
+                                         CONSTRAINT chk_mwo_priority CHECK (
+                                             priority IN ('LOW','MEDIUM','HIGH','CRITICAL')
+                                             ),
+                                         CONSTRAINT chk_mwo_result CHECK (
+                                             result IS NULL OR result IN (
+                                                                          'REPAIRED','PARTIALLY_REPAIRED','NOT_REPAIRABLE','UNSAFE','NO_FAULT_FOUND'
+                                                 )
+                                             ),
+                                         CONSTRAINT chk_mwo_expected_dates CHECK (
+                                             expected_complete_at IS NULL
+                                                 OR expected_start_at IS NULL
+                                                 OR expected_complete_at >= expected_start_at
+                                             ),
+                                         CONSTRAINT chk_mwo_actual_dates CHECK (
+                                             actual_complete_at IS NULL
+                                                 OR actual_start_at IS NULL
+                                                 OR actual_complete_at >= actual_start_at
+                                             )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 3. WORK ORDER TIMELINE / STATUS HISTORY
+-- Supports GET /work-orders/{id}/timeline.
+-- ============================================================
+CREATE TABLE work_order_timeline (
+                                     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                     work_order_id BIGINT UNSIGNED NOT NULL,
+
+                                     event_type VARCHAR(40) NOT NULL
+                                         COMMENT 'CREATED, ASSIGNED, STARTED, WAITING_PARTS, RESUMED, COMPLETED, CLOSED, CANCELLED, UPDATED, INSPECTION_SUBMITTED, COST_APPROVED, etc.',
+                                     from_status VARCHAR(30) NULL,
+                                     to_status VARCHAR(30) NULL,
+
+                                     actor_user_id BIGINT UNSIGNED NULL,
+                                     actor_type VARCHAR(20) NOT NULL DEFAULT 'USER'
+                                         COMMENT 'USER, CUSTOMER, SERVICE, SYSTEM',
+
+                                     message VARCHAR(1000) NULL,
+                                     metadata_json JSON NULL,
+
+                                     created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+
+                                     PRIMARY KEY (id),
+                                     KEY idx_wot_work_order_time (work_order_id, created_at),
+                                     KEY idx_wot_event_type (event_type),
+
+                                     CONSTRAINT fk_wot_work_order
+                                         FOREIGN KEY (work_order_id)
+                                             REFERENCES maintenance_work_orders(id)
+                                             ON UPDATE RESTRICT
+                                             ON DELETE CASCADE,
+
+                                     CONSTRAINT chk_wot_actor_type CHECK (
+                                         actor_type IN ('USER','CUSTOMER','SERVICE','SYSTEM')
+                                         )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 4. INSPECTION / DAMAGE ASSESSMENT
+-- ============================================================
+CREATE TABLE maintenance_inspections (
+                                         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                         work_order_id BIGINT UNSIGNED NOT NULL,
+
+                                         organization_id BIGINT UNSIGNED NOT NULL,
+                                         branch_id BIGINT UNSIGNED NOT NULL,
+                                         equipment_id BIGINT UNSIGNED NOT NULL,
+
+                                         inspection_condition VARCHAR(30) NOT NULL
+                                             COMMENT 'GOOD, MINOR_DAMAGE, DAMAGED, CRITICAL, UNUSABLE',
+                                         severity VARCHAR(20) NOT NULL
+                                             COMMENT 'LOW, MEDIUM, HIGH, CRITICAL',
+                                         result VARCHAR(30) NOT NULL
+                                             COMMENT 'PASS, FAIL, PASS_WITH_NOTE',
+
+                                         cause TEXT NULL,
+                                         recommendation TEXT NULL,
+                                         notes TEXT NULL,
+
+                                         status VARCHAR(20) NOT NULL DEFAULT 'DRAFT'
+                                             COMMENT 'DRAFT, SUBMITTED',
+
+                                         inspected_by_user_id BIGINT UNSIGNED NOT NULL,
+                                         inspected_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+
+                                         submitted_by_user_id BIGINT UNSIGNED NULL,
+                                         submitted_at DATETIME(6) NULL,
+
+                                         created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                         updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                         PRIMARY KEY (id),
+                                         KEY idx_mi_work_order (work_order_id),
+                                         KEY idx_mi_org_branch (organization_id, branch_id),
+                                         KEY idx_mi_equipment (equipment_id),
+                                         KEY idx_mi_status (status),
+                                         KEY idx_mi_inspected_at (inspected_at),
+
+                                         CONSTRAINT fk_mi_work_order
+                                             FOREIGN KEY (work_order_id)
+                                                 REFERENCES maintenance_work_orders(id)
+                                                 ON UPDATE RESTRICT
+                                                 ON DELETE CASCADE,
+
+                                         CONSTRAINT chk_mi_condition CHECK (
+                                             inspection_condition IN ('GOOD','MINOR_DAMAGE','DAMAGED','CRITICAL','UNUSABLE')
+                                             ),
+                                         CONSTRAINT chk_mi_severity CHECK (
+                                             severity IN ('LOW','MEDIUM','HIGH','CRITICAL')
+                                             ),
+                                         CONSTRAINT chk_mi_result CHECK (
+                                             result IN ('PASS','FAIL','PASS_WITH_NOTE')
+                                             ),
+                                         CONSTRAINT chk_mi_status CHECK (
+                                             status IN ('DRAFT','SUBMITTED')
+                                             )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 5. INSPECTION CHECKLIST ITEMS
+-- Added because API explicitly allows updating checklist/conclusion.
+-- ============================================================
+CREATE TABLE inspection_checklist_items (
+                                            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                            inspection_id BIGINT UNSIGNED NOT NULL,
+
+                                            item_code VARCHAR(80) NULL,
+                                            item_name VARCHAR(255) NOT NULL,
+                                            expected_value VARCHAR(255) NULL,
+                                            actual_value VARCHAR(255) NULL,
+
+                                            item_result VARCHAR(30) NOT NULL DEFAULT 'NOT_CHECKED'
+                                                COMMENT 'NOT_CHECKED, PASS, FAIL, PASS_WITH_NOTE',
+                                            note VARCHAR(1000) NULL,
+                                            sort_order INT NOT NULL DEFAULT 0,
+
+                                            created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                            updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                            PRIMARY KEY (id),
+                                            KEY idx_ici_inspection (inspection_id, sort_order),
+
+                                            CONSTRAINT fk_ici_inspection
+                                                FOREIGN KEY (inspection_id)
+                                                    REFERENCES maintenance_inspections(id)
+                                                    ON UPDATE RESTRICT
+                                                    ON DELETE CASCADE,
+
+                                            CONSTRAINT chk_ici_result CHECK (
+                                                item_result IN ('NOT_CHECKED','PASS','FAIL','PASS_WITH_NOTE')
+                                                )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 6. PREVENTIVE MAINTENANCE PLAN
+-- A plan targets either one equipment or one equipment type.
+-- ============================================================
+CREATE TABLE preventive_maintenance_plans (
+                                              id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                              plan_code VARCHAR(40) NOT NULL,
+
+                                              organization_id BIGINT UNSIGNED NOT NULL,
+                                              branch_id BIGINT UNSIGNED NULL,
+
+                                              equipment_id BIGINT UNSIGNED NULL,
+                                              equipment_type_id BIGINT UNSIGNED NULL,
+
+                                              name VARCHAR(255) NOT NULL,
+                                              description TEXT NULL,
+
+                                              frequency_type VARCHAR(30) NOT NULL
+                                                  COMMENT 'DAY, WEEK, MONTH, YEAR, USAGE_HOUR, USAGE_CYCLE',
+                                              frequency_value INT UNSIGNED NOT NULL,
+
+                                              last_maintenance_date DATE NULL,
+                                              next_maintenance_date DATE NOT NULL,
+
+                                              active BOOLEAN NOT NULL DEFAULT TRUE,
+
+                                              created_by_user_id BIGINT UNSIGNED NOT NULL,
+                                              updated_by_user_id BIGINT UNSIGNED NULL,
+
+                                              created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                              updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                              PRIMARY KEY (id),
+                                              UNIQUE KEY uk_pmp_code (plan_code),
+
+                                              KEY idx_pmp_org_branch (organization_id, branch_id),
+                                              KEY idx_pmp_equipment (equipment_id),
+                                              KEY idx_pmp_equipment_type (equipment_type_id),
+                                              KEY idx_pmp_due (active, next_maintenance_date),
+
+                                              CONSTRAINT chk_pmp_target CHECK (
+                                                  (equipment_id IS NOT NULL AND equipment_type_id IS NULL)
+                                                      OR
+                                                  (equipment_id IS NULL AND equipment_type_id IS NOT NULL)
+                                                  ),
+                                              CONSTRAINT chk_pmp_frequency_type CHECK (
+                                                  frequency_type IN ('DAY','WEEK','MONTH','YEAR','USAGE_HOUR','USAGE_CYCLE')
+                                                  ),
+                                              CONSTRAINT chk_pmp_frequency_value CHECK (
+                                                  frequency_value > 0
+                                                  )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 7. PLAN GENERATION HISTORY
+-- Prevents duplicate work-order generation and tracks each plan run.
+-- ============================================================
+CREATE TABLE preventive_plan_runs (
+                                      id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                      plan_id BIGINT UNSIGNED NOT NULL,
+                                      work_order_id BIGINT UNSIGNED NULL,
+
+                                      due_date DATE NOT NULL,
+                                      generated_by_user_id BIGINT UNSIGNED NULL,
+                                      generated_by_type VARCHAR(20) NOT NULL DEFAULT 'USER'
+                                          COMMENT 'USER, SYSTEM',
+
+                                      generated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+
+                                      PRIMARY KEY (id),
+                                      UNIQUE KEY uk_ppr_plan_due (plan_id, due_date),
+                                      KEY idx_ppr_work_order (work_order_id),
+
+                                      CONSTRAINT fk_ppr_plan
+                                          FOREIGN KEY (plan_id)
+                                              REFERENCES preventive_maintenance_plans(id)
+                                              ON UPDATE RESTRICT
+                                              ON DELETE CASCADE,
+
+                                      CONSTRAINT fk_ppr_work_order
+                                          FOREIGN KEY (work_order_id)
+                                              REFERENCES maintenance_work_orders(id)
+                                              ON UPDATE RESTRICT
+                                              ON DELETE SET NULL,
+
+                                      CONSTRAINT chk_ppr_generated_by_type CHECK (
+                                          generated_by_type IN ('USER','SYSTEM')
+                                          )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 8. PART / MATERIAL USAGE
+-- Note: part_id/material_id belongs to Inventory or another owner service.
+-- No cross-service FK.
+-- ============================================================
+CREATE TABLE work_order_part_usages (
+                                        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                        work_order_id BIGINT UNSIGNED NOT NULL,
+
+                                        part_id BIGINT UNSIGNED NULL,
+                                        part_code_snapshot VARCHAR(100) NULL,
+                                        part_name_snapshot VARCHAR(255) NOT NULL,
+
+                                        quantity DECIMAL(18,4) NOT NULL,
+                                        unit VARCHAR(40) NULL,
+
+                                        unit_cost DECIMAL(18,2) NULL,
+                                        total_cost DECIMAL(18,2)
+                                            GENERATED ALWAYS AS (
+                                                CASE
+                                                    WHEN unit_cost IS NULL THEN NULL
+                                                    ELSE ROUND(quantity * unit_cost, 2)
+                                                    END
+                                                ) STORED,
+
+                                        note VARCHAR(1000) NULL,
+
+                                        created_by_user_id BIGINT UNSIGNED NOT NULL,
+                                        created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                        updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                        PRIMARY KEY (id),
+                                        KEY idx_wopu_work_order (work_order_id),
+                                        KEY idx_wopu_part (part_id),
+
+                                        CONSTRAINT fk_wopu_work_order
+                                            FOREIGN KEY (work_order_id)
+                                                REFERENCES maintenance_work_orders(id)
+                                                ON UPDATE RESTRICT
+                                                ON DELETE CASCADE,
+
+                                        CONSTRAINT chk_wopu_quantity CHECK (quantity > 0),
+                                        CONSTRAINT chk_wopu_unit_cost CHECK (unit_cost IS NULL OR unit_cost >= 0)
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 9. MAINTENANCE COST
+-- ACCOUNTANT can update/approve cost but not technical workflow.
+-- ============================================================
+CREATE TABLE maintenance_costs (
+                                   id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                   work_order_id BIGINT UNSIGNED NOT NULL,
+
+                                   organization_id BIGINT UNSIGNED NOT NULL,
+                                   branch_id BIGINT UNSIGNED NOT NULL,
+
+                                   cost_type VARCHAR(30) NOT NULL
+                                       COMMENT 'PART, LABOR, OUTSOURCE, TRANSPORT, OTHER',
+                                   amount DECIMAL(18,2) NOT NULL,
+                                   currency_code CHAR(3) NOT NULL DEFAULT 'VND',
+
+                                   description VARCHAR(1000) NULL,
+
+                                   approval_status VARCHAR(20) NOT NULL DEFAULT 'PENDING'
+                                       COMMENT 'PENDING, APPROVED, REJECTED',
+                                   approved_by_user_id BIGINT UNSIGNED NULL,
+                                   approved_at DATETIME(6) NULL,
+                                   approval_note VARCHAR(1000) NULL,
+
+                                   created_by_user_id BIGINT UNSIGNED NOT NULL,
+                                   updated_by_user_id BIGINT UNSIGNED NULL,
+
+                                   created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                   updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                   PRIMARY KEY (id),
+                                   KEY idx_mc_work_order (work_order_id),
+                                   KEY idx_mc_org_branch (organization_id, branch_id),
+                                   KEY idx_mc_type (cost_type),
+                                   KEY idx_mc_approval (approval_status),
+                                   KEY idx_mc_created_at (created_at),
+
+                                   CONSTRAINT fk_mc_work_order
+                                       FOREIGN KEY (work_order_id)
+                                           REFERENCES maintenance_work_orders(id)
+                                           ON UPDATE RESTRICT
+                                           ON DELETE CASCADE,
+
+                                   CONSTRAINT chk_mc_cost_type CHECK (
+                                       cost_type IN ('PART','LABOR','OUTSOURCE','TRANSPORT','OTHER')
+                                       ),
+                                   CONSTRAINT chk_mc_amount CHECK (amount >= 0),
+                                   CONSTRAINT chk_mc_approval_status CHECK (
+                                       approval_status IN ('PENDING','APPROVED','REJECTED')
+                                       )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 10. ATTACHMENT
+-- Stores metadata/path only; actual file can live in object storage.
+-- ============================================================
+CREATE TABLE maintenance_attachments (
+                                         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                         work_order_id BIGINT UNSIGNED NOT NULL,
+
+                                         organization_id BIGINT UNSIGNED NOT NULL,
+                                         branch_id BIGINT UNSIGNED NOT NULL,
+
+                                         attachment_type VARCHAR(30) NOT NULL
+                                             COMMENT 'IMAGE, VIDEO, DOCUMENT, OTHER',
+                                         file_name VARCHAR(255) NULL,
+                                         file_url VARCHAR(2000) NOT NULL,
+                                         mime_type VARCHAR(120) NULL,
+                                         file_size_bytes BIGINT UNSIGNED NULL,
+
+                                         description VARCHAR(1000) NULL,
+
+                                         uploaded_by_user_id BIGINT UNSIGNED NOT NULL,
+                                         uploaded_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+
+                                         PRIMARY KEY (id),
+                                         KEY idx_ma_work_order (work_order_id),
+                                         KEY idx_ma_org_branch (organization_id, branch_id),
+                                         KEY idx_ma_type (attachment_type),
+
+                                         CONSTRAINT fk_ma_work_order
+                                             FOREIGN KEY (work_order_id)
+                                                 REFERENCES maintenance_work_orders(id)
+                                                 ON UPDATE RESTRICT
+                                                 ON DELETE CASCADE,
+
+                                         CONSTRAINT chk_ma_type CHECK (
+                                             attachment_type IN ('IMAGE','VIDEO','DOCUMENT','OTHER')
+                                             )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 11. CUSTOMER ISSUE
+-- CUSTOMER can create/view ONLY their own issue after Rental ownership check.
+-- ============================================================
+CREATE TABLE customer_issues (
+                                 id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                 issue_code VARCHAR(40) NOT NULL,
+
+                                 organization_id BIGINT UNSIGNED NOT NULL,
+                                 branch_id BIGINT UNSIGNED NOT NULL,
+
+                                 customer_id BIGINT UNSIGNED NOT NULL,
+                                 equipment_id BIGINT UNSIGNED NOT NULL,
+                                 rental_order_id BIGINT UNSIGNED NOT NULL,
+
+                                 title VARCHAR(255) NOT NULL,
+                                 description TEXT NOT NULL,
+                                 severity VARCHAR(20) NOT NULL DEFAULT 'MEDIUM',
+
+                                 status VARCHAR(30) NOT NULL DEFAULT 'REPORTED'
+                                     COMMENT 'REPORTED, VERIFIED, IN_PROGRESS, RESOLVED, REJECTED, CANCELLED',
+
+                                 maintenance_request_id BIGINT UNSIGNED NULL,
+                                 work_order_id BIGINT UNSIGNED NULL,
+
+                                 reported_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                 resolved_at DATETIME(6) NULL,
+
+                                 resolution_note TEXT NULL,
+
+                                 created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                 updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                 PRIMARY KEY (id),
+                                 UNIQUE KEY uk_ci_code (issue_code),
+
+                                 KEY idx_ci_customer_time (customer_id, created_at),
+                                 KEY idx_ci_org_branch (organization_id, branch_id),
+                                 KEY idx_ci_equipment (equipment_id),
+                                 KEY idx_ci_rental_order (rental_order_id),
+                                 KEY idx_ci_status (status),
+                                 KEY idx_ci_request (maintenance_request_id),
+                                 KEY idx_ci_work_order (work_order_id),
+
+                                 CONSTRAINT fk_ci_request
+                                     FOREIGN KEY (maintenance_request_id)
+                                         REFERENCES maintenance_requests(id)
+                                         ON UPDATE RESTRICT
+                                         ON DELETE SET NULL,
+
+                                 CONSTRAINT fk_ci_work_order
+                                     FOREIGN KEY (work_order_id)
+                                         REFERENCES maintenance_work_orders(id)
+                                         ON UPDATE RESTRICT
+                                         ON DELETE SET NULL,
+
+                                 CONSTRAINT chk_ci_severity CHECK (
+                                     severity IN ('LOW','MEDIUM','HIGH','CRITICAL')
+                                     ),
+                                 CONSTRAINT chk_ci_status CHECK (
+                                     status IN ('REPORTED','VERIFIED','IN_PROGRESS','RESOLVED','REJECTED','CANCELLED')
+                                     )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 12. CUSTOMER ISSUE ATTACHMENTS
+-- Useful for photos/documents sent by CUSTOMER when reporting damage.
+-- ============================================================
+CREATE TABLE customer_issue_attachments (
+                                            id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                            customer_issue_id BIGINT UNSIGNED NOT NULL,
+
+                                            file_name VARCHAR(255) NULL,
+                                            file_url VARCHAR(2000) NOT NULL,
+                                            mime_type VARCHAR(120) NULL,
+                                            file_size_bytes BIGINT UNSIGNED NULL,
+                                            description VARCHAR(1000) NULL,
+
+                                            uploaded_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+
+                                            PRIMARY KEY (id),
+                                            KEY idx_cia_issue (customer_issue_id),
+
+                                            CONSTRAINT fk_cia_issue
+                                                FOREIGN KEY (customer_issue_id)
+                                                    REFERENCES customer_issues(id)
+                                                    ON UPDATE RESTRICT
+                                                    ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 13. REQUEST STATUS HISTORY
+-- Useful for audit and request lifecycle, although timeline API is mandatory
+-- only for work orders.
+-- ============================================================
+CREATE TABLE maintenance_request_history (
+                                             id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                             request_id BIGINT UNSIGNED NOT NULL,
+
+                                             from_status VARCHAR(30) NULL,
+                                             to_status VARCHAR(30) NOT NULL,
+
+                                             actor_user_id BIGINT UNSIGNED NULL,
+                                             actor_type VARCHAR(20) NOT NULL DEFAULT 'USER',
+                                             note VARCHAR(1000) NULL,
+
+                                             created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+
+                                             PRIMARY KEY (id),
+                                             KEY idx_mrh_request_time (request_id, created_at),
+
+                                             CONSTRAINT fk_mrh_request
+                                                 FOREIGN KEY (request_id)
+                                                     REFERENCES maintenance_requests(id)
+                                                     ON UPDATE RESTRICT
+                                                     ON DELETE CASCADE,
+
+                                             CONSTRAINT chk_mrh_actor_type CHECK (
+                                                 actor_type IN ('USER','CUSTOMER','SERVICE','SYSTEM')
+                                                 )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 14. INVENTORY SYNC LOG
+-- Records calls/events sent to Inventory Internal API when maintenance
+-- starts/completes/fails, without touching inventory_db directly.
+-- ============================================================
+CREATE TABLE inventory_state_sync_logs (
+                                           id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+                                           organization_id BIGINT UNSIGNED NOT NULL,
+                                           branch_id BIGINT UNSIGNED NOT NULL,
+                                           equipment_id BIGINT UNSIGNED NOT NULL,
+                                           work_order_id BIGINT UNSIGNED NOT NULL,
+
+                                           target_state VARCHAR(50) NOT NULL
+                                               COMMENT 'MAINTENANCE/UNDER_MAINTENANCE, AVAILABLE, OUT_OF_SERVICE',
+                                           sync_status VARCHAR(20) NOT NULL DEFAULT 'PENDING'
+                                               COMMENT 'PENDING, SUCCESS, FAILED',
+
+                                           request_payload_json JSON NULL,
+                                           response_payload_json JSON NULL,
+                                           http_status INT NULL,
+                                           error_message VARCHAR(2000) NULL,
+
+                                           attempt_count INT UNSIGNED NOT NULL DEFAULT 0,
+                                           last_attempt_at DATETIME(6) NULL,
+                                           synced_at DATETIME(6) NULL,
+
+                                           created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                           updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                           PRIMARY KEY (id),
+                                           KEY idx_issl_work_order (work_order_id),
+                                           KEY idx_issl_equipment (equipment_id),
+                                           KEY idx_issl_status (sync_status),
+
+                                           CONSTRAINT fk_issl_work_order
+                                               FOREIGN KEY (work_order_id)
+                                                   REFERENCES maintenance_work_orders(id)
+                                                   ON UPDATE RESTRICT
+                                                   ON DELETE CASCADE,
+
+                                           CONSTRAINT chk_issl_sync_status CHECK (
+                                               sync_status IN ('PENDING','SUCCESS','FAILED')
+                                               )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 15. OUTBOX EVENT
+-- Optional but production-friendly for reliable integration with
+-- Inventory / Rental / Logistics if the team later switches to messaging.
+-- ============================================================
+CREATE TABLE integration_outbox (
+                                    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+                                    aggregate_type VARCHAR(60) NOT NULL,
+                                    aggregate_id BIGINT UNSIGNED NOT NULL,
+                                    event_type VARCHAR(100) NOT NULL,
+
+                                    payload_json JSON NOT NULL,
+
+                                    status VARCHAR(20) NOT NULL DEFAULT 'PENDING'
+                                        COMMENT 'PENDING, PUBLISHED, FAILED',
+                                    retry_count INT UNSIGNED NOT NULL DEFAULT 0,
+
+                                    available_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                    published_at DATETIME(6) NULL,
+                                    last_error VARCHAR(2000) NULL,
+
+                                    created_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6),
+                                    updated_at DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+        ON UPDATE CURRENT_TIMESTAMP(6),
+
+                                    PRIMARY KEY (id),
+                                    KEY idx_io_status_available (status, available_at),
+                                    KEY idx_io_aggregate (aggregate_type, aggregate_id),
+
+                                    CONSTRAINT chk_io_status CHECK (
+                                        status IN ('PENDING','PUBLISHED','FAILED')
+                                        )
+) ENGINE=InnoDB;
+
+
+-- ============================================================
+-- 16. USEFUL VIEWS FOR READ APIs / REPORTS
+-- ============================================================
+
+CREATE OR REPLACE VIEW v_open_work_orders AS
+SELECT
+    wo.id,
+    wo.work_order_code,
+    wo.organization_id,
+    wo.branch_id,
+    wo.equipment_id,
+    wo.request_id,
+    wo.assigned_user_id,
+    wo.status,
+    wo.priority,
+    wo.expected_complete_at,
+    wo.actual_start_at,
+    wo.created_at,
+    wo.updated_at
+FROM maintenance_work_orders wo
+WHERE wo.status IN ('OPEN','ASSIGNED','IN_PROGRESS','WAITING_PARTS','COMPLETED');
+
+
+CREATE OR REPLACE VIEW v_approved_work_order_costs AS
+SELECT
+    c.work_order_id,
+    c.organization_id,
+    c.branch_id,
+    SUM(c.amount) AS approved_total_cost
+FROM maintenance_costs c
+WHERE c.approval_status = 'APPROVED'
+GROUP BY c.work_order_id, c.organization_id, c.branch_id;
+
+
+CREATE OR REPLACE VIEW v_equipment_maintenance_summary AS
+SELECT
+    wo.organization_id,
+    wo.equipment_id,
+    COUNT(*) AS work_order_count,
+    SUM(
+            CASE
+                WHEN wo.actual_start_at IS NOT NULL AND wo.actual_complete_at IS NOT NULL
+                    THEN TIMESTAMPDIFF(MINUTE, wo.actual_start_at, wo.actual_complete_at)
+                ELSE 0
+                END
+    ) AS downtime_minutes,
+    COALESCE(SUM(costs.approved_total_cost), 0) AS approved_total_cost,
+    MAX(wo.actual_complete_at) AS last_maintenance_at
+FROM maintenance_work_orders wo
+         LEFT JOIN v_approved_work_order_costs costs
+                   ON costs.work_order_id = wo.id
+GROUP BY wo.organization_id, wo.equipment_id;
+
+
+-- ============================================================
+-- 17. EXAMPLE STATE TRANSITION RULES
+-- Keep authoritative validation in service layer.
+--
+-- OPEN          -> ASSIGNED, CANCELLED
+-- ASSIGNED      -> IN_PROGRESS, CANCELLED
+-- IN_PROGRESS   -> WAITING_PARTS, COMPLETED
+-- WAITING_PARTS -> IN_PROGRESS
+-- COMPLETED     -> CLOSED
+-- CLOSED        -> terminal
+-- CANCELLED     -> terminal
+-- ============================================================
+
+-- End of schema
+

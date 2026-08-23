@@ -80,4 +80,8 @@ public interface EquipmentReservationItemRepository
             @Param("now")
             LocalDateTime now
     );
+    boolean existsByReservationIdAndEquipmentId(
+            Long reservationId,
+            Long equipmentId
+    );
 }

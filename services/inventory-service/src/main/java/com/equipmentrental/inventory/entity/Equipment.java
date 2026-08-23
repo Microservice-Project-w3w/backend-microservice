@@ -36,7 +36,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Equipment {
+public class    Equipment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
