@@ -23,7 +23,7 @@ public class MaintenanceCostController {
     @PostMapping("/work-orders/{workOrderId}/costs")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF','ACCOUNTANT')"
+            "hasAuthority('maintenance.compensation.calculate')"
     )
     public MaintenanceCostResponse create(
             @PathVariable Long workOrderId,
@@ -35,7 +35,7 @@ public class MaintenanceCostController {
 
     @GetMapping("/work-orders/{workOrderId}/costs")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF','ACCOUNTANT')"
+            "hasAuthority('maintenance.repair.read')"
     )
     public List<MaintenanceCostResponse> list(
             @PathVariable Long workOrderId
@@ -45,7 +45,7 @@ public class MaintenanceCostController {
 
     @PatchMapping("/costs/{costId}")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF','ACCOUNTANT')"
+            "hasAuthority('maintenance.compensation.calculate')"
     )
     public MaintenanceCostResponse update(
             @PathVariable Long costId,
@@ -57,7 +57,7 @@ public class MaintenanceCostController {
 
     @PatchMapping("/costs/{costId}/approve")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','ACCOUNTANT')"
+            "hasRole('ADMIN')"
     )
     public MaintenanceCostResponse approve(
             @PathVariable Long costId,

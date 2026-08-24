@@ -19,7 +19,7 @@ public class MaintenanceReportController {
             "/equipment/{equipmentId}/history"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF','SALES_STAFF')"
+            "hasAuthority('maintenance.history.read')"
     )
     public List<EquipmentMaintenanceHistoryResponse>
     history(
@@ -35,7 +35,7 @@ public class MaintenanceReportController {
             "/equipment/{equipmentId}/summary"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF','SALES_STAFF')"
+            "hasAuthority('maintenance.history.read')"
     )
     public EquipmentMaintenanceSummaryResponse
     summary(
@@ -51,7 +51,7 @@ public class MaintenanceReportController {
             "/equipment/{equipmentId}/open-work-orders"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF','SALES_STAFF')"
+            "hasAuthority('maintenance.history.read')"
     )
     public List<OpenWorkOrderResponse>
     openWorkOrders(
@@ -65,7 +65,7 @@ public class MaintenanceReportController {
 
     @GetMapping("/dashboard/summary")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.read')"
     )
     public MaintenanceDashboardSummaryResponse
     dashboard() {
@@ -75,7 +75,7 @@ public class MaintenanceReportController {
 
     @GetMapping("/reports/costs")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','ACCOUNTANT')"
+            "hasAuthority('maintenance.history.read')"
     )
     public MaintenanceCostReportResponse
     costReport() {
@@ -85,7 +85,7 @@ public class MaintenanceReportController {
 
     @GetMapping("/reports/downtime")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER')"
+            "hasAuthority('maintenance.history.read')"
     )
     public List<MaintenanceDowntimeReportResponse>
     downtime() {
@@ -97,7 +97,7 @@ public class MaintenanceReportController {
             "/reports/failure-frequency"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.history.read')"
     )
     public List<FailureFrequencyResponse>
     failureFrequency() {

@@ -1,0 +1,2832 @@
+{
+  "info": {
+    "_postman_id": "62766e44-0ddc-4dc8-a328-6deecc61b8df",
+    "name": "organization",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57082261"
+  },
+  "item": [
+    {
+      "name": "TEST HEALTH and ORGANIZATION — DOANH NGHIỆp",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const json = pm.response.json();\r",
+              "\r",
+              "if (json.id) {\r",
+              "    pm.environment.set(\"organizationId\", json.id);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"organizationCode\": \"ORG001\",\r\n  \"organizationName\": \"Công ty Thiết bị Sự kiện ABC Updated\",\r\n  \"taxCode\": \"0101234567\",\r\n  \"email\": \"abccompany@gmail.com\",\r\n  \"phone\": \"0901234567\",\r\n  \"address\": \"Hà Nội\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}\r\n\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "{{organizationId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "TEST HEALTH",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 09:00:44 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"port\": 8082,\n    \"service\": \"organization-customer-service\",\n    \"status\": \"UP\"\n}"
+        },
+        {
+          "name": "New Request",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"organizationCode\": \"ORG001\",\r\n  \"organizationName\": \"Công ty Thiết bị Sự kiện ABC\",\r\n  \"taxCode\": \"0101234567\",\r\n  \"email\": \"abccompany@gmail.com\",\r\n  \"phone\": \"0901234567\",\r\n  \"address\": \"Hà Nội\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 09:07:02 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationCode\": \"ORG001\",\n    \"organizationName\": \"Công ty Thiết bị Sự kiện ABC\",\n    \"taxCode\": \"0101234567\",\n    \"email\": \"abccompany@gmail.com\",\n    \"phone\": \"0901234567\",\n    \"address\": \"Hà Nội\",\n    \"status\": \"ACTIVE\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-10T16:07:02.432888\",\n    \"updatedAt\": \"2026-08-10T16:07:02.432888\"\n}"
+        },
+        {
+          "name": "Lấy danh sách doanh nghiệp",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 09:17:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationCode\": \"ORG001\",\n        \"organizationName\": \"Công ty Thiết bị Sự kiện ABC\",\n        \"taxCode\": \"0101234567\",\n        \"email\": \"abccompany@gmail.com\",\n        \"phone\": \"0901234567\",\n        \"address\": \"Hà Nội\",\n        \"status\": \"ACTIVE\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-10T16:07:02\",\n        \"updatedAt\": \"2026-08-10T16:07:02\"\n    }\n]"
+        },
+        {
+          "name": "Lấy chi tiết doanh nghiệp",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 09:17:51 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationCode\": \"ORG001\",\n    \"organizationName\": \"Công ty Thiết bị Sự kiện ABC\",\n    \"taxCode\": \"0101234567\",\n    \"email\": \"abccompany@gmail.com\",\n    \"phone\": \"0901234567\",\n    \"address\": \"Hà Nội\",\n    \"status\": \"ACTIVE\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-10T16:07:02\",\n    \"updatedAt\": \"2026-08-10T16:07:02\"\n}"
+        },
+        {
+          "name": "Cập nhật doanh nghiệp",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"organizationCode\": \"ORG001\",\r\n  \"organizationName\": \"Công ty Thiết bị Sự kiện ABC Updated\",\r\n  \"taxCode\": \"0101234567\",\r\n  \"email\": \"abccompany@gmail.com\",\r\n  \"phone\": \"0901234567\",\r\n  \"address\": \"Hà Nội\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 09:20:03 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationCode\": \"ORG001\",\n    \"organizationName\": \"Công ty Thiết bị Sự kiện ABC Updated\",\n    \"taxCode\": \"0101234567\",\n    \"email\": \"abccompany@gmail.com\",\n    \"phone\": \"0901234567\",\n    \"address\": \"Hà Nội\",\n    \"status\": \"ACTIVE\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-10T16:07:02\",\n    \"updatedAt\": \"2026-08-10T16:07:02\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "tạo branch",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"branchCode\": \"INVALID999\",\r\n  \"branchName\": \"Chi nhánh sai\",\r\n  \"email\": \"invalid@test.com\",\r\n  \"phone\": \"0909999999\",\r\n  \"address\": \"Test\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/999999/branches",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "999999",
+            "branches"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Tạo chi nhánh",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"branchCode\": \"HN01\",\r\n  \"branchName\": \"Chi nhánh Hà Nội\",\r\n  \"email\": \"hanoi@abc.vn\",\r\n  \"phone\": \"0912345678\",\r\n  \"address\": \"Cầu Giấy, Hà Nội\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/branches",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "branches"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 09:24:19 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchCode\": \"HN01\",\n    \"branchName\": \"Chi nhánh Hà Nội\",\n    \"email\": \"hanoi@abc.vn\",\n    \"phone\": \"0912345678\",\n    \"address\": \"Cầu Giấy, Hà Nội\",\n    \"status\": \"ACTIVE\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-10T16:24:19.235103\",\n    \"updatedAt\": \"2026-08-10T16:24:19.235103\"\n}"
+        },
+        {
+          "name": "Lấy danh sách chi nhánh theo Organization",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/branches",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "branches"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 09:28:53 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"branchCode\": \"HN01\",\n        \"branchName\": \"Chi nhánh Hà Nội\",\n        \"email\": \"hanoi@abc.vn\",\n        \"phone\": \"0912345678\",\n        \"address\": \"Cầu Giấy, Hà Nội\",\n        \"status\": \"ACTIVE\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-10T16:24:19\",\n        \"updatedAt\": \"2026-08-10T16:24:19\"\n    }\n]"
+        },
+        {
+          "name": "Chi tiết chi nhánh",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/branches/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "branches",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 17:08:27 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchCode\": \"HN01\",\n    \"branchName\": \"Chi nhánh Hà Nội\",\n    \"email\": \"hanoi@abc.vn\",\n    \"phone\": \"0912345678\",\n    \"address\": \"Cầu Giấy, Hà Nội\",\n    \"status\": \"ACTIVE\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-10T16:24:19\",\n    \"updatedAt\": \"2026-08-10T16:24:19\"\n}"
+        },
+        {
+          "name": "Test organizationId không tồn tại",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"branchCode\": \"INVALID999\",\r\n  \"branchName\": \"Chi nhánh sai\",\r\n  \"email\": \"invalid@test.com\",\r\n  \"phone\": \"0909999999\",\r\n  \"address\": \"Test\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/999999/branches",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "999999",
+                "branches"
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 17:10:36 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"timestamp\": \"2026-08-11T00:10:36.8790524\",\n    \"status\": 404,\n    \"error\": \"Not Found\",\n    \"message\": \"Không tìm thấy doanh nghiệp id = 999999\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Tạo nhân viên",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/employees/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "employees",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Tạo nhân viên",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"userId\": 10,\r\n  \"employeeCode\": \"NV001\",\r\n  \"fullName\": \"Nguyễn Văn A\",\r\n  \"email\": \"nguyenvana@gmail.com\",\r\n  \"phone\": \"0987654321\",\r\n  \"jobTitle\": \"Nhân viên kinh doanh\",\r\n  \"status\": \"ACTIVE\",\r\n  \"hireDate\": \"2026-08-10\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/employees",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "employees"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 17:13:59 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"userId\": 10,\n    \"employeeCode\": \"NV001\",\n    \"fullName\": \"Nguyễn Văn A\",\n    \"email\": \"nguyenvana@gmail.com\",\n    \"phone\": \"0987654321\",\n    \"jobTitle\": \"Nhân viên kinh doanh\",\n    \"status\": \"ACTIVE\",\n    \"hireDate\": \"2026-08-10\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T00:13:58.890935\",\n    \"updatedAt\": \"2026-08-11T00:13:58.890935\"\n}"
+        },
+        {
+          "name": "Danh sách nhân viên",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/employees",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "employees"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 17:19:06 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"userId\": 10,\n        \"employeeCode\": \"NV001\",\n        \"fullName\": \"Nguyễn Văn A\",\n        \"email\": \"nguyenvana@gmail.com\",\n        \"phone\": \"0987654321\",\n        \"jobTitle\": \"Nhân viên kinh doanh\",\n        \"status\": \"ACTIVE\",\n        \"hireDate\": \"2026-08-10\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-11T00:13:59\",\n        \"updatedAt\": \"2026-08-11T00:13:59\"\n    }\n]"
+        },
+        {
+          "name": "Chi tiết nhân viên",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/employees/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "employees",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Mon, 10 Aug 2026 17:20:14 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"userId\": 10,\n    \"employeeCode\": \"NV001\",\n    \"fullName\": \"Nguyễn Văn A\",\n    \"email\": \"nguyenvana@gmail.com\",\n    \"phone\": \"0987654321\",\n    \"jobTitle\": \"Nhân viên kinh doanh\",\n    \"status\": \"ACTIVE\",\n    \"hireDate\": \"2026-08-10\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T00:13:59\",\n    \"updatedAt\": \"2026-08-11T00:13:59\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "EMPLOYEE BRANCH ASSIGNMENT",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"employeeId\": {{employeeId}},\r\n  \"branchId\": {{branchId}},\r\n  \"primaryAssignment\": true,\r\n  \"assignedFrom\": \"2026-08-11\",\r\n  \"assignedTo\": null,\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/employee-branch-assignments",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "{{organizationId}}",
+            "employee-branch-assignments"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Gán nhân viên vào chi nhánh",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"employeeId\": {{employeeId}},\r\n  \"branchId\": {{branchId}},\r\n  \"primaryAssignment\": true,\r\n  \"assignedFrom\": \"2026-08-11\",\r\n  \"assignedTo\": null,\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/employee-branch-assignments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "employee-branch-assignments"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 00:29:29 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"employeeId\": 1,\n    \"branchId\": 1,\n    \"primaryAssignment\": true,\n    \"assignedFrom\": \"2026-08-11\",\n    \"assignedTo\": null,\n    \"status\": \"ACTIVE\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T07:29:29.404068\",\n    \"updatedAt\": \"2026-08-11T07:29:29.404068\"\n}"
+        },
+        {
+          "name": "Xem các chi nhánh của nhân viên",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/employee-branch-assignments?employeeId=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "employee-branch-assignments"
+              ],
+              "query": [
+                {
+                  "key": "employeeId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 00:30:29 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"employeeId\": 1,\n        \"branchId\": 1,\n        \"primaryAssignment\": true,\n        \"assignedFrom\": \"2026-08-11\",\n        \"assignedTo\": null,\n        \"status\": \"ACTIVE\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-11T07:29:29\",\n        \"updatedAt\": \"2026-08-11T07:29:29\"\n    }\n]"
+        },
+        {
+          "name": "Không cho gán trùng",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"employeeId\": {{employeeId}},\r\n  \"branchId\": {{branchId}},\r\n  \"primaryAssignment\": true,\r\n  \"assignedFrom\": \"2026-08-11\",\r\n  \"assignedTo\": null,\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/employee-branch-assignments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "employee-branch-assignments"
+              ]
+            }
+          },
+          "status": "Conflict",
+          "code": 409,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 00:32:02 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"timestamp\": \"2026-08-11T07:32:02.5431321\",\n    \"status\": 409,\n    \"error\": \"Conflict\",\n    \"message\": \"Nhân viên đã được gán vào chi nhánh này\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "CUSTOMER CÁ NHÂN",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customers/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customers",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Tạo khách hàng cá nhân",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"branchId\": {{branchId}},\r\n  \"ownerUserId\": {{ownerUserId}},\r\n  \"customerCode\": \"KH001\",\r\n  \"customerType\": \"INDIVIDUAL\",\r\n  \"displayName\": \"Trần Văn B\",\r\n  \"email\": \"tranvanb@gmail.com\",\r\n  \"phone\": \"0977777777\",\r\n  \"address\": \"Hà Nội\",\r\n\r\n  \"fullName\": \"Trần Văn B\",\r\n  \"dateOfBirth\": \"2000-05-20\",\r\n  \"identityNumber\": \"001200000001\",\r\n\r\n  \"status\": \"ACTIVE\",\r\n  \"note\": \"Khách hàng cá nhân\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customers"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 00:38:19 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"ownerUserId\": 10,\n    \"customerCode\": \"KH001\",\n    \"customerType\": \"INDIVIDUAL\",\n    \"displayName\": \"Trần Văn B\",\n    \"email\": \"tranvanb@gmail.com\",\n    \"phone\": \"0977777777\",\n    \"address\": \"Hà Nội\",\n    \"fullName\": \"Trần Văn B\",\n    \"dateOfBirth\": \"2000-05-20\",\n    \"identityNumber\": \"001200000001\",\n    \"companyName\": null,\n    \"taxCode\": null,\n    \"representativeName\": null,\n    \"representativePhone\": null,\n    \"representativeEmail\": null,\n    \"status\": \"ACTIVE\",\n    \"note\": \"Khách hàng cá nhân\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T07:38:19.183438\",\n    \"updatedAt\": \"2026-08-11T07:38:19.183438\"\n}"
+        },
+        {
+          "name": "Lấy khách hàng cá nhân",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customers/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customers",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 00:39:35 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"ownerUserId\": 10,\n    \"customerCode\": \"KH001\",\n    \"customerType\": \"INDIVIDUAL\",\n    \"displayName\": \"Trần Văn B\",\n    \"email\": \"tranvanb@gmail.com\",\n    \"phone\": \"0977777777\",\n    \"address\": \"Hà Nội\",\n    \"fullName\": \"Trần Văn B\",\n    \"dateOfBirth\": \"2000-05-20\",\n    \"identityNumber\": \"001200000001\",\n    \"companyName\": null,\n    \"taxCode\": null,\n    \"representativeName\": null,\n    \"representativePhone\": null,\n    \"representativeEmail\": null,\n    \"status\": \"ACTIVE\",\n    \"note\": \"Khách hàng cá nhân\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T07:38:19\",\n    \"updatedAt\": \"2026-08-11T07:38:19\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "CUSTOMER DOANH NGHIỆP",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const json = pm.response.json();\r",
+              "\r",
+              "if (json.id) {\r",
+              "    pm.environment.set(\"businessCustomerId\", json.id);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customers?branchId=1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customers"
+          ],
+          "query": [
+            {
+              "key": "branchId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Tạo khách hàng doanh nghiệp",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"branchId\": {{branchId}},\r\n  \"ownerUserId\": {{ownerUserId}},\r\n  \"customerCode\": \"DNKH001\",\r\n  \"customerType\": \"BUSINESS\",\r\n  \"displayName\": \"Công ty XYZ\",\r\n  \"email\": \"xyzcompany@gmail.com\",\r\n  \"phone\": \"0966666666\",\r\n  \"address\": \"Hà Nội\",\r\n\r\n  \"companyName\": \"Công ty TNHH XYZ\",\r\n  \"taxCode\": \"0109876543\",\r\n  \"representativeName\": \"Lê Văn C\",\r\n  \"representativePhone\": \"0908888888\",\r\n  \"representativeEmail\": \"levanc@xyz.vn\",\r\n\r\n  \"status\": \"ACTIVE\",\r\n  \"note\": \"Khách hàng doanh nghiệp\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/customers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "customers"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 00:41:44 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 2,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"ownerUserId\": 10,\n    \"customerCode\": \"DNKH001\",\n    \"customerType\": \"BUSINESS\",\n    \"displayName\": \"Công ty XYZ\",\n    \"email\": \"xyzcompany@gmail.com\",\n    \"phone\": \"0966666666\",\n    \"address\": \"Hà Nội\",\n    \"fullName\": null,\n    \"dateOfBirth\": null,\n    \"identityNumber\": null,\n    \"companyName\": \"Công ty TNHH XYZ\",\n    \"taxCode\": \"0109876543\",\n    \"representativeName\": \"Lê Văn C\",\n    \"representativePhone\": \"0908888888\",\n    \"representativeEmail\": \"levanc@xyz.vn\",\n    \"status\": \"ACTIVE\",\n    \"note\": \"Khách hàng doanh nghiệp\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T07:41:44.077744\",\n    \"updatedAt\": \"2026-08-11T07:41:44.078645\"\n}"
+        },
+        {
+          "name": "Danh sách customer theo Organization + Branch",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customers?branchId=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "branchId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 00:43:00 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 2,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"ownerUserId\": 10,\n        \"customerCode\": \"DNKH001\",\n        \"customerType\": \"BUSINESS\",\n        \"displayName\": \"Công ty XYZ\",\n        \"email\": \"xyzcompany@gmail.com\",\n        \"phone\": \"0966666666\",\n        \"address\": \"Hà Nội\",\n        \"fullName\": null,\n        \"dateOfBirth\": null,\n        \"identityNumber\": null,\n        \"companyName\": \"Công ty TNHH XYZ\",\n        \"taxCode\": \"0109876543\",\n        \"representativeName\": \"Lê Văn C\",\n        \"representativePhone\": \"0908888888\",\n        \"representativeEmail\": \"levanc@xyz.vn\",\n        \"status\": \"ACTIVE\",\n        \"note\": \"Khách hàng doanh nghiệp\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-11T07:41:44\",\n        \"updatedAt\": \"2026-08-11T07:41:44\"\n    },\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"ownerUserId\": 10,\n        \"customerCode\": \"KH001\",\n        \"customerType\": \"INDIVIDUAL\",\n        \"displayName\": \"Trần Văn B\",\n        \"email\": \"tranvanb@gmail.com\",\n        \"phone\": \"0977777777\",\n        \"address\": \"Hà Nội\",\n        \"fullName\": \"Trần Văn B\",\n        \"dateOfBirth\": \"2000-05-20\",\n        \"identityNumber\": \"001200000001\",\n        \"companyName\": null,\n        \"taxCode\": null,\n        \"representativeName\": null,\n        \"representativePhone\": null,\n        \"representativeEmail\": null,\n        \"status\": \"ACTIVE\",\n        \"note\": \"Khách hàng cá nhân\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-11T07:38:19\",\n        \"updatedAt\": \"2026-08-11T07:38:19\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "TÌM KIẾM CUSTOMER",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/customers?q=KH001",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "{{organizationId}}",
+            "customers"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "KH001"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Tìm kiếm theo keyword",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/customers?q=KH001",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "KH001"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 00:45:48 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 2,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"ownerUserId\": 10,\n        \"customerCode\": \"DNKH001\",\n        \"customerType\": \"BUSINESS\",\n        \"displayName\": \"Công ty XYZ\",\n        \"email\": \"xyzcompany@gmail.com\",\n        \"phone\": \"0966666666\",\n        \"address\": \"Hà Nội\",\n        \"fullName\": null,\n        \"dateOfBirth\": null,\n        \"identityNumber\": null,\n        \"companyName\": \"Công ty TNHH XYZ\",\n        \"taxCode\": \"0109876543\",\n        \"representativeName\": \"Lê Văn C\",\n        \"representativePhone\": \"0908888888\",\n        \"representativeEmail\": \"levanc@xyz.vn\",\n        \"status\": \"ACTIVE\",\n        \"note\": \"Khách hàng doanh nghiệp\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-11T07:41:44\",\n        \"updatedAt\": \"2026-08-11T07:41:44\"\n    },\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"ownerUserId\": 10,\n        \"customerCode\": \"KH001\",\n        \"customerType\": \"INDIVIDUAL\",\n        \"displayName\": \"Trần Văn B\",\n        \"email\": \"tranvanb@gmail.com\",\n        \"phone\": \"0977777777\",\n        \"address\": \"Hà Nội\",\n        \"fullName\": \"Trần Văn B\",\n        \"dateOfBirth\": \"2000-05-20\",\n        \"identityNumber\": \"001200000001\",\n        \"companyName\": null,\n        \"taxCode\": null,\n        \"representativeName\": null,\n        \"representativePhone\": null,\n        \"representativeEmail\": null,\n        \"status\": \"ACTIVE\",\n        \"note\": \"Khách hàng cá nhân\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-11T07:38:19\",\n        \"updatedAt\": \"2026-08-11T07:38:19\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "CUSTOMER GROUP — NHÓM KHÁCH HÀNG",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customer-groups/1/members/1?actorUserId=1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customer-groups",
+            "1",
+            "members",
+            "1"
+          ],
+          "query": [
+            {
+              "key": "actorUserId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Tạo nhóm khách hàng",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"groupCode\": \"VIP\",\r\n  \"groupName\": \"Khách hàng VIP\",\r\n  \"description\": \"Khách hàng có doanh số cao\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customer-groups",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customer-groups"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 07:31:47 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"groupCode\": \"VIP\",\n    \"groupName\": \"Khách hàng VIP\",\n    \"description\": \"Khách hàng có doanh số cao\",\n    \"status\": \"ACTIVE\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T14:31:47.593272\",\n    \"updatedAt\": \"2026-08-11T14:31:47.593272\"\n}"
+        },
+        {
+          "name": "Danh sách nhóm",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customer-groups",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customer-groups"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 07:32:38 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"groupCode\": \"VIP\",\n        \"groupName\": \"Khách hàng VIP\",\n        \"description\": \"Khách hàng có doanh số cao\",\n        \"status\": \"ACTIVE\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-11T14:31:48\",\n        \"updatedAt\": \"2026-08-11T14:31:48\"\n    }\n]"
+        },
+        {
+          "name": "GÁN CUSTOMER VÀO GROUP",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customer-groups/1/members/1?actorUserId=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customer-groups",
+                "1",
+                "members",
+                "1"
+              ],
+              "query": [
+                {
+                  "key": "actorUserId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 07:34:37 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"customerGroupId\": 1,\n    \"customerId\": 1,\n    \"createdBy\": 1,\n    \"createdAt\": \"2026-08-11T14:34:37.195191\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "RESTRICTED CUSTOMER",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const json = pm.response.json();\r",
+              "\r",
+              "if (json.id) {\r",
+              "    pm.environment.set(\"restrictedCustomerId\", json.id);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/customers/{{individualCustomerId}}/ownership?userId=999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "{{organizationId}}",
+            "customers",
+            "{{individualCustomerId}}",
+            "ownership"
+          ],
+          "query": [
+            {
+              "key": "userId",
+              "value": "999"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "thêm khách hàng vào danh sách hạn chế",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"customerId\": {{individualCustomerId}},\r\n  \"restrictionType\": \"LATE_RETURN\",\r\n  \"reason\": \"Khách hàng nhiều lần trả thiết bị quá hạn\",\r\n  \"restrictedFrom\": \"2026-08-11T14:00:00\",\r\n  \"restrictedUntil\": \"2026-12-31T23:59:59\",\r\n  \"restrictedByUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/restricted-customers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "restricted-customers"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 07:39:48 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"customerId\": 1,\n    \"restrictionType\": \"LATE_RETURN\",\n    \"reason\": \"Khách hàng nhiều lần trả thiết bị quá hạn\",\n    \"status\": \"ACTIVE\",\n    \"restrictedFrom\": \"2026-08-11T14:00:00\",\n    \"restrictedUntil\": \"2026-12-31T23:59:59\",\n    \"restrictedByUserId\": 1,\n    \"removedAt\": null,\n    \"removedByUserId\": null,\n    \"removedReason\": null,\n    \"createdAt\": \"2026-08-11T14:39:48.449716\",\n    \"updatedAt\": \"2026-08-11T14:39:48.449716\"\n}"
+        },
+        {
+          "name": "Kiểm tra khách hiện đang bị hạn chế",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/restricted-customers/check/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "restricted-customers",
+                "check",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 07:41:31 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"customerId\": 1,\n    \"restricted\": true\n}"
+        },
+        {
+          "name": "Danh sách khách hàng đang bị hạn chế",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/restricted-customers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "restricted-customers"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:17:30 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"customerId\": 1,\n        \"restrictionType\": \"LATE_RETURN\",\n        \"reason\": \"Khách hàng nhiều lần trả thiết bị quá hạn\",\n        \"status\": \"ACTIVE\",\n        \"restrictedFrom\": \"2026-08-11T14:00:00\",\n        \"restrictedUntil\": \"2026-12-31T23:59:59\",\n        \"restrictedByUserId\": 1,\n        \"removedAt\": null,\n        \"removedByUserId\": null,\n        \"removedReason\": null,\n        \"createdAt\": \"2026-08-11T14:39:48\",\n        \"updatedAt\": \"2026-08-11T14:39:48\"\n    }\n]"
+        },
+        {
+          "name": "Hủy hạn chế khách hàng",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"removedByUserId\": 1,\r\n  \"removedReason\": \"Khách hàng đã hoàn tất nghĩa vụ\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/restricted-customers/1/remove",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "restricted-customers",
+                "1",
+                "remove"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:18:46 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"customerId\": 1,\n    \"restrictionType\": \"LATE_RETURN\",\n    \"reason\": \"Khách hàng nhiều lần trả thiết bị quá hạn\",\n    \"status\": \"REMOVED\",\n    \"restrictedFrom\": \"2026-08-11T14:00:00\",\n    \"restrictedUntil\": \"2026-12-31T23:59:59\",\n    \"restrictedByUserId\": 1,\n    \"removedAt\": \"2026-08-11T15:18:46.2865246\",\n    \"removedByUserId\": 1,\n    \"removedReason\": \"Khách hàng đã hoàn tất nghĩa vụ\",\n    \"createdAt\": \"2026-08-11T14:39:48\",\n    \"updatedAt\": \"2026-08-11T14:39:48\"\n}"
+        },
+        {
+          "name": "Test branch scope",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customers?branchId=2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "branchId",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:23:13 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[]"
+        },
+        {
+          "name": "Test OWN scope đúng own",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customers/1/ownership?userId=10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customers",
+                "1",
+                "ownership"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:26:25 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"customerId\": 1,\n    \"userId\": 10,\n    \"owned\": true\n}"
+        },
+        {
+          "name": "sai own",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/customers/{{individualCustomerId}}/ownership?userId=999",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "customers",
+                "{{individualCustomerId}}",
+                "ownership"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "999"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:27:31 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"customerId\": 1,\n    \"userId\": 999,\n    \"owned\": false\n}"
+        }
+      ]
+    },
+    {
+      "name": "Branch — cập nhật chi nhánh",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"branchCode\": \"HN01\",\r\n  \"branchName\": \"Chi nhánh Hà Nội - Cập nhật\",\r\n  \"email\": \"hanoi@abc.vn\",\r\n  \"phone\": \"0912345678\",\r\n  \"address\": \"123 Cầu Giấy, Hà Nội\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/branches/{{branchId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "{{organizationId}}",
+            "branches",
+            "{{branchId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Cập nhật chi nhánh",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"branchCode\": \"HN01\",\r\n  \"branchName\": \"Chi nhánh Hà Nội - Cập nhật\",\r\n  \"email\": \"hanoi@abc.vn\",\r\n  \"phone\": \"0912345678\",\r\n  \"address\": \"123 Cầu Giấy, Hà Nội\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/branches/{{branchId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "branches",
+                "{{branchId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:32:18 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchCode\": \"HN01\",\n    \"branchName\": \"Chi nhánh Hà Nội - Cập nhật\",\n    \"email\": \"hanoi@abc.vn\",\n    \"phone\": \"0912345678\",\n    \"address\": \"123 Cầu Giấy, Hà Nội\",\n    \"status\": \"ACTIVE\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-10T16:24:19\",\n    \"updatedAt\": \"2026-08-10T16:24:19\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Employee — cập nhật nhân viên",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userId\": 10,\r\n  \"employeeCode\": \"NV001\",\r\n  \"fullName\": \"Nguyễn Văn A Updated\",\r\n  \"email\": \"nguyenvana@gmail.com\",\r\n  \"phone\": \"0987654321\",\r\n  \"jobTitle\": \"Trưởng nhóm kinh doanh\",\r\n  \"status\": \"ACTIVE\",\r\n  \"hireDate\": \"2026-08-10\",\r\n  \"actorUserId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/employees/{{employeeId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "{{organizationId}}",
+            "employees",
+            "{{employeeId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "EmployeeBranchAssignment — hủy phân công",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const json = pm.response.json();\r",
+              "\r",
+              "if (json.id) {\r",
+              "    pm.environment.set(\"assignmentId\", json.id);\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"employeeId\": {{employeeId}},\r\n  \"branchId\": {{branchId}},\r\n  \"primaryAssignment\": true,\r\n  \"assignedFrom\": \"2026-08-11\",\r\n  \"assignedTo\": null,\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/employee-branch-assignments/1/deactivate?actorUserId=1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "employee-branch-assignments",
+            "1",
+            "deactivate"
+          ],
+          "query": [
+            {
+              "key": "actorUserId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "New Request",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/employee-branch-assignments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "employee-branch-assignments"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:40:29 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"employeeId\": 1,\n        \"branchId\": 1,\n        \"primaryAssignment\": true,\n        \"assignedFrom\": \"2026-08-11\",\n        \"assignedTo\": null,\n        \"status\": \"ACTIVE\",\n        \"createdBy\": 1,\n        \"updatedBy\": 1,\n        \"createdAt\": \"2026-08-11T07:29:29\",\n        \"updatedAt\": \"2026-08-11T07:29:29\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "Customer — cập nhật khách hàng cá nhân",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"branchId\": {{branchId}},\r\n  \"ownerUserId\": 10,\r\n  \"customerCode\": \"KH001\",\r\n  \"customerType\": \"INDIVIDUAL\",\r\n  \"displayName\": \"Trần Văn B Updated\",\r\n  \"email\": \"tranvanb@gmail.com\",\r\n  \"phone\": \"0977777777\",\r\n  \"address\": \"Ba Đình, Hà Nội\",\r\n  \"fullName\": \"Trần Văn B Updated\",\r\n  \"dateOfBirth\": \"2000-05-20\",\r\n  \"identityNumber\": \"001200000001\",\r\n  \"status\": \"ACTIVE\",\r\n  \"note\": \"Khách hàng cá nhân đã cập nhật\",\r\n  \"actorUserId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/customers/{{individualCustomerId}}",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "{{organizationId}}",
+            "customers",
+            "{{individualCustomerId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Cập nhật Individual Customer",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"branchId\": {{branchId}},\r\n  \"ownerUserId\": 10,\r\n  \"customerCode\": \"KH001\",\r\n  \"customerType\": \"INDIVIDUAL\",\r\n  \"displayName\": \"Trần Văn B Updated\",\r\n  \"email\": \"tranvanb@gmail.com\",\r\n  \"phone\": \"0977777777\",\r\n  \"address\": \"Ba Đình, Hà Nội\",\r\n  \"fullName\": \"Trần Văn B Updated\",\r\n  \"dateOfBirth\": \"2000-05-20\",\r\n  \"identityNumber\": \"001200000001\",\r\n  \"status\": \"ACTIVE\",\r\n  \"note\": \"Khách hàng cá nhân đã cập nhật\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/customers/{{individualCustomerId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "customers",
+                "{{individualCustomerId}}"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:50:37 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"ownerUserId\": 10,\n    \"customerCode\": \"KH001\",\n    \"customerType\": \"INDIVIDUAL\",\n    \"displayName\": \"Trần Văn B Updated\",\n    \"email\": \"tranvanb@gmail.com\",\n    \"phone\": \"0977777777\",\n    \"address\": \"Ba Đình, Hà Nội\",\n    \"fullName\": \"Trần Văn B Updated\",\n    \"dateOfBirth\": \"2000-05-20\",\n    \"identityNumber\": \"001200000001\",\n    \"companyName\": null,\n    \"taxCode\": null,\n    \"representativeName\": null,\n    \"representativePhone\": null,\n    \"representativeEmail\": null,\n    \"status\": \"ACTIVE\",\n    \"note\": \"Khách hàng cá nhân đã cập nhật\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T07:38:19\",\n    \"updatedAt\": \"2026-08-11T07:38:19\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Customer — cập nhật khách hàng doanh nghiệp",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"branchId\": {{branchId}},\r\n  \"ownerUserId\": 10,\r\n  \"customerCode\": \"DNKH001\",\r\n  \"customerType\": \"BUSINESS\",\r\n  \"displayName\": \"Công ty XYZ Updated\",\r\n  \"email\": \"xyzcompany@gmail.com\",\r\n  \"phone\": \"0966666666\",\r\n  \"address\": \"Nam Từ Liêm, Hà Nội\",\r\n\r\n  \"companyName\": \"Công ty XYZ Updated\",\r\n  \"taxCode\": \"0109876543\",\r\n  \"representativeName\": \"Lê Văn C\",\r\n  \"representativePhone\": \"0908888888\",\r\n  \"representativeEmail\": \"levanc@xyz.vn\",\r\n\r\n  \"status\": \"ACTIVE\",\r\n  \"note\": \"Đã cập nhật khách hàng doanh nghiệp\",\r\n  \"actorUserId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customers/2",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customers",
+            "2"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Cập nhật Business Customer",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"branchId\": {{branchId}},\r\n  \"ownerUserId\": 10,\r\n  \"customerCode\": \"DNKH001\",\r\n  \"customerType\": \"BUSINESS\",\r\n  \"displayName\": \"Công ty XYZ Updated\",\r\n  \"email\": \"xyzcompany@gmail.com\",\r\n  \"phone\": \"0966666666\",\r\n  \"address\": \"Nam Từ Liêm, Hà Nội\",\r\n\r\n  \"companyName\": \"Công ty XYZ Updated\",\r\n  \"taxCode\": \"0109876543\",\r\n  \"representativeName\": \"Lê Văn C\",\r\n  \"representativePhone\": \"0908888888\",\r\n  \"representativeEmail\": \"levanc@xyz.vn\",\r\n\r\n  \"status\": \"ACTIVE\",\r\n  \"note\": \"Đã cập nhật khách hàng doanh nghiệp\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customers/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customers",
+                "2"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:53:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 2,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"ownerUserId\": 10,\n    \"customerCode\": \"DNKH001\",\n    \"customerType\": \"BUSINESS\",\n    \"displayName\": \"Công ty XYZ Updated\",\n    \"email\": \"xyzcompany@gmail.com\",\n    \"phone\": \"0966666666\",\n    \"address\": \"Nam Từ Liêm, Hà Nội\",\n    \"fullName\": null,\n    \"dateOfBirth\": null,\n    \"identityNumber\": null,\n    \"companyName\": \"Công ty XYZ Updated\",\n    \"taxCode\": \"0109876543\",\n    \"representativeName\": \"Lê Văn C\",\n    \"representativePhone\": \"0908888888\",\n    \"representativeEmail\": \"levanc@xyz.vn\",\n    \"status\": \"ACTIVE\",\n    \"note\": \"Đã cập nhật khách hàng doanh nghiệp\",\n    \"createdBy\": 1,\n    \"updatedBy\": 1,\n    \"createdAt\": \"2026-08-11T07:41:44\",\n    \"updatedAt\": \"2026-08-11T07:41:44\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Customer — test sai branch / organization",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"branchId\": 999999,\r\n  \"ownerUserId\": 10,\r\n  \"customerCode\": \"KH001\",\r\n  \"customerType\": \"INDIVIDUAL\",\r\n  \"displayName\": \"Test sai branch\",\r\n  \"email\": \"test@gmail.com\",\r\n  \"phone\": \"0977777777\",\r\n  \"address\": \"Hà Nội\",\r\n\r\n  \"fullName\": \"Test sai branch\",\r\n  \"dateOfBirth\": \"2000-05-20\",\r\n  \"identityNumber\": \"001200000001\",\r\n\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customers/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customers",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Customer thuộc sai tenant",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"branchId\": 999999,\r\n  \"ownerUserId\": 10,\r\n  \"customerCode\": \"KH001\",\r\n  \"customerType\": \"INDIVIDUAL\",\r\n  \"displayName\": \"Test sai branch\",\r\n  \"email\": \"test@gmail.com\",\r\n  \"phone\": \"0977777777\",\r\n  \"address\": \"Hà Nội\",\r\n\r\n  \"fullName\": \"Test sai branch\",\r\n  \"dateOfBirth\": \"2000-05-20\",\r\n  \"identityNumber\": \"001200000001\",\r\n\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/customers/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "customers",
+                "1"
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 08:56:34 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"timestamp\": \"2026-08-11T15:56:34.9842304\",\n    \"status\": 404,\n    \"error\": \"Not Found\",\n    \"message\": \"Không tìm thấy chi nhánh id = 999999 trong doanh nghiệp id = 1\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Customer Group — cập nhật nhóm TC32 — Cập nhật Customer Group",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"groupCode\": \"VIP\",\r\n  \"groupName\": \"Khách hàng VIP cao cấp\",\r\n  \"description\": \"Nhóm khách hàng ưu tiên của doanh nghiệp\",\r\n  \"status\": \"ACTIVE\",\r\n  \"actorUserId\": 1\r\n}\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customer-groups/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customer-groups",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Customer Group — gán customer vào group TC33 — Gán khách hàng vào nhóm",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customer-groups/1/members/1?actorUserId=1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customer-groups",
+            "1",
+            "members",
+            "1"
+          ],
+          "query": [
+            {
+              "key": "actorUserId",
+              "value": "1"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Customer Group — xem customer trong group",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customer-groups/1/members",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customer-groups",
+            "1",
+            "members"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11. Customer Group — bỏ customer khỏi group",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/v1/organizations/1/customer-groups/1/members/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "v1",
+            "organizations",
+            "1",
+            "customer-groups",
+            "1",
+            "members",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Restricted Customer — hủy hạn chế",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Restricted Customer — hủy hạn chế",
+          "originalRequest": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"removedByUserId\": 1,\r\n  \"removedReason\": \"Khách hàng đã hoàn tất nghĩa vụ\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/1/restricted-customers/1/remove",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "1",
+                "restricted-customers",
+                "1",
+                "remove"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 09:23:13 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"timestamp\": \"2026-08-11T16:23:13.8914704\",\n    \"status\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"Hạn chế này không còn ở trạng thái ACTIVE\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Restricted Customer — kiểm tra theo customer",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Lấy scope customer",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "API nội bộ kiểm tra Customer tồn tại",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Negative test Restricted Customer TC42 — Không có lý do",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"customerId\": {{individualCustomerId}},\r\n  \"restrictionType\": \"OTHER\",\r\n  \"reason\": \"\",\r\n  \"restrictedFrom\": \"2026-08-11T16:00:00\",\r\n  \"restrictedUntil\": null,\r\n  \"restrictedByUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/restricted-customers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "restricted-customers"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 09:31:17 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"timestamp\": \"2026-08-11T16:31:17.8674249\",\n    \"status\": 400,\n    \"error\": \"Bad Request\",\n    \"message\": \"Dữ liệu gửi lên không hợp lệ\",\n    \"fieldErrors\": {\n        \"reason\": \"Lý do hạn chế không được để trống\"\n    }\n}"
+        },
+        {
+          "name": "Customer không tồn tại",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"customerId\": 999999,\r\n  \"restrictionType\": \"OTHER\",\r\n  \"reason\": \"Test customer không tồn tại\",\r\n  \"restrictedFrom\": \"2026-08-11T16:00:00\",\r\n  \"restrictedUntil\": null,\r\n  \"restrictedByUserId\": 1\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/v1/organizations/{{organizationId}}/restricted-customers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "v1",
+                "organizations",
+                "{{organizationId}}",
+                "restricted-customers"
+              ]
+            }
+          },
+          "status": "Not Found",
+          "code": 404,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 11 Aug 2026 09:32:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"timestamp\": \"2026-08-11T16:32:08.7123344\",\n    \"status\": 404,\n    \"error\": \"Not Found\",\n    \"message\": \"Không tìm thấy khách hàng id = 999999 trong doanh nghiệp id = 1\"\n}"
+        }
+      ]
+    }
+  ]
+}

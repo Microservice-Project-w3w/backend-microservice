@@ -21,7 +21,7 @@ public class InternalMaintenanceController {
     @PostMapping("/requests")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize(
-            "hasAuthority('SERVICE_INTERNAL') or hasRole('ADMIN')"
+            "hasAuthority('maintenance.ticket.create')"
     )
     public MaintenanceRequestResponse createRequest(
             @Valid
@@ -34,7 +34,7 @@ public class InternalMaintenanceController {
 
     @GetMapping("/equipment/{id}/state")
     @PreAuthorize(
-            "hasAuthority('SERVICE_INTERNAL') or hasRole('ADMIN')"
+            "hasAnyAuthority('maintenance.history.read','inventory.availability.read')"
     )
     public EquipmentMaintenanceStateResponse getState(
             @PathVariable Long id
@@ -45,7 +45,7 @@ public class InternalMaintenanceController {
 
     @GetMapping("/equipment/{id}/rental-block")
     @PreAuthorize(
-            "hasAuthority('SERVICE_INTERNAL') or hasRole('ADMIN')"
+            "hasAnyAuthority('maintenance.history.read','inventory.availability.read')"
     )
     public EquipmentRentalBlockResponse getRentalBlock(
             @PathVariable Long id

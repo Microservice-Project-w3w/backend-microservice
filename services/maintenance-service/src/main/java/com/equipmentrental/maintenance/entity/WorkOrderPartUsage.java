@@ -25,7 +25,7 @@ public class WorkOrderPartUsage {
     @Column(name = "part_id")
     private Long partId;
 
-    @Column(name = "part_code_snapshot")
+    @Column(name = "part_code_snapshot", length = 100)
     private String partCodeSnapshot;
 
     @Column(name = "part_name_snapshot", nullable = false)

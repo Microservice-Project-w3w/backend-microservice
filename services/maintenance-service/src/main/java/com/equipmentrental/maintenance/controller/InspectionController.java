@@ -24,7 +24,7 @@ public class InspectionController {
     )
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public InspectionResponse create(
             @PathVariable Long workOrderId,
@@ -42,7 +42,7 @@ public class InspectionController {
             "/work-orders/{workOrderId}/inspections"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.read')"
     )
     public List<InspectionResponse> list(
             @PathVariable Long workOrderId
@@ -57,7 +57,7 @@ public class InspectionController {
             "/inspections/{inspectionId}"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.read')"
     )
     public InspectionResponse getById(
             @PathVariable Long inspectionId
@@ -72,7 +72,7 @@ public class InspectionController {
             "/inspections/{inspectionId}"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public InspectionResponse update(
             @PathVariable Long inspectionId,
@@ -90,7 +90,7 @@ public class InspectionController {
             "/inspections/{inspectionId}/submit"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public InspectionResponse submit(
             @PathVariable Long inspectionId

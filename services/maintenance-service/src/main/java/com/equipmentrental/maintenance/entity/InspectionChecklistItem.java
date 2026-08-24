@@ -22,7 +22,7 @@ public class InspectionChecklistItem {
     @Column(name = "inspection_id", nullable = false)
     private Long inspectionId;
 
-    @Column(name = "item_code")
+    @Column(name = "item_code", length = 80)
     private String itemCode;
 
     @Column(name = "item_name", nullable = false)

@@ -2152,8 +2152,7 @@ CREATE TABLE deposit_transactions (
     updated_at TIMESTAMP NOT NULL
 );
 
-CREATE DATABASE IF NOT EXISTS maintenance_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-       -- ============================================================
+-- ============================================================
 -- RentAI Manager - Maintenance Service Database
 -- Target: MySQL 8.0+
 -- Database boundary:
@@ -2981,4 +2980,3 @@ GROUP BY wo.organization_id, wo.equipment_id;
 -- ============================================================
 
 -- End of schema
-

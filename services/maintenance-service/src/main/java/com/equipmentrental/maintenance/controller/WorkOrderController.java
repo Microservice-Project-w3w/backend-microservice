@@ -35,7 +35,7 @@ public class WorkOrderController {
 
     @PostMapping
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.create')"
     )
     public ResponseEntity<WorkOrderResponse>
     create(
@@ -55,7 +55,7 @@ public class WorkOrderController {
 
     @GetMapping
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.read')"
     )
     public Page<WorkOrderResponse>
     list(
@@ -102,7 +102,7 @@ public class WorkOrderController {
 
     @GetMapping("/{id}")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.read')"
     )
     public WorkOrderResponse getById(
             @PathVariable Long id
@@ -113,7 +113,7 @@ public class WorkOrderController {
 
     @PatchMapping("/{id}")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public WorkOrderResponse update(
 
@@ -132,7 +132,7 @@ public class WorkOrderController {
 
     @PatchMapping("/{id}/assign")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.assign')"
     )
     public WorkOrderResponse assign(
 
@@ -151,7 +151,7 @@ public class WorkOrderController {
 
     @PatchMapping("/{id}/start")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public WorkOrderResponse start(
             @PathVariable Long id
@@ -162,7 +162,7 @@ public class WorkOrderController {
 
     @PatchMapping("/{id}/waiting-parts")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public WorkOrderResponse waitingParts(
             @PathVariable Long id
@@ -173,7 +173,7 @@ public class WorkOrderController {
 
     @PatchMapping("/{id}/resume")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public WorkOrderResponse resume(
             @PathVariable Long id
@@ -184,7 +184,7 @@ public class WorkOrderController {
 
     @PatchMapping("/{id}/complete")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.complete')"
     )
     public WorkOrderResponse complete(
 
@@ -203,7 +203,7 @@ public class WorkOrderController {
 
     @PatchMapping("/{id}/close")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.complete')"
     )
     public WorkOrderResponse close(
             @PathVariable Long id
@@ -214,7 +214,7 @@ public class WorkOrderController {
 
     @PatchMapping("/{id}/cancel")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public WorkOrderResponse cancel(
 
@@ -233,7 +233,7 @@ public class WorkOrderController {
 
     @GetMapping("/{id}/timeline")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.read')"
     )
     public List<WorkOrderTimelineResponse>
     timeline(

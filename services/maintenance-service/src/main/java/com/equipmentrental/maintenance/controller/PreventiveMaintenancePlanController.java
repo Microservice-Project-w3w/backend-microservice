@@ -23,7 +23,7 @@ public class PreventiveMaintenancePlanController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.schedule.manage')"
     )
     public PreventivePlanResponse create(
             @Valid
@@ -38,7 +38,7 @@ public class PreventiveMaintenancePlanController {
 
     @GetMapping
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.schedule.read')"
     )
     public List<PreventivePlanResponse> list() {
 
@@ -47,7 +47,7 @@ public class PreventiveMaintenancePlanController {
 
     @GetMapping("/{id}")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.schedule.read')"
     )
     public PreventivePlanResponse getById(
             @PathVariable Long id
@@ -58,7 +58,7 @@ public class PreventiveMaintenancePlanController {
 
     @PutMapping("/{id}")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.schedule.manage')"
     )
     public PreventivePlanResponse update(
             @PathVariable Long id,
@@ -75,7 +75,7 @@ public class PreventiveMaintenancePlanController {
 
     @PatchMapping("/{id}/activate")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.schedule.manage')"
     )
     public PreventivePlanResponse activate(
             @PathVariable Long id
@@ -86,7 +86,7 @@ public class PreventiveMaintenancePlanController {
 
     @PatchMapping("/{id}/deactivate")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.schedule.manage')"
     )
     public PreventivePlanResponse deactivate(
             @PathVariable Long id
@@ -97,7 +97,7 @@ public class PreventiveMaintenancePlanController {
 
     @GetMapping("/due")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.schedule.read')"
     )
     public List<PreventivePlanResponse> due() {
 
@@ -106,7 +106,7 @@ public class PreventiveMaintenancePlanController {
 
     @PostMapping("/{id}/generate-work-order")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.schedule.manage')"
     )
     public PreventivePlanResponse generateWorkOrder(
             @PathVariable Long id

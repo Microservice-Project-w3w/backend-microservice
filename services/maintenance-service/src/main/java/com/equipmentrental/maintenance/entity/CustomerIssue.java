@@ -20,7 +20,7 @@ public class CustomerIssue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "issue_code", nullable = false, unique = true)
+    @Column(name = "issue_code", nullable = false, unique = true, length = 40)
     private String issueCode;
 
     @Column(name = "organization_id", nullable = false)

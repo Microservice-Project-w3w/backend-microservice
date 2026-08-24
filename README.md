@@ -46,7 +46,7 @@ Nếu máy đã dùng cổng MySQL `3306` hoặc Redis `6379`, đổi `MYSQL_POR
 docker compose --env-file .env -f infra/docker-compose.yml up -d
 ```
 
-Hạ tầng local gồm MySQL, RabbitMQ Management và Redis. File `infra/mysql/init/01-create-databases.sql` tạo schema và bảng cho Identity, Organization/Customer, Inventory, Rental, Logistics và Billing. Maintenance hiện mới chỉ được tạo database, chưa có bảng nghiệp vụ.
+Hạ tầng local gồm MySQL, RabbitMQ Management và Redis. File `infra/mysql/init/01-create-databases.sql` tạo schema và bảng cho Identity, Organization/Customer, Inventory, Rental, Logistics, Billing và Maintenance.
 
 ## Build toàn bộ dự án
 
@@ -71,7 +71,9 @@ mvn spring-boot:run -pl services/maintenance-service
 mvn spring-boot:run -pl api-gateway
 ```
 
-Mỗi lệnh trên chiếm terminal cho đến khi service dừng; khi chạy toàn bộ hệ thống, mở một terminal cho mỗi service. Có thể bỏ qua Maintenance trong giai đoạn hiện tại.
+Mỗi lệnh trên chiếm terminal cho đến khi service dừng; khi chạy toàn bộ hệ thống, mở một terminal cho mỗi service.
+
+Hướng dẫn dành cho frontend, phân quyền và cách sử dụng các Postman collection nằm tại [document-for-frontend/README.md](document-for-frontend/README.md).
 
 ## Health endpoints
 

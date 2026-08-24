@@ -7,11 +7,17 @@ public record CurrentUser(
         Long userId,
         Long organizationId,
         Set<Long> branchIds,
-        Set<String> roles
+        Long customerId,
+        Set<String> roles,
+        Set<String> permissions
 
 ) {
 
     public boolean hasRole(String role) {
         return roles != null && roles.contains(role);
+    }
+
+    public boolean hasPermission(String permission) {
+        return permissions != null && permissions.contains(permission);
     }
 }

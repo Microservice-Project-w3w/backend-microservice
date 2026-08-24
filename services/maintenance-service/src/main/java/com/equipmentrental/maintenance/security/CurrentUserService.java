@@ -6,11 +6,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class CurrentUserService {
@@ -31,41 +30,40 @@ public class CurrentUserService {
             );
         }
 
-        Long userId =
-                Long.valueOf(jwt.getSubject());
+        Long userId = toLong(jwt.getClaim("userId"));
 
-        Number organizationClaim =
-                jwt.getClaim("organizationId");
+        if (userId == null) {
+            userId = toLong(jwt.getSubject());
+        }
+
+        if (userId == null) {
+            throw new ForbiddenException(
+                    "JWT không có userId hợp lệ"
+            );
+        }
 
         Long organizationId =
-                organizationClaim == null
-                        ? null
-                        : organizationClaim.longValue();
+                toLong(jwt.getClaim("organizationId"));
 
-        List<Number> branchClaims =
-                jwt.getClaim("branchIds");
+        Long customerId =
+                toLong(jwt.getClaim("customerId"));
 
         Set<Long> branchIds =
-                branchClaims == null
-                        ? Set.of()
-                        : branchClaims
-                        .stream()
-                        .map(Number::longValue)
-                        .collect(Collectors.toSet());
-
-        List<String> roleClaims =
-                jwt.getClaimAsStringList("roles");
+                toLongSet(jwt.getClaim("branchIds"));
 
         Set<String> roles =
-                roleClaims == null
-                        ? Set.of()
-                        : new HashSet<>(roleClaims);
+                toStringSet(jwt.getClaim("roles"));
+
+        Set<String> permissions =
+                toStringSet(jwt.getClaim("permissions"));
 
         return new CurrentUser(
                 userId,
                 organizationId,
                 branchIds,
-                roles
+                customerId,
+                roles,
+                permissions
         );
     }
 
@@ -75,6 +73,10 @@ public class CurrentUserService {
 
         CurrentUser current =
                 getCurrentUser();
+
+        if (current.hasRole("ADMIN")) {
+            return;
+        }
 
         if (
                 !Objects.equals(
@@ -106,6 +108,92 @@ public class CurrentUserService {
             throw new ForbiddenException(
                     "Không có quyền truy cập branch này"
             );
+        }
+    }
+
+    public void requireCustomer(
+            Long customerId
+    ) {
+
+        CurrentUser current =
+                getCurrentUser();
+
+        if (
+                current.customerId() == null
+                        ||
+                        !Objects.equals(
+                                current.customerId(),
+                                customerId
+                        )
+        ) {
+            throw new ForbiddenException(
+                    "Không được truy cập dữ liệu của customer khác"
+            );
+        }
+    }
+
+    private Long toLong(Object value) {
+
+        if (value instanceof Number number) {
+            return number.longValue();
+        }
+
+        if (value instanceof String text) {
+            try {
+                return Long.valueOf(text.trim());
+            } catch (NumberFormatException ignored) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+
+    private Set<Long> toLongSet(Object value) {
+
+        Set<Long> values = new LinkedHashSet<>();
+
+        if (value instanceof Collection<?> collection) {
+            collection.forEach(item -> addLong(values, item));
+        } else {
+            addLong(values, value);
+        }
+
+        return Set.copyOf(values);
+    }
+
+    private void addLong(Set<Long> target, Object value) {
+
+        Long converted = toLong(value);
+
+        if (converted != null) {
+            target.add(converted);
+        }
+    }
+
+    private Set<String> toStringSet(Object value) {
+
+        Set<String> values = new LinkedHashSet<>();
+
+        if (value instanceof Collection<?> collection) {
+            collection.forEach(item -> addString(values, item));
+        } else {
+            addString(values, value);
+        }
+
+        return Set.copyOf(values);
+    }
+
+    private void addString(Set<String> target, Object value) {
+
+        if (value == null) {
+            return;
+        }
+
+        String converted = String.valueOf(value).trim();
+
+        if (!converted.isEmpty()) {
+            target.add(converted);
         }
     }
 }

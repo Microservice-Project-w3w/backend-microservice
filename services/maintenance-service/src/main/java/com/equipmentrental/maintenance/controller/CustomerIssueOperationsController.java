@@ -20,7 +20,7 @@ public class CustomerIssueOperationsController {
 
     @GetMapping
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.incident.read')"
     )
     public List<CustomerIssueResponse> list() {
 
@@ -29,7 +29,7 @@ public class CustomerIssueOperationsController {
 
     @GetMapping("/{id}")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.incident.read')"
     )
     public CustomerIssueResponse detail(
             @PathVariable Long id
@@ -40,7 +40,7 @@ public class CustomerIssueOperationsController {
 
     @PatchMapping("/{id}/verify")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.incident.evaluate')"
     )
     public CustomerIssueResponse verify(
             @PathVariable Long id
@@ -52,7 +52,7 @@ public class CustomerIssueOperationsController {
     @PostMapping("/{id}/maintenance-request")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.create')"
     )
     public CustomerIssueResponse createMaintenanceRequest(
             @PathVariable Long id

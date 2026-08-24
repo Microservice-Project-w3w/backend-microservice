@@ -23,7 +23,7 @@ public class MaintenanceAttachmentController {
     )
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public AttachmentResponse create(
             @PathVariable Long workOrderId,
@@ -40,7 +40,7 @@ public class MaintenanceAttachmentController {
             "/work-orders/{workOrderId}/attachments"
     )
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.read')"
     )
     public List<AttachmentResponse> list(
             @PathVariable Long workOrderId
@@ -53,7 +53,7 @@ public class MaintenanceAttachmentController {
     )
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.update')"
     )
     public void delete(
             @PathVariable Long attachmentId

@@ -134,6 +134,24 @@ spring:
           filters:
             - SetPath=/health
 
+        # ==================================================
+        # MAINTENANCE SERVICE - PORT 8087
+        # ==================================================
+
+        # Yêu cầu bảo trì, lệnh sửa chữa, kiểm tra, linh kiện và báo cáo
+        - id: maintenance-api
+          uri: ${MAINTENANCE_SERVICE_URL:http://localhost:8087}
+          predicates:
+            - Path=/api/v1/maintenance,/api/v1/maintenance/**
+
+        # Health của Maintenance
+        - id: maintenance-health
+          uri: ${MAINTENANCE_SERVICE_URL:http://localhost:8087}
+          predicates:
+            - Path=/gateway/health/maintenance
+          filters:
+            - SetPath=/health
+
       # Tránh lặp header CORS nếu service phía sau cũng trả CORS
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin RETAIN_UNIQUE

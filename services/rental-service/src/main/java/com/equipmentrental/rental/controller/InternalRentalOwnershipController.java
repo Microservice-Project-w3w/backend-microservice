@@ -1,5 +1,8 @@
 package com.equipmentrental.rental.controller;
 
+import com.equipmentrental.common.security.CurrentUserProvider;
+import com.equipmentrental.common.web.BusinessException;
+import com.equipmentrental.common.web.CommonErrorCode;
 import com.equipmentrental.rental.dto.response.RentalOwnershipResponse;
 import com.equipmentrental.rental.service.RentalOwnershipService;
 import lombok.RequiredArgsConstructor;
@@ -22,23 +25,21 @@ public class InternalRentalOwnershipController {
             JwtAuthenticationToken authentication
     ) {
 
-        Number userIdClaim =
-                authentication.getToken()
-                        .getClaim("userId");
+        Long customerId = CurrentUserProvider.toLong(
+                authentication.getToken().getClaim("customerId")
+        );
 
-        if (userIdClaim == null) {
-            throw new IllegalStateException(
-                    "JWT không có claim userId"
+        if (customerId == null) {
+            throw new BusinessException(
+                    CommonErrorCode.AUTH_DATA_SCOPE_DENIED,
+                    "JWT của CUSTOMER không có customerId hợp lệ"
             );
         }
-
-        Long currentUserId =
-                userIdClaim.longValue();
 
         return ownershipService.verify(
                 orderId,
                 equipmentId,
-                currentUserId
+                customerId
         );
     }
 }

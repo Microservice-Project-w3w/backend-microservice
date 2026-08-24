@@ -20,7 +20,7 @@ public class PreventiveMaintenancePlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "plan_code", nullable = false, unique = true)
+    @Column(name = "plan_code", nullable = false, unique = true, length = 40)
     private String planCode;
 
     @Column(name = "organization_id", nullable = false)

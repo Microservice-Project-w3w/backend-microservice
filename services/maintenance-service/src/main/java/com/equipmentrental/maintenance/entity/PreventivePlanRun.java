@@ -31,7 +31,7 @@ public class PreventivePlanRun {
     @Column(name = "generated_by_user_id")
     private Long generatedByUserId;
 
-    @Column(name = "generated_by_type", nullable = false)
+    @Column(name = "generated_by_type", nullable = false, length = 20)
     private String generatedByType;
 
     @Column(name = "generated_at", insertable = false, updatable = false)

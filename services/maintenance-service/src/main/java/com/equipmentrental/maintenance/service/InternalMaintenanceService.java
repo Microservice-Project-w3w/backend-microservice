@@ -11,6 +11,7 @@ import com.equipmentrental.maintenance.enums.WorkOrderStatus;
 import com.equipmentrental.maintenance.mapper.MaintenanceRequestMapper;
 import com.equipmentrental.maintenance.repository.MaintenanceRequestRepository;
 import com.equipmentrental.maintenance.repository.MaintenanceWorkOrderRepository;
+import com.equipmentrental.maintenance.security.CurrentUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,9 +30,19 @@ public class InternalMaintenanceService {
 
     private final MaintenanceRequestMapper requestMapper;
 
+    private final CurrentUserService currentUserService;
+
     public MaintenanceRequestResponse createFromLogistics(
             InternalCreateMaintenanceRequest dto
     ) {
+
+        currentUserService.requireOrganization(
+                dto.organizationId()
+        );
+
+        currentUserService.requireBranch(
+                dto.branchId()
+        );
 
         MaintenanceRequest entity =
                 MaintenanceRequest.builder()

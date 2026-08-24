@@ -21,7 +21,7 @@ public class PartUsageController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole('ADMIN','OPERATIONS_STAFF')")
+    @PreAuthorize("hasAuthority('maintenance.part.manage')")
     public PartUsageResponse create(
             @PathVariable Long workOrderId,
             @Valid @RequestBody CreatePartUsageRequest request
@@ -31,7 +31,7 @@ public class PartUsageController {
 
     @GetMapping
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.part.read')"
     )
     public List<PartUsageResponse> list(
             @PathVariable Long workOrderId
@@ -40,7 +40,7 @@ public class PartUsageController {
     }
 
     @PatchMapping("/{partUsageId}")
-    @PreAuthorize("hasAnyRole('ADMIN','OPERATIONS_STAFF')")
+    @PreAuthorize("hasAuthority('maintenance.part.manage')")
     public PartUsageResponse update(
             @PathVariable Long workOrderId,
             @PathVariable Long partUsageId,
@@ -55,7 +55,7 @@ public class PartUsageController {
 
     @DeleteMapping("/{partUsageId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ADMIN','OPERATIONS_STAFF')")
+    @PreAuthorize("hasAuthority('maintenance.part.manage')")
     public void delete(
             @PathVariable Long workOrderId,
             @PathVariable Long partUsageId

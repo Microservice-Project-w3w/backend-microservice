@@ -1,0 +1,2262 @@
+{
+  "info": {
+    "_postman_id": "c4e19485-c350-4877-b0bb-3e2238c1e49c",
+    "name": "identity-service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57082261"
+  },
+  "item": [
+    {
+      "name": "POST-dang ki tai khoan",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"fullName\": \"Nguyễn Văn A\",\r\n  \"email\": \"NGUYENVANA@GMAIL.COM\",\r\n  \"password\": \"12345678\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/api/v1/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "dki tk",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Nguyễn Văn A\",\r\n  \"email\": \"nguyenvana@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "0de2a32e-3a2d-4fd7-91c6-707a14bc2953"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 05 Aug 2026 17:01:07 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-05T17:01:07.660408400Z\",\n    \"data\": {\n        \"userId\": 1,\n        \"email\": \"nguyenvana@gmail.com\",\n        \"status\": \"PENDING\",\n        \"message\": \"Đăng ký thành công. Vui lòng xác minh Gmail.\",\n        \"verificationCode\": null\n    },\n    \"message\": \"Đăng ký thành công\",\n    \"traceId\": \"0de2a32e-3a2d-4fd7-91c6-707a14bc2953\"\n}"
+        },
+        {
+          "name": "không đúng gmail định dạng",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Trần Văn B\",\r\n  \"email\": \"tranvanb@yahoo.com\",\r\n  \"password\": \"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 04 Aug 2026 12:42:41 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        },
+        {
+          "name": "bỏ trống gmail",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Trần Văn B\",\r\n  \"email\": \"\",\r\n  \"password\": \"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 04 Aug 2026 12:43:44 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        },
+        {
+          "name": "bỏ trống họ tên",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"\",\r\n  \"email\": \"testfullname@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 04 Aug 2026 12:44:05 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        },
+        {
+          "name": "bỏ trống mk",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Nguyễn Văn C\",\r\n  \"email\": \"testempty@gmail.com\",\r\n  \"password\": \"\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 04 Aug 2026 12:44:22 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        },
+        {
+          "name": "mk dưới 8 ký tự",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Nguyễn Văn C\",\r\n  \"email\": \"testshort@gmail.com\",\r\n  \"password\": \"1234567\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 04 Aug 2026 12:46:36 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        },
+        {
+          "name": "thiếu trường username",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"missingname@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 04 Aug 2026 12:47:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        },
+        {
+          "name": "EMAIL VIẾT HOA",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Nguyễn Văn A\",\r\n  \"email\": \"NGUYENVANA@GMAIL.COM\",\r\n  \"password\": \"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "WWW-Authenticate",
+              "value": "Bearer"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Tue, 04 Aug 2026 12:50:22 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        },
+        {
+          "name": "mk 73 kí tự",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"fullName\": \"Nguyễn Văn A\",\r\n  \"email\": \"nguyenvana@gmail.com\",\r\n  \"password\":\"12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "9876cf9f-c8a9-4e7f-b492-48a6c631205c"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 05 Aug 2026 15:10:58 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": false,\n    \"timestamp\": \"2026-08-05T15:10:58.961631500Z\",\n    \"status\": 400,\n    \"code\": \"VALIDATION_FAILED\",\n    \"message\": \"Dữ liệu đầu vào không hợp lệ\",\n    \"path\": \"/api/v1/auth/register\",\n    \"traceId\": \"9876cf9f-c8a9-4e7f-b492-48a6c631205c\",\n    \"details\": [\n        {\n            \"field\": \"password\",\n            \"code\": \"Size\",\n            \"message\": \"Mật khẩu phải từ 8 đến 72 ký tự\",\n            \"rejectedValue\": \"[REDACTED]\"\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "dnhap",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"currentPassword\":\"12345678\",\r\n  \"newPassword\":\"123456789\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8081/api/v1/auth/password",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "api",
+            "v1",
+            "auth",
+            "password"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "test sau khi có code dki",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Name",
+                "value": "Postman",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Type",
+                "value": "DESKTOP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"nguyenvana@gmail.com\",\r\n  \"code\": \"469003\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/verify-email",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "verify-email"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "76a9fd09-bd5b-4749-88c0-4487eb0fcca0"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 05 Aug 2026 17:44:04 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-05T17:44:04.371698600Z\",\n    \"data\": null,\n    \"message\": \"Xác minh Gmail thành công\",\n    \"traceId\": \"76a9fd09-bd5b-4749-88c0-4487eb0fcca0\"\n}"
+        },
+        {
+          "name": "test dnahp",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Name",
+                "value": "Postman",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Type",
+                "value": "DESKTOP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"nguyenvana@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "87a38924-e697-438b-a8a7-f5906ae23516"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 05 Aug 2026 17:45:25 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-05T17:45:25.124286400Z\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicGVybWlzc2lvbnMiOlsiYmlsbGluZy5pbnZvaWNlLnJlYWQiLCJiaWxsaW5nLnBheW1lbnQucmVhZCIsImxvZ2lzdGljcy5yZXR1cm4tcmVxdWVzdC5jcmVhdGUiLCJsb2dpc3RpY3MucmV0dXJuLXJlcXVlc3QucmVhZCIsIm1haW50ZW5hbmNlLmluY2lkZW50LmNyZWF0ZSIsIm1haW50ZW5hbmNlLmluY2lkZW50LnJlYWQiLCJyZW50YWwuY29udHJhY3QucmVhZCIsInJlbnRhbC5xdW90YXRpb24uYWNjZXB0IiwicmVudGFsLnF1b3RhdGlvbi5yZWFkIiwicmVudGFsLnJlcXVlc3QuY2FuY2VsIiwicmVudGFsLnJlcXVlc3QuY3JlYXRlIiwicmVudGFsLnJlcXVlc3QucmVhZCIsInJlbnRhbC5yZXF1ZXN0LnVwZGF0ZSJdLCJyb2xlcyI6WyJDVVNUT01FUiJdLCJpc3MiOiJpZGVudGl0eS1zZXJ2aWNlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibmd1eWVudmFuYUBnbWFpbC5jb20iLCJicmFuY2hJZHMiOltdLCJzZXNzaW9uSWQiOiIxIiwiZXhwIjoxNzg1OTUyODI0LCJpYXQiOjE3ODU5NTE5MjQsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJuZ3V5ZW52YW5hQGdtYWlsLmNvbSJ9.KVsVBHf7gikJMMQ6DIVRiHrZAU0Jl7WmH9dh1iSQHYU\",\n        \"tokenType\": \"Bearer\",\n        \"expiresIn\": 900,\n        \"refreshToken\": \"kngW_vJBIJ-07bYHXBEEol5v9b9X8X1kwj96i0Y2pknEfENwoGWWfHQSEl1HRc1X\",\n        \"userId\": 1,\n        \"email\": \"nguyenvana@gmail.com\",\n        \"fullName\": \"Nguyễn Văn A\",\n        \"role\": \"CUSTOMER\"\n    },\n    \"message\": \"Đăng nhập thành công\",\n    \"traceId\": \"87a38924-e697-438b-a8a7-f5906ae23516\"\n}"
+        },
+        {
+          "name": "lưu accentoken",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Name",
+                "value": "Postman",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Type",
+                "value": "DESKTOP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"nguyenvana@gmail.com\",\r\n  \"password\": \"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "1f038d88-fc92-4aba-91e3-bdf8d4f5bf21"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 05 Aug 2026 17:47:12 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-05T17:47:12.134925100Z\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicGVybWlzc2lvbnMiOlsiYmlsbGluZy5pbnZvaWNlLnJlYWQiLCJiaWxsaW5nLnBheW1lbnQucmVhZCIsImxvZ2lzdGljcy5yZXR1cm4tcmVxdWVzdC5jcmVhdGUiLCJsb2dpc3RpY3MucmV0dXJuLXJlcXVlc3QucmVhZCIsIm1haW50ZW5hbmNlLmluY2lkZW50LmNyZWF0ZSIsIm1haW50ZW5hbmNlLmluY2lkZW50LnJlYWQiLCJyZW50YWwuY29udHJhY3QucmVhZCIsInJlbnRhbC5xdW90YXRpb24uYWNjZXB0IiwicmVudGFsLnF1b3RhdGlvbi5yZWFkIiwicmVudGFsLnJlcXVlc3QuY2FuY2VsIiwicmVudGFsLnJlcXVlc3QuY3JlYXRlIiwicmVudGFsLnJlcXVlc3QucmVhZCIsInJlbnRhbC5yZXF1ZXN0LnVwZGF0ZSJdLCJyb2xlcyI6WyJDVVNUT01FUiJdLCJpc3MiOiJpZGVudGl0eS1zZXJ2aWNlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibmd1eWVudmFuYUBnbWFpbC5jb20iLCJicmFuY2hJZHMiOltdLCJzZXNzaW9uSWQiOiIyIiwiZXhwIjoxNzg1OTUyOTMyLCJpYXQiOjE3ODU5NTIwMzIsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJuZ3V5ZW52YW5hQGdtYWlsLmNvbSJ9.veEwbMC_ryd8tVA7N1LVZzECJ1fChd1BtImkbIwHEw4\",\n        \"tokenType\": \"Bearer\",\n        \"expiresIn\": 900,\n        \"refreshToken\": \"SZImRbZtNADcNbBxqry9Lap8IW0eIMlKT94ANvB8bCnBcRZcJ3bSRVPzgPHaGwgM\",\n        \"userId\": 1,\n        \"email\": \"nguyenvana@gmail.com\",\n        \"fullName\": \"Nguyễn Văn A\",\n        \"role\": \"CUSTOMER\"\n    },\n    \"message\": \"Đăng nhập thành công\",\n    \"traceId\": \"1f038d88-fc92-4aba-91e3-bdf8d4f5bf21\"\n}"
+        },
+        {
+          "name": "rs token",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Name",
+                "value": "Postman",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Type",
+                "value": "DESKTOP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"refreshToken\": \"{{refreshToken}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/refresh",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "9460c6e3-f522-47f1-9dfc-0d89dbdccfc8"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 05 Aug 2026 18:01:41 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-05T18:01:41.861753400Z\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicGVybWlzc2lvbnMiOlsiYmlsbGluZy5pbnZvaWNlLnJlYWQiLCJiaWxsaW5nLnBheW1lbnQucmVhZCIsImxvZ2lzdGljcy5yZXR1cm4tcmVxdWVzdC5jcmVhdGUiLCJsb2dpc3RpY3MucmV0dXJuLXJlcXVlc3QucmVhZCIsIm1haW50ZW5hbmNlLmluY2lkZW50LmNyZWF0ZSIsIm1haW50ZW5hbmNlLmluY2lkZW50LnJlYWQiLCJyZW50YWwuY29udHJhY3QucmVhZCIsInJlbnRhbC5xdW90YXRpb24uYWNjZXB0IiwicmVudGFsLnF1b3RhdGlvbi5yZWFkIiwicmVudGFsLnJlcXVlc3QuY2FuY2VsIiwicmVudGFsLnJlcXVlc3QuY3JlYXRlIiwicmVudGFsLnJlcXVlc3QucmVhZCIsInJlbnRhbC5yZXF1ZXN0LnVwZGF0ZSJdLCJyb2xlcyI6WyJDVVNUT01FUiJdLCJpc3MiOiJpZGVudGl0eS1zZXJ2aWNlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibmd1eWVudmFuYUBnbWFpbC5jb20iLCJicmFuY2hJZHMiOltdLCJzZXNzaW9uSWQiOiI1IiwiZXhwIjoxNzg1OTUzODAxLCJpYXQiOjE3ODU5NTI5MDEsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJuZ3V5ZW52YW5hQGdtYWlsLmNvbSJ9.ebWp5k2ApzxRbCYpJAVbkLVkztbYFQ7jaUzTX5A6bm4\",\n        \"tokenType\": \"Bearer\",\n        \"expiresIn\": 900,\n        \"refreshToken\": \"QdRwMC-fTGwevm91jLlOwa8LxhAa8j7O6HQwvY982XRl6mI8iGaSbzmZr3u81zEh\",\n        \"userId\": 1,\n        \"email\": \"nguyenvana@gmail.com\",\n        \"fullName\": \"Nguyễn Văn A\",\n        \"role\": \"CUSTOMER\"\n    },\n    \"message\": null,\n    \"traceId\": \"9460c6e3-f522-47f1-9dfc-0d89dbdccfc8\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "lấy tt tk",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "lấy tt tk",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "561da1dd-63d9-4dca-af6b-52d530881414"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 05 Aug 2026 18:03:44 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-05T18:03:44.390615500Z\",\n    \"data\": {\n        \"email\": \"nguyenvana@gmail.com\",\n        \"userId\": \"1\",\n        \"roles\": [\n            \"CUSTOMER\"\n        ]\n    },\n    \"message\": null,\n    \"traceId\": \"561da1dd-63d9-4dca-af6b-52d530881414\"\n}"
+        },
+        {
+          "name": "đổi mk",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"currentPassword\": \"12345678\",\r\n  \"newPassword\": \"123456789\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "password"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "32a8cc39-6713-441f-957c-bdc216f46987"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 05 Aug 2026 18:05:41 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-05T18:05:41.597643500Z\",\n    \"data\": null,\n    \"message\": \"Đổi mật khẩu thành công\",\n    \"traceId\": \"32a8cc39-6713-441f-957c-bdc216f46987\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "dki lại sau khi kco code CUSTOMER",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "test dki tk sau khi xóa code",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"nguyenvana@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"fullName\": \"Nguyen Van A\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "8f741796-51bc-426e-ae0b-e4a694ebdbe2"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 07:59:30 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T07:59:30.251113400Z\",\n    \"data\": {\n        \"userId\": 1,\n        \"email\": \"nguyenvana@gmail.com\",\n        \"status\": \"ACTIVE\",\n        \"message\": \"Đăng ký thành công.\",\n        \"verificationCode\": null\n    },\n    \"message\": \"Đăng ký thành công\",\n    \"traceId\": \"8f741796-51bc-426e-ae0b-e4a694ebdbe2\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "DNHAP CUSTOMER",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "dnhap kco code",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Name",
+                "value": "Postman",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Type",
+                "value": "DESKTOP",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"nguyenvana@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "3234ef08-6e77-4cc3-b527-d54fc9444bf0"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 08:06:29 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T08:06:29.128942700Z\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicGVybWlzc2lvbnMiOlsiYmlsbGluZy5pbnZvaWNlLnJlYWQiLCJiaWxsaW5nLnBheW1lbnQucmVhZCIsImxvZ2lzdGljcy5yZXR1cm4tcmVxdWVzdC5jcmVhdGUiLCJsb2dpc3RpY3MucmV0dXJuLXJlcXVlc3QucmVhZCIsIm1haW50ZW5hbmNlLmluY2lkZW50LmNyZWF0ZSIsIm1haW50ZW5hbmNlLmluY2lkZW50LnJlYWQiLCJyZW50YWwuY29udHJhY3QucmVhZCIsInJlbnRhbC5xdW90YXRpb24uYWNjZXB0IiwicmVudGFsLnF1b3RhdGlvbi5yZWFkIiwicmVudGFsLnJlcXVlc3QuY2FuY2VsIiwicmVudGFsLnJlcXVlc3QuY3JlYXRlIiwicmVudGFsLnJlcXVlc3QucmVhZCIsInJlbnRhbC5yZXF1ZXN0LnVwZGF0ZSJdLCJyb2xlcyI6WyJDVVNUT01FUiJdLCJpc3MiOiJpZGVudGl0eS1zZXJ2aWNlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibmd1eWVudmFuYUBnbWFpbC5jb20iLCJicmFuY2hJZHMiOltdLCJzZXNzaW9uSWQiOiIxIiwiZXhwIjoxNzg2MDA0NDg4LCJpYXQiOjE3ODYwMDM1ODgsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJuZ3V5ZW52YW5hQGdtYWlsLmNvbSJ9.B5Y_eiPLqlxI9nNPl2RU8XgOOBaCU2MgaC_2GwaeNdU\",\n        \"tokenType\": \"Bearer\",\n        \"expiresIn\": 900,\n        \"refreshToken\": \"8RSyudgkL89QdkieaeBBJ3JCoF60LzO8QPgMxp_WUl8rtAMPkAGOhF_ksSBVFGm7\",\n        \"userId\": 1,\n        \"email\": \"nguyenvana@gmail.com\",\n        \"fullName\": \"Nguyen Van A\",\n        \"role\": \"CUSTOMER\"\n    },\n    \"message\": \"Đăng nhập thành công\",\n    \"traceId\": \"3234ef08-6e77-4cc3-b527-d54fc9444bf0\"\n}"
+        },
+        {
+          "name": "rs token",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Name",
+                "value": "Postman",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Type",
+                "value": "DESKTOP",
+                "type": "text"
+              },
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"refreshToken\":\"{{refreshToken}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/refresh",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "2f3aec83-33fc-4ba0-a977-257fffdf354d"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 08:21:31 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T08:21:31.615670600Z\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicGVybWlzc2lvbnMiOlsiYmlsbGluZy5pbnZvaWNlLnJlYWQiLCJiaWxsaW5nLnBheW1lbnQucmVhZCIsImxvZ2lzdGljcy5yZXR1cm4tcmVxdWVzdC5jcmVhdGUiLCJsb2dpc3RpY3MucmV0dXJuLXJlcXVlc3QucmVhZCIsIm1haW50ZW5hbmNlLmluY2lkZW50LmNyZWF0ZSIsIm1haW50ZW5hbmNlLmluY2lkZW50LnJlYWQiLCJyZW50YWwuY29udHJhY3QucmVhZCIsInJlbnRhbC5xdW90YXRpb24uYWNjZXB0IiwicmVudGFsLnF1b3RhdGlvbi5yZWFkIiwicmVudGFsLnJlcXVlc3QuY2FuY2VsIiwicmVudGFsLnJlcXVlc3QuY3JlYXRlIiwicmVudGFsLnJlcXVlc3QucmVhZCIsInJlbnRhbC5yZXF1ZXN0LnVwZGF0ZSJdLCJyb2xlcyI6WyJDVVNUT01FUiJdLCJpc3MiOiJpZGVudGl0eS1zZXJ2aWNlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoibmd1eWVudmFuYUBnbWFpbC5jb20iLCJicmFuY2hJZHMiOltdLCJzZXNzaW9uSWQiOiI0IiwiZXhwIjoxNzg2MDA1MzkxLCJpYXQiOjE3ODYwMDQ0OTEsInVzZXJJZCI6MSwidXNlcm5hbWUiOiJuZ3V5ZW52YW5hQGdtYWlsLmNvbSJ9.Aud0JL8_Jy9kt_U5G7OOsrrlpQeSMcQhBTbyu5EX7Fc\",\n        \"tokenType\": \"Bearer\",\n        \"expiresIn\": 900,\n        \"refreshToken\": \"nAbWtZqL6eDQPdglN-KpHAUu77IeVuWCvTA_J-pPzECQb6Ptw2SWN0bYsBN8d-z6\",\n        \"userId\": 1,\n        \"email\": \"nguyenvana@gmail.com\",\n        \"fullName\": \"Nguyen Van A\",\n        \"role\": \"CUSTOMER\"\n    },\n    \"message\": null,\n    \"traceId\": \"2f3aec83-33fc-4ba0-a977-257fffdf354d\"\n}"
+        },
+        {
+          "name": "đặt lại mk",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Name",
+                "value": "Postman",
+                "type": "text"
+              },
+              {
+                "key": "X-Device-Type",
+                "value": "DESKTOP",
+                "type": "text"
+              },
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"nguyenvana@gmail.com\",\r\n    \"newPassword\":\"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/reset-password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "f185e218-8a4e-4143-8a15-ca2089b0ac42"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 11:00:10 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T11:00:10.741864900Z\",\n    \"data\": null,\n    \"message\": \"Đặt lại mật khẩu thành công\",\n    \"traceId\": \"f185e218-8a4e-4143-8a15-ca2089b0ac42\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "DKI ADMIN",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "dnhap admin và lấy token",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "280149e7-85d2-4a2c-923c-6e5af7e1f1ff"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 13:02:42 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T13:02:42.034577700Z\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyIiwicGVybWlzc2lvbnMiOlsiYmlsbGluZy5kZWJ0Lm1hbmFnZSIsImJpbGxpbmcuZGVidC5yZWFkIiwiYmlsbGluZy5kZXBvc2l0LmNvbGxlY3QiLCJiaWxsaW5nLmRlcG9zaXQuZGVkdWN0IiwiYmlsbGluZy5kZXBvc2l0LnJlYWQiLCJiaWxsaW5nLmRlcG9zaXQucmVmdW5kIiwiYmlsbGluZy5pbnZvaWNlLmNyZWF0ZSIsImJpbGxpbmcuaW52b2ljZS5yZWFkIiwiYmlsbGluZy5pbnZvaWNlLnVwZGF0ZSIsImJpbGxpbmcucGF5bWVudC5jb2xsZWN0IiwiYmlsbGluZy5wYXltZW50LmNvbmZpcm0iLCJiaWxsaW5nLnBheW1lbnQucmVhZCIsImJpbGxpbmcucGF5bWVudC5yZWZ1bmQiLCJiaWxsaW5nLnJlcG9ydC5yZWFkIiwiY3VzdG9tZXIuZ3JvdXAubWFuYWdlIiwiY3VzdG9tZXIuZ3JvdXAucmVhZCIsImN1c3RvbWVyLmhpc3RvcnkucmVhZCIsImN1c3RvbWVyLnByb2ZpbGUuY3JlYXRlIiwiY3VzdG9tZXIucHJvZmlsZS5yZWFkIiwiY3VzdG9tZXIucHJvZmlsZS51cGRhdGUiLCJjdXN0b21lci5yZXN0cmljdGlvbi5tYW5hZ2UiLCJjdXN0b21lci5yZXN0cmljdGlvbi5yZWFkIiwiaWRlbnRpdHkucGVybWlzc2lvbi5hc3NpZ24iLCJpZGVudGl0eS5wZXJtaXNzaW9uLnJlYWQiLCJpZGVudGl0eS5yb2xlLmNyZWF0ZSIsImlkZW50aXR5LnJvbGUuZGVsZXRlIiwiaWRlbnRpdHkucm9sZS5yZWFkIiwiaWRlbnRpdHkucm9sZS51cGRhdGUiLCJpZGVudGl0eS5zZXNzaW9uLnJlYWQiLCJpZGVudGl0eS5zZXNzaW9uLnJldm9rZSIsImlkZW50aXR5LnVzZXIuY3JlYXRlIiwiaWRlbnRpdHkudXNlci5sb2NrIiwiaWRlbnRpdHkudXNlci5yZWFkIiwiaWRlbnRpdHkudXNlci51bmxvY2siLCJpZGVudGl0eS51c2VyLnVwZGF0ZSIsImludmVudG9yeS5hdmFpbGFiaWxpdHkucmVhZCIsImludmVudG9yeS5icmFuZC5tYW5hZ2UiLCJpbnZlbnRvcnkuYnJhbmQucmVhZCIsImludmVudG9yeS5jYXRhbG9nLm1hbmFnZSIsImludmVudG9yeS5jYXRhbG9nLnJlYWQiLCJpbnZlbnRvcnkuZXF1aXBtZW50LmFjY2Vzc29yeS5tYW5hZ2UiLCJpbnZlbnRvcnkuZXF1aXBtZW50LmNoYW5nZS1zdGF0dXMiLCJpbnZlbnRvcnkuZXF1aXBtZW50LmNyZWF0ZSIsImludmVudG9yeS5lcXVpcG1lbnQuaW1hZ2UubWFuYWdlIiwiaW52ZW50b3J5LmVxdWlwbWVudC5yZWFkIiwiaW52ZW50b3J5LmVxdWlwbWVudC51cGRhdGUiLCJpbnZlbnRvcnkubW9kZWwubWFuYWdlIiwiaW52ZW50b3J5Lm1vZGVsLnJlYWQiLCJpbnZlbnRvcnkucXIuZ2VuZXJhdGUiLCJpbnZlbnRvcnkucXIucHJpbnQiLCJpbnZlbnRvcnkucmVzZXJ2YXRpb24uY29uZmlybSIsImludmVudG9yeS5yZXNlcnZhdGlvbi5jcmVhdGUiLCJpbnZlbnRvcnkucmVzZXJ2YXRpb24ucmVsZWFzZSIsImludmVudG9yeS5zdG9jay5hdWRpdCIsImludmVudG9yeS5zdG9jay5pbiIsImludmVudG9yeS5zdG9jay5vdXQiLCJpbnZlbnRvcnkuc3RvY2sudHJhbnNmZXIiLCJpbnZlbnRvcnkud2FyZWhvdXNlLm1hbmFnZSIsImludmVudG9yeS53YXJlaG91c2UucmVhZCIsImxvZ2lzdGljcy5kZWxpdmVyeS1mZWUubWFuYWdlIiwibG9naXN0aWNzLmRlbGl2ZXJ5LWZlZS5yZWFkIiwibG9naXN0aWNzLmRlbGl2ZXJ5LmFzc2lnbiIsImxvZ2lzdGljcy5kZWxpdmVyeS5jb25maXJtIiwibG9naXN0aWNzLmRlbGl2ZXJ5LmNyZWF0ZSIsImxvZ2lzdGljcy5kZWxpdmVyeS5pbnNwZWN0IiwibG9naXN0aWNzLmRlbGl2ZXJ5LnJlYWQiLCJsb2dpc3RpY3MuZGVsaXZlcnkuc2NoZWR1bGUiLCJsb2dpc3RpY3MuaGFuZG92ZXIuY3JlYXRlIiwibG9naXN0aWNzLmhhbmRvdmVyLnJlYWQiLCJsb2dpc3RpY3MucmV0dXJuLXJlcXVlc3QuY3JlYXRlIiwibG9naXN0aWNzLnJldHVybi1yZXF1ZXN0LnJlYWQiLCJsb2dpc3RpY3MucmV0dXJuLmNvbmZpcm0iLCJsb2dpc3RpY3MucmV0dXJuLmluc3BlY3QiLCJtYWludGVuYW5jZS5jb21wZW5zYXRpb24uY2FsY3VsYXRlIiwibWFpbnRlbmFuY2UuaGlzdG9yeS5yZWFkIiwibWFpbnRlbmFuY2UuaW5jaWRlbnQuY3JlYXRlIiwibWFpbnRlbmFuY2UuaW5jaWRlbnQuZXZhbHVhdGUiLCJtYWludGVuYW5jZS5pbmNpZGVudC5yZWFkIiwibWFpbnRlbmFuY2UucGFydC5tYW5hZ2UiLCJtYWludGVuYW5jZS5wYXJ0LnJlYWQiLCJtYWludGVuYW5jZS5yZXBhaXIuY3JlYXRlIiwibWFpbnRlbmFuY2UucmVwYWlyLnJlYWQiLCJtYWludGVuYW5jZS5yZXBhaXIudXBkYXRlIiwibWFpbnRlbmFuY2Uuc2NoZWR1bGUubWFuYWdlIiwibWFpbnRlbmFuY2Uuc2NoZWR1bGUucmVhZCIsIm1haW50ZW5hbmNlLnRpY2tldC5hc3NpZ24iLCJtYWludGVuYW5jZS50aWNrZXQuY29tcGxldGUiLCJtYWludGVuYW5jZS50aWNrZXQuY3JlYXRlIiwibWFpbnRlbmFuY2UudGlja2V0LnJlYWQiLCJtYWludGVuYW5jZS50aWNrZXQudXBkYXRlIiwib3JnYW5pemF0aW9uLmJyYW5jaC5jcmVhdGUiLCJvcmdhbml6YXRpb24uYnJhbmNoLmxvY2siLCJvcmdhbml6YXRpb24uYnJhbmNoLnJlYWQiLCJvcmdhbml6YXRpb24uYnJhbmNoLnVwZGF0ZSIsIm9yZ2FuaXphdGlvbi5lbXBsb3llZS5hc3NpZ24tYnJhbmNoIiwib3JnYW5pemF0aW9uLmVtcGxveWVlLmNyZWF0ZSIsIm9yZ2FuaXphdGlvbi5lbXBsb3llZS5yZWFkIiwib3JnYW5pemF0aW9uLmVtcGxveWVlLnVwZGF0ZSIsIm9yZ2FuaXphdGlvbi5wcm9maWxlLnJlYWQiLCJvcmdhbml6YXRpb24ucHJvZmlsZS51cGRhdGUiLCJyZW50YWwuY29udHJhY3QuYXBwZW5kaXgubWFuYWdlIiwicmVudGFsLmNvbnRyYWN0LmFwcHJvdmUiLCJyZW50YWwuY29udHJhY3QuY2FuY2VsIiwicmVudGFsLmNvbnRyYWN0LmNyZWF0ZSIsInJlbnRhbC5jb250cmFjdC5leHRlbmQiLCJyZW50YWwuY29udHJhY3QubGlxdWlkYXRlIiwicmVudGFsLmNvbnRyYWN0LnJlYWQiLCJyZW50YWwuY29udHJhY3Quc2lnbiIsInJlbnRhbC5jb250cmFjdC50ZW1wbGF0ZS5tYW5hZ2UiLCJyZW50YWwuY29udHJhY3QudXBkYXRlIiwicmVudGFsLmRlcG9zaXQtcG9saWN5Lm1hbmFnZSIsInJlbnRhbC5kZXBvc2l0LXBvbGljeS5yZWFkIiwicmVudGFsLmRpc2NvdW50Lm1hbmFnZSIsInJlbnRhbC5kaXNjb3VudC5yZWFkIiwicmVudGFsLmxhdGUtZmVlLXBvbGljeS5tYW5hZ2UiLCJyZW50YWwubGF0ZS1mZWUtcG9saWN5LnJlYWQiLCJyZW50YWwub3JkZXIuY2FuY2VsIiwicmVudGFsLm9yZGVyLmNyZWF0ZSIsInJlbnRhbC5vcmRlci5yZWFkIiwicmVudGFsLnByaWNpbmcubWFuYWdlIiwicmVudGFsLnByaWNpbmcucmVhZCIsInJlbnRhbC5xdW90YXRpb24uYWNjZXB0IiwicmVudGFsLnF1b3RhdGlvbi5hcHByb3ZlIiwicmVudGFsLnF1b3RhdGlvbi5jcmVhdGUiLCJyZW50YWwucXVvdGF0aW9uLnJlYWQiLCJyZW50YWwucXVvdGF0aW9uLnJlamVjdCIsInJlbnRhbC5xdW90YXRpb24uc2VuZCIsInJlbnRhbC5xdW90YXRpb24udXBkYXRlIiwicmVudGFsLnJlcXVlc3QuY2FuY2VsIiwicmVudGFsLnJlcXVlc3QuY3JlYXRlIiwicmVudGFsLnJlcXVlc3QucmVhZCIsInJlbnRhbC5yZXF1ZXN0LnVwZGF0ZSJdLCJyb2xlcyI6WyJBRE1JTiJdLCJpc3MiOiJpZGVudGl0eS1zZXJ2aWNlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiYWRtaW5AZ21haWwuY29tIiwiYnJhbmNoSWRzIjpbXSwic2Vzc2lvbklkIjoiMTciLCJleHAiOjE3ODYwMjIyNjEsImlhdCI6MTc4NjAyMTM2MSwidXNlcklkIjoyLCJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSJ9.1BWHbZ_52SHhIu8Q26FBzRE2P6aVSYfkWR0uJ2VP9wE\",\n        \"tokenType\": \"Bearer\",\n        \"expiresIn\": 900,\n        \"refreshToken\": \"J_UNFCSnIJn2eRSWMeWG8qoh6yu0ois0voTLlKAyXaAaEVFv_49HsH3dr5UTL9H_\",\n        \"userId\": 2,\n        \"email\": \"admin@gmail.com\",\n        \"fullName\": \"System Admin\",\n        \"role\": \"ADMIN\"\n    },\n    \"message\": \"Đăng nhập thành công\",\n    \"traceId\": \"280149e7-85d2-4a2c-923c-6e5af7e1f1ff\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "test tạo role",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"SALES_MANAGER\",\r\n    \"name\": \"Sales Manager\",\r\n    \"description\": \"Quản lý kinh doanh\",\r\n    \"systemRole\": false,\r\n    \"active\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/roles",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "roles"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "314e2604-53e1-468b-895a-ff03d97ba63c"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 13:04:18 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T13:04:18.443018300Z\",\n    \"data\": [\n        {\n            \"id\": 1,\n            \"code\": \"ADMIN\",\n            \"name\": \"Administrator\",\n            \"description\": \"Quản trị doanh nghiệp và hệ thống demo\",\n            \"systemRole\": true,\n            \"active\": true,\n            \"permissions\": [\n                {\n                    \"permissionCode\": \"billing.debt.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.debt.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.collect\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.deduct\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.refund\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.invoice.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.invoice.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.invoice.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.collect\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.confirm\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.refund\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"billing.report.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"customer.group.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"customer.group.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"customer.history.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"customer.restriction.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"customer.restriction.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.permission.assign\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.permission.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.role.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.role.delete\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.role.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.role.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.session.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.session.revoke\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.user.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.user.lock\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.user.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.user.unlock\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"identity.user.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.availability.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.brand.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.brand.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.catalog.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.catalog.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.accessory.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.change-status\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.image.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.model.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.model.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.qr.generate\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.qr.print\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.reservation.confirm\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.reservation.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.reservation.release\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.stock.audit\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.stock.in\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.stock.out\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.stock.transfer\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.warehouse.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"inventory.warehouse.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery-fee.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery-fee.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.assign\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.confirm\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.inspect\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.schedule\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.handover.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.handover.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return-request.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return-request.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return.confirm\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return.inspect\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.compensation.calculate\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.history.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.incident.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.incident.evaluate\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.incident.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.part.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.part.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.repair.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.repair.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.repair.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.schedule.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.schedule.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.assign\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.complete\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.branch.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.branch.lock\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.branch.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.branch.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.employee.assign-branch\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.employee.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.employee.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.employee.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.profile.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"organization.profile.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.appendix.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.approve\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.cancel\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.extend\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.liquidate\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.sign\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.template.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.deposit-policy.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.deposit-policy.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.discount.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.discount.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.late-fee-policy.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.late-fee-policy.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.order.cancel\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.order.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.order.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.pricing.manage\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.pricing.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.accept\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.approve\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.reject\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.send\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.update\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.cancel\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.create\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.read\",\n                    \"dataScope\": \"SYSTEM\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.update\",\n                    \"dataScope\": \"SYSTEM\"\n                }\n            ]\n        },\n        {\n            \"id\": 2,\n            \"code\": \"MANAGER\",\n            \"name\": \"Manager\",\n            \"description\": \"Quản lý chi nhánh\",\n            \"systemRole\": true,\n            \"active\": true,\n            \"permissions\": [\n                {\n                    \"permissionCode\": \"billing.debt.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"billing.invoice.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.group.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.group.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.history.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.update\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.restriction.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.restriction.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.availability.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.warehouse.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.handover.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return-request.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"organization.branch.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"organization.employee.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.approve\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.order.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.approve\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.reject\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.read\",\n                    \"dataScope\": \"BRANCH\"\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"code\": \"SALES_STAFF\",\n            \"name\": \"Sales Staff\",\n            \"description\": \"Nhân viên kinh doanh\",\n            \"systemRole\": true,\n            \"active\": true,\n            \"permissions\": [\n                {\n                    \"permissionCode\": \"customer.group.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.history.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.profile.update\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"customer.restriction.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.update\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.order.cancel\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.order.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.order.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.send\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.update\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.cancel\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.update\",\n                    \"dataScope\": \"BRANCH\"\n                }\n            ]\n        },\n        {\n            \"id\": 4,\n            \"code\": \"OPERATIONS_STAFF\",\n            \"name\": \"Operations Staff\",\n            \"description\": \"Nhân viên vận hành, kho, giao nhận và kỹ thuật\",\n            \"systemRole\": true,\n            \"active\": true,\n            \"permissions\": [\n                {\n                    \"permissionCode\": \"inventory.availability.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.brand.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.brand.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.catalog.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.catalog.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.accessory.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.change-status\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.image.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.equipment.update\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.model.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.model.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.qr.generate\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.qr.print\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.reservation.confirm\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.reservation.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.reservation.release\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.stock.audit\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.stock.in\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.stock.out\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.stock.transfer\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.warehouse.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"inventory.warehouse.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.confirm\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.inspect\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.delivery.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.handover.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.handover.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return-request.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return.confirm\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return.inspect\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.compensation.calculate\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.history.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.incident.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.incident.evaluate\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.incident.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.part.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.part.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.repair.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.repair.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.repair.update\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.schedule.manage\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.schedule.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.assign\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.complete\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.create\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.read\",\n                    \"dataScope\": \"BRANCH\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.ticket.update\",\n                    \"dataScope\": \"BRANCH\"\n                }\n            ]\n        },\n        {\n            \"id\": 5,\n            \"code\": \"ACCOUNTANT\",\n            \"name\": \"Accountant\",\n            \"description\": \"Kế toán\",\n            \"systemRole\": true,\n            \"active\": true,\n            \"permissions\": [\n                {\n                    \"permissionCode\": \"billing.debt.manage\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.debt.read\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.collect\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.deduct\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.read\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.deposit.refund\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.invoice.create\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.invoice.read\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.invoice.update\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.collect\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.confirm\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.read\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.refund\",\n                    \"dataScope\": \"ORGANIZATION\"\n                },\n                {\n                    \"permissionCode\": \"billing.report.read\",\n                    \"dataScope\": \"ORGANIZATION\"\n                }\n            ]\n        },\n        {\n            \"id\": 6,\n            \"code\": \"CUSTOMER\",\n            \"name\": \"Customer\",\n            \"description\": \"Khách hàng\",\n            \"systemRole\": true,\n            \"active\": true,\n            \"permissions\": [\n                {\n                    \"permissionCode\": \"billing.invoice.read\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"billing.payment.read\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return-request.create\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"logistics.return-request.read\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.incident.create\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"maintenance.incident.read\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"rental.contract.read\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.accept\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"rental.quotation.read\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.cancel\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.create\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.read\",\n                    \"dataScope\": \"OWN\"\n                },\n                {\n                    \"permissionCode\": \"rental.request.update\",\n                    \"dataScope\": \"OWN\"\n                }\n            ]\n        },\n        {\n            \"id\": 7,\n            \"code\": \"SALES_MANAGER\",\n            \"name\": \"Sales Manager\",\n            \"description\": \"Quản lý kinh doanh\",\n            \"systemRole\": false,\n            \"active\": true,\n            \"permissions\": []\n        }\n    ],\n    \"message\": null,\n    \"traceId\": \"314e2604-53e1-468b-895a-ff03d97ba63c\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "xem báo cáo cho thuê",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"code\": \"rental.report.read\",\r\n    \"name\": \"Read rental reports\",\r\n    \"domain\": \"rental\",\r\n    \"description\": \"Xem báo cáo cho thuê\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/permissions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "permissions"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "8b679d69-150c-441f-91eb-802592f60197"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 13:06:09 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T13:06:09.429591100Z\",\n    \"data\": {\n        \"id\": 133,\n        \"code\": \"rental.report.read\",\n        \"name\": \"Read rental reports\",\n        \"domain\": \"rental\",\n        \"description\": \"Xem báo cáo cho thuê\"\n    },\n    \"message\": null,\n    \"traceId\": \"8b679d69-150c-441f-91eb-802592f60197\"\n}"
+        },
+        {
+          "name": "Gán Permission cho SALES_MANAGER",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"permissions\": [\r\n        {\r\n            \"permissionCode\": \"rental.report.read\",\r\n            \"dataScope\": \"BRANCH\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/roles/1/permissions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "roles",
+                "1",
+                "permissions"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "b10624f6-b4d0-4f4b-8a66-6acb52ee5ead"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 13:08:43 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T13:08:43.610670600Z\",\n    \"data\": {\n        \"id\": 1,\n        \"code\": \"ADMIN\",\n        \"name\": \"Administrator\",\n        \"description\": \"Quản trị doanh nghiệp và hệ thống demo\",\n        \"systemRole\": true,\n        \"active\": true,\n        \"permissions\": [\n            {\n                \"permissionCode\": \"rental.report.read\",\n                \"dataScope\": \"BRANCH\"\n            }\n        ]\n    },\n    \"message\": null,\n    \"traceId\": \"b10624f6-b4d0-4f4b-8a66-6acb52ee5ead\"\n}"
+        },
+        {
+          "name": "đổi user",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"roleCode\": \"SALES_STAFF\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8081/api/v1/users/2/role",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8081",
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "2",
+                "role"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "9fba716e-29b1-43fd-9eb0-1bf6b66f4d63"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 06 Aug 2026 13:10:05 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"timestamp\": \"2026-08-06T13:10:05.380468600Z\",\n    \"data\": {\n        \"id\": 2,\n        \"fullName\": \"System Admin\",\n        \"email\": \"admin@gmail.com\",\n        \"roleCode\": \"SALES_STAFF\",\n        \"status\": \"ACTIVE\",\n        \"emailVerified\": true,\n        \"organizationId\": null,\n        \"branchIds\": []\n    },\n    \"message\": null,\n    \"traceId\": \"9fba716e-29b1-43fd-9eb0-1bf6b66f4d63\"\n}"
+        }
+      ]
+    }
+  ]
+}

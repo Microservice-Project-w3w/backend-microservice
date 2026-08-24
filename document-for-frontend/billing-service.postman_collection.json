@@ -1,0 +1,3897 @@
+{
+  "info": {
+    "_postman_id": "7fc0076b-18ea-4fa7-b81c-3413c82c9ca8",
+    "name": "billing-service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57099737",
+    "_collection_link": "https://go.postman.co/collection/57099737-7fc0076b-18ea-4fa7-b81c-3413c82c9ca8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "get-ktra billing service",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-ktra billing service",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "085bfd2e-29cb-4cdb-9f22-d3039cb2a05d"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 02:43:14 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": \"UP\",\n    \"service\": \"billing-service\",\n    \"port\": 8086\n}"
+        }
+      ]
+    },
+    {
+      "name": "post- Thu tiền đặt cọc:",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post- Thu tiền đặt cọc:",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"organizationId\": 1,\r\n  \"branchId\": 1,\r\n  \"customerId\": 10,\r\n  \"rentalOrderId\": 100,\r\n  \"rentalContractId\": 50,\r\n  \"amount\": 2000000,\r\n  \"paymentMethod\": \"CASH\",\r\n  \"reference\": \"DEP-ORDER-100\",\r\n  \"notes\": \"Thu tiền cọc hợp đồng\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/deposits",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "deposits"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "458567a7-eff7-4735-9464-2ea9c81665e3"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 03:05:14 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"amount\": 2000000,\n    \"deductedAmount\": 0,\n    \"refundedAmount\": 0,\n    \"remainingAmount\": 2000000,\n    \"paymentMethod\": \"CASH\",\n    \"reference\": \"DEP-ORDER-100\",\n    \"notes\": \"Thu tiền cọc hợp đồng\",\n    \"status\": \"HELD\",\n    \"createdAt\": \"2026-08-12T10:05:14.3254091\",\n    \"updatedAt\": \"2026-08-12T10:05:14.3254091\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "get-lấy danh sách tiền đặt cọc",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-lấy danh sách tiền đặt cọc",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/deposits",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "deposits"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "c11479d6-3b17-4160-8ba1-3e2d818fe5bd"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 03:07:15 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"customerId\": 10,\n        \"rentalOrderId\": 100,\n        \"rentalContractId\": 50,\n        \"amount\": 2000000,\n        \"deductedAmount\": 0,\n        \"refundedAmount\": 0,\n        \"remainingAmount\": 2000000,\n        \"paymentMethod\": \"CASH\",\n        \"reference\": \"DEP-ORDER-100\",\n        \"notes\": \"Thu tiền cọc hợp đồng\",\n        \"status\": \"HELD\",\n        \"createdAt\": \"2026-08-12T10:05:14.325409\",\n        \"updatedAt\": \"2026-08-12T10:05:14.325409\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "get-lấy chi tiết tiền đặt cọc",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-lấy chi tiết tiền đặt cọc",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/deposits/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "deposits",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "7d91020d-e346-419f-b85c-872c47c89b4e"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 03:10:35 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"amount\": 2000000,\n    \"deductedAmount\": 0,\n    \"refundedAmount\": 0,\n    \"remainingAmount\": 2000000,\n    \"paymentMethod\": \"CASH\",\n    \"reference\": \"DEP-ORDER-100\",\n    \"notes\": \"Thu tiền cọc hợp đồng\",\n    \"status\": \"HELD\",\n    \"createdAt\": \"2026-08-12T10:05:14.325409\",\n    \"updatedAt\": \"2026-08-12T10:05:14.325409\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "post-khấu trừ tiền cọc",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-khấu trừ tiền cọc",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 300000,\r\n  \"reason\": \"Thiết bị bị trầy xước\",\r\n  \"referenceType\": \"RETURN_INSPECTION\",\r\n  \"referenceId\": 15,\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/deposits/1/deductions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "deposits",
+                "1",
+                "deductions"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "45dcf8e0-84ef-46f2-91ca-a21edb9f005b"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 03:18:06 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"amount\": 2000000,\n    \"deductedAmount\": 300000,\n    \"refundedAmount\": 0,\n    \"remainingAmount\": 1700000,\n    \"paymentMethod\": \"CASH\",\n    \"reference\": \"DEP-ORDER-100\",\n    \"notes\": \"Thu tiền cọc hợp đồng\",\n    \"status\": \"PARTIALLY_DEDUCTED\",\n    \"createdAt\": \"2026-08-12T10:05:14.325409\",\n    \"updatedAt\": \"2026-08-12T10:05:14.325409\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "get-lấy danh sách khấu trừ tiền cọc",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-lấy danh sách khấu trừ tiền cọc",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/deposits/1/deductions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "deposits",
+                "1",
+                "deductions"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "17d6c3fd-1b6f-45ab-b5f0-8ac8c012ca85"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 03:21:34 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 2,\n        \"amount\": 300000,\n        \"reference\": \"RETURN_INSPECTION-15\",\n        \"createdAt\": \"2026-08-12T10:18:06\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "post-hoàn tiền đặt cọc",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-hoàn tiền đặt cọc",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 1700000,\r\n  \"paymentMethod\": \"BANK_TRANSFER\",\r\n  \"reason\": \"Hoàn cọc sau khi hoàn tất hợp đồng\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/deposits/1/refund",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "deposits",
+                "1",
+                "refund"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "f0587524-0233-41e5-ab37-6e11ddf1b95d"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 03:25:12 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"amount\": 2000000,\n    \"deductedAmount\": 300000,\n    \"refundedAmount\": 1700000,\n    \"remainingAmount\": 0,\n    \"paymentMethod\": \"CASH\",\n    \"reference\": \"DEP-ORDER-100\",\n    \"notes\": \"Thu tiền cọc hợp đồng\",\n    \"status\": \"REFUNDED\",\n    \"createdAt\": \"2026-08-12T10:05:14.325409\",\n    \"updatedAt\": \"2026-08-12T10:18:06.15456\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "post-tạo hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-tạo hóa đơn",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"organizationId\": 1,\r\n  \"branchId\": 1,\r\n  \"customerId\": 10,\r\n  \"rentalOrderId\": 100,\r\n  \"rentalContractId\": 50,\r\n  \"invoiceType\": \"RENTAL\",\r\n  \"dueAt\": \"2026-08-20T23:59:59\",\r\n  \"items\": [\r\n    {\r\n      \"itemType\": \"RENTAL_FEE\",\r\n      \"description\": \"Tiền thuê thiết bị\",\r\n      \"quantity\": 3,\r\n      \"unitPrice\": 500000\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "8112e778-5f3a-4f27-9020-ff0444e896f1"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 04:11:51 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"invoiceType\": \"RENTAL\",\n    \"status\": \"DRAFT\",\n    \"subtotal\": 1500000,\n    \"totalAmount\": 1500000,\n    \"dueAt\": \"2026-08-20T23:59:59\",\n    \"items\": [\n        {\n            \"id\": 1,\n            \"itemType\": \"RENTAL_FEE\",\n            \"description\": \"Tiền thuê thiết bị\",\n            \"quantity\": 3,\n            \"unitPrice\": 500000,\n            \"amount\": 1500000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "get-lấy danh sách hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-lấy danh sách hóa đơn",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "f956544b-891d-4092-9d0b-d0cff63db7ff"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 04:16:38 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"customerId\": 10,\n        \"rentalOrderId\": 100,\n        \"rentalContractId\": 50,\n        \"invoiceType\": \"RENTAL\",\n        \"status\": \"DRAFT\",\n        \"subtotal\": 1500000,\n        \"totalAmount\": 1500000,\n        \"dueAt\": \"2026-08-20T23:59:59\",\n        \"items\": [\n            {\n                \"id\": 1,\n                \"itemType\": \"RENTAL_FEE\",\n                \"description\": \"Tiền thuê thiết bị\",\n                \"quantity\": 3,\n                \"unitPrice\": 500000,\n                \"amount\": 1500000,\n                \"referenceType\": null,\n                \"referenceId\": null\n            }\n        ]\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "get-lấy chi tiết hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-lấy chi tiết hóa đơn",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "082e0c8d-f671-46c4-a4fc-c7dae6b20d06"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 04:18:41 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"invoiceType\": \"RENTAL\",\n    \"status\": \"DRAFT\",\n    \"subtotal\": 1500000,\n    \"totalAmount\": 1500000,\n    \"dueAt\": \"2026-08-20T23:59:59\",\n    \"items\": [\n        {\n            \"id\": 1,\n            \"itemType\": \"RENTAL_FEE\",\n            \"description\": \"Tiền thuê thiết bị\",\n            \"quantity\": 3,\n            \"unitPrice\": 500000,\n            \"amount\": 1500000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "put-cập nhật hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "put-cập nhật hóa đơn",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"id\": 1,\r\n  \"invoiceType\": \"RENTAL\",\r\n  \"status\": \"DRAFT\",\r\n  \"dueAt\": \"2026-08-25T23:59:59\",\r\n  \"totalAmount\": 1500000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "39c63b0d-cd23-4152-a951-8f75f3c6d973"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 06:03:57 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"invoiceType\": \"RENTAL\",\n    \"status\": \"DRAFT\",\n    \"subtotal\": 1500000,\n    \"totalAmount\": 1500000,\n    \"dueAt\": \"2026-08-25T23:59:59\",\n    \"items\": [\n        {\n            \"id\": 1,\n            \"itemType\": \"RENTAL_FEE\",\n            \"description\": \"Tiền thuê thiết bị\",\n            \"quantity\": 3,\n            \"unitPrice\": 500000,\n            \"amount\": 1500000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "post– thêm dòng phí vào hóa đơn:",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post– thêm dòng phí vào hóa đơn:",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"itemType\": \"LATE_FEE\",\r\n  \"description\": \"Phí trả thiết bị trễ\",\r\n  \"quantity\": 1,\r\n  \"unitPrice\": 200000\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices/1/items",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices",
+                "1",
+                "items"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "6779be30-bc49-4e2a-890e-7dbe8288322f"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 06:10:03 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"invoiceType\": \"RENTAL\",\n    \"status\": \"DRAFT\",\n    \"subtotal\": 1700000,\n    \"totalAmount\": 1700000,\n    \"dueAt\": \"2026-08-25T23:59:59\",\n    \"items\": [\n        {\n            \"id\": 1,\n            \"itemType\": \"RENTAL_FEE\",\n            \"description\": \"Tiền thuê thiết bị\",\n            \"quantity\": 3,\n            \"unitPrice\": 500000,\n            \"amount\": 1500000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        },\n        {\n            \"id\": 2,\n            \"itemType\": \"LATE_FEE\",\n            \"description\": \"Phí trả thiết bị trễ\",\n            \"quantity\": 1,\n            \"unitPrice\": 200000,\n            \"amount\": 200000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "delete-xóa dòng phí khỏi hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "delete-xóa dòng phí khỏi hóa đơn",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices/1/items/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices",
+                "1",
+                "items",
+                "2"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "6ed93627-4f4f-4570-8b6b-be4c368e9245"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 06:11:44 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": null
+        }
+      ]
+    },
+    {
+      "name": "post-phát hành hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-phát hành hóa đơn",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices/1/issue",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices",
+                "1",
+                "issue"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "ccf6ff2f-acdd-48b7-972a-37417954f6b1"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 06:21:25 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"invoiceType\": \"RENTAL\",\n    \"status\": \"ISSUED\",\n    \"subtotal\": 1500000,\n    \"totalAmount\": 1500000,\n    \"dueAt\": \"2026-08-25T23:59:59\",\n    \"items\": [\n        {\n            \"id\": 1,\n            \"itemType\": \"RENTAL_FEE\",\n            \"description\": \"Tiền thuê thiết bị\",\n            \"quantity\": 3,\n            \"unitPrice\": 500000,\n            \"amount\": 1500000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "post-hủy hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-hủy hóa đơn",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"reason\": \"Hóa đơn lập nhầm\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices/1/cancel",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices",
+                "1",
+                "cancel"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "ad295306-850e-482b-8db9-9b66e182a78a"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 06:26:46 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"invoiceType\": \"RENTAL\",\n    \"status\": \"CANCELLED\",\n    \"subtotal\": 1500000,\n    \"totalAmount\": 1500000,\n    \"dueAt\": \"2026-08-25T23:59:59\",\n    \"items\": [\n        {\n            \"id\": 1,\n            \"itemType\": \"RENTAL_FEE\",\n            \"description\": \"Tiền thuê thiết bị\",\n            \"quantity\": 3,\n            \"unitPrice\": 500000,\n            \"amount\": 1500000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "post-ghi nhận thanh toán",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-ghi nhận thanh toán",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"organizationId\": 1,\r\n  \"branchId\": 1,\r\n  \"customerId\": 10,\r\n  \"invoiceId\": 2,\r\n  \"amount\": 1500000,\r\n  \"paymentMethod\": \"BANK_TRANSFER\",\r\n  \"transactionReference\": \"VCB123456790\",\r\n  \"paidAt\": \"2026-08-12T08:00:00\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "payments"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "64a9eebd-bca5-4992-84d1-7b0989b8ab38"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 06:40:45 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"invoiceId\": 2,\n    \"amount\": 1500000,\n    \"paymentMethod\": \"BANK_TRANSFER\",\n    \"transactionReference\": \"VCB123456790\",\n    \"status\": \"PENDING\",\n    \"paidAt\": \"2026-08-12T08:00:00\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "get-lấy danh sách thanh toán",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-lấy danh sách thanh toán",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "payments"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "c1a92b4f-f80a-4e0f-b223-eb0911d1fabb"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 06:45:52 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"customerId\": 10,\n        \"invoiceId\": 2,\n        \"amount\": 1500000,\n        \"paymentMethod\": \"BANK_TRANSFER\",\n        \"transactionReference\": \"VCB123456790\",\n        \"status\": \"PENDING\",\n        \"paidAt\": null\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "get-lấy chi tiết thanh toán",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-lấy chi tiết thanh toán",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/payments/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "payments",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "7b93b47e-31ab-4fe0-b599-c997f3a24043"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 07:02:39 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"invoiceId\": 2,\n    \"amount\": 1500000,\n    \"paymentMethod\": \"BANK_TRANSFER\",\n    \"transactionReference\": \"VCB123456790\",\n    \"status\": \"PENDING\",\n    \"paidAt\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "post-xác nhận thanh toán",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-xác nhận thanh toán",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/payments/1/confirm",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "payments",
+                "1",
+                "confirm"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "97015c77-6371-46e1-a49f-cb43d0bc0e73"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 07:04:35 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"invoiceId\": 2,\n    \"amount\": 1500000,\n    \"paymentMethod\": \"BANK_TRANSFER\",\n    \"transactionReference\": \"VCB123456790\",\n    \"status\": \"SUCCESS\",\n    \"paidAt\": \"2026-08-12T14:04:35.2006532\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "post-hủy thanh toán",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-hủy thanh toán",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/payments/2/cancel",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "payments",
+                "2",
+                "cancel"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "d2ae2e84-c840-4cc0-91c1-5350e8c139c2"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Wed, 12 Aug 2026 07:10:52 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 2,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"invoiceId\": 2,\n    \"amount\": 500000,\n    \"paymentMethod\": \"BANK_TRANSFER\",\n    \"transactionReference\": \"TEST-CANCEL-001\",\n    \"status\": \"CANCELLED\",\n    \"paidAt\": null\n}"
+        }
+      ]
+    },
+    {
+      "name": "hoàn tiền thanh toán.",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "hoàn tiền thanh toán.",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 200000,\r\n  \"reason\": \"Thu thừa tiền\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/payments/1/refund",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "payments",
+                "1",
+                "refund"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "13339013-d3ee-4a82-a9bf-f6195c9fa881"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 13:47:59 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"paymentId\": 1,\n    \"amount\": 200000,\n    \"reason\": \"Thu thừa tiền\",\n    \"actorUserId\": 1,\n    \"refundedAt\": \"2026-08-13T20:47:59.2473842\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "lấy danh sách refund của payment.",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "lấy danh sách refund của payment.",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/payments/1/refunds",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "payments",
+                "1",
+                "refunds"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "14f6eee0-0f2e-4a97-a443-5ec70de35de8"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 13:50:34 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"paymentId\": 1,\n        \"amount\": 200000,\n        \"reason\": \"Thu thừa tiền\",\n        \"actorUserId\": 1,\n        \"refundedAt\": \"2026-08-13T20:47:59.247384\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "kiểm tra trạng thái thanh toán của hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "kiểm tra trạng thái thanh toán của hóa đơn",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices/2/payment-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices",
+                "2",
+                "payment-status"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "f73159fc-9c3a-4e8e-8741-e7c57d9c1376"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 13:53:43 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"invoiceId\": 2,\n    \"totalAmount\": 1500000,\n    \"paidAmount\": 1300000,\n    \"remainingAmount\": 200000,\n    \"paymentStatus\": \"PARTIALLY_PAID\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "lấy danh sách công nợ",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "lấy danh sách công nợ",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/debts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "debts"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "c9a6b0e9-f974-4ba3-b1c2-08398533d531"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 13:59:54 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"customerId\": 10,\n        \"invoiceId\": 2,\n        \"amount\": 200000,\n        \"remainingAmount\": 200000,\n        \"dueAt\": \"2026-08-20T23:59:59\",\n        \"reason\": \"Phần hóa đơn chưa thanh toán\",\n        \"status\": \"OPEN\",\n        \"createdAt\": \"2026-08-13T20:59:49\",\n        \"updatedAt\": \"2026-08-13T20:59:49\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "danh sách công nợ",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "danh sách công nợ",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/debts/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "debts",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "48fb9f0b-67ec-4539-8ada-d3df0ff92257"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 14:02:49 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"invoiceId\": 2,\n    \"amount\": 200000,\n    \"remainingAmount\": 200000,\n    \"dueAt\": \"2026-08-20T23:59:59\",\n    \"reason\": \"Phần hóa đơn chưa thanh toán\",\n    \"status\": \"OPEN\",\n    \"createdAt\": \"2026-08-13T20:59:49\",\n    \"updatedAt\": \"2026-08-13T20:59:49\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "put-cập nhật công nợ",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "put-cập nhật công nợ",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 600000,\r\n  \"dueAt\": \"2026-08-30T23:59:59\",\r\n  \"reason\": \"Gia hạn công nợ và cập nhật số tiền\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/debts/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "debts",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "7e00490a-bc5f-4353-b3e5-7091b064f7f2"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 14:06:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"invoiceId\": 2,\n    \"amount\": 600000,\n    \"remainingAmount\": 600000,\n    \"dueAt\": \"2026-08-30T23:59:59\",\n    \"reason\": \"Gia hạn công nợ và cập nhật số tiền\",\n    \"status\": \"OPEN\",\n    \"createdAt\": \"2026-08-13T20:59:49\",\n    \"updatedAt\": \"2026-08-13T20:59:49\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "post-thanh toán công nợ",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "post-thanh toán công nợ",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"amount\": 500000,\r\n  \"paymentMethod\": \"CASH\",\r\n  \"actorUserId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/debts/1/settle",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "debts",
+                "1",
+                "settle"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "cc57a0a9-ca15-469a-b4e0-efc78ff6fc26"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 14:08:33 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 1,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"invoiceId\": 2,\n    \"amount\": 600000,\n    \"remainingAmount\": 100000,\n    \"dueAt\": \"2026-08-30T23:59:59\",\n    \"reason\": \"Gia hạn công nợ và cập nhật số tiền\",\n    \"status\": \"PARTIALLY_SETTLED\",\n    \"createdAt\": \"2026-08-13T20:59:49\",\n    \"updatedAt\": \"2026-08-13T21:06:09\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "get-công nợ của khách hàng",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get-công nợ của khách hàng",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/customers/10/debts",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "customers",
+                "10",
+                "debts"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "d51b0d75-d4f4-413b-819d-392fa29f0ee2"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 14:15:23 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"organizationId\": 1,\n        \"branchId\": 1,\n        \"customerId\": 10,\n        \"invoiceId\": 2,\n        \"amount\": 600000,\n        \"remainingAmount\": 100000,\n        \"dueAt\": \"2026-08-30T23:59:59\",\n        \"reason\": \"Gia hạn công nợ và cập nhật số tiền\",\n        \"status\": \"PARTIALLY_SETTLED\",\n        \"createdAt\": \"2026-08-13T20:59:49\",\n        \"updatedAt\": \"2026-08-13T21:08:34\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "get- Billing summary của khách hàng",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "get- Billing summary của khách hàng",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/customers/10/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "customers",
+                "10",
+                "summary"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "302ccf4e-5358-4de7-a41c-b400ac9fa66c"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 13 Aug 2026 14:25:39 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"customerId\": 10,\n    \"totalInvoiced\": 1500000,\n    \"totalPaid\": 1300000,\n    \"outstandingDebt\": 100000,\n    \"depositHeld\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "Billing summary theo Rental Order.",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Billing summary theo Rental Order.",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/rental-orders/101/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "rental-orders",
+                "101",
+                "summary"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "eb5fbc26-eb99-4053-85c7-123df816fdee"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 06:28:17 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"rentalOrderId\": 101,\n    \"totalInvoiceAmount\": 1500000,\n    \"paidAmount\": 1300000,\n    \"remainingAmount\": 200000,\n    \"depositAmount\": 0,\n    \"deductedDeposit\": 0,\n    \"refundedDeposit\": 0,\n    \"outstandingDebt\": 100000\n}"
+        }
+      ]
+    },
+    {
+      "name": "Billing summary theo hợp đồng",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Billing summary theo hợp đồng",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/rental-contracts/51/summary",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "rental-contracts",
+                "51",
+                "summary"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "6883afdc-084c-485f-af71-173a8bfd40c7"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 06:31:20 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"contractId\": 51,\n    \"totalInvoiceAmount\": 1500000,\n    \"paidAmount\": 1300000,\n    \"remainingAmount\": 200000,\n    \"depositAmount\": 0,\n    \"deductedDeposit\": 0,\n    \"refundedDeposit\": 0,\n    \"outstandingDebt\": 100000\n}"
+        }
+      ]
+    },
+    {
+      "name": "Báo cáo doanh thu",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Báo cáo doanh thu",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/reports/revenue?organizationId=1&fromDate=2026-08-01&toDate=2026-08-31",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "reports",
+                "revenue"
+              ],
+              "query": [
+                {
+                  "key": "organizationId",
+                  "value": "1"
+                },
+                {
+                  "key": "fromDate",
+                  "value": "2026-08-01"
+                },
+                {
+                  "key": "toDate",
+                  "value": "2026-08-31"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "1c56b21b-de58-425a-8b7b-87be35c0af73"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 06:35:07 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"organizationId\": 1,\n    \"branchId\": null,\n    \"fromDate\": \"2026-08-01\",\n    \"toDate\": \"2026-08-31\",\n    \"totalInvoiced\": 1500000,\n    \"totalPaid\": 1500000,\n    \"totalRefunded\": 200000,\n    \"netRevenue\": 1300000,\n    \"invoiceCount\": 1,\n    \"paymentCount\": 1\n}"
+        }
+      ]
+    },
+    {
+      "name": "Báo cáo thanh toán",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Báo cáo thanh toán",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/reports/payments?organizationId=1&fromDate=2026-08-01&toDate=2026-08-31",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "reports",
+                "payments"
+              ],
+              "query": [
+                {
+                  "key": "organizationId",
+                  "value": "1"
+                },
+                {
+                  "key": "fromDate",
+                  "value": "2026-08-01"
+                },
+                {
+                  "key": "toDate",
+                  "value": "2026-08-31"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "1769fac3-1075-439d-ae33-85777ed31f35"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 06:38:59 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"organizationId\": 1,\n    \"branchId\": null,\n    \"fromDate\": \"2026-08-01\",\n    \"toDate\": \"2026-08-31\",\n    \"totalAmount\": 2000000,\n    \"confirmedAmount\": 1500000,\n    \"pendingAmount\": 0,\n    \"cancelledAmount\": 500000,\n    \"refundedAmount\": 200000,\n    \"totalPaymentCount\": 2,\n    \"confirmedPaymentCount\": 1,\n    \"pendingPaymentCount\": 0,\n    \"cancelledPaymentCount\": 1\n}"
+        }
+      ]
+    },
+    {
+      "name": "Báo cáo công nợ",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Báo cáo công nợ",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/reports/debts?organizationId=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "reports",
+                "debts"
+              ],
+              "query": [
+                {
+                  "key": "organizationId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "1e2f3163-e89b-44d8-b43b-d407d763b10c"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 06:42:01 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"organizationId\": 1,\n    \"branchId\": null,\n    \"totalDebt\": 100000,\n    \"overdueDebt\": 0,\n    \"customerCount\": 1,\n    \"debtCount\": 1,\n    \"overdueDebtCount\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "Báo cáo tiền cọc",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "Báo cáo tiền cọc",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/reports/deposits?organizationId=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "reports",
+                "deposits"
+              ],
+              "query": [
+                {
+                  "key": "organizationId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "d05cebc6-c0b5-4df4-88d0-194dbffda475"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 06:46:56 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"organizationId\": 1,\n    \"branchId\": null,\n    \"totalCollected\": 2000000,\n    \"totalHeld\": 0,\n    \"totalDeducted\": 300000,\n    \"totalRefunded\": 1700000,\n    \"depositCount\": 1\n}"
+        }
+      ]
+    },
+    {
+      "name": "INTERNAL tạo hóa đơn cho Rental Service",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "INTERNAL tạo hóa đơn cho Rental Service",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"requestReference\": \"ORDER-100-INVOICE-1\",\r\n  \"organizationId\": 1,\r\n  \"branchId\": 1,\r\n  \"customerId\": 10,\r\n  \"rentalOrderId\": 100,\r\n  \"rentalContractId\": 50,\r\n  \"dueAt\": \"2026-08-20T23:59:59\",\r\n  \"items\": [\r\n    {\r\n      \"type\": \"RENTAL_FEE\",\r\n      \"amount\": 1500000\r\n    }\r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/internal/invoices",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "internal",
+                "invoices"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "ac8244a9-d653-4ab5-a1bc-73a510b9ef3e"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 07:19:35 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 3,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"invoiceType\": \"RENTAL\",\n    \"status\": \"DRAFT\",\n    \"subtotal\": 1500000,\n    \"totalAmount\": 1500000,\n    \"dueAt\": \"2026-08-20T23:59:59\",\n    \"items\": [\n        {\n            \"id\": 4,\n            \"itemType\": \"RENTAL_FEE\",\n            \"description\": \"RENTAL_FEE\",\n            \"quantity\": 1,\n            \"unitPrice\": 1500000,\n            \"amount\": 1500000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "INTERNAL thêm phí phát sinh vào hóa đơn",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "INTERNAL thêm phí phát sinh vào hóa đơn",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"requestReference\": \"RETURN-20-LATE-FEE\",\r\n  \"chargeType\": \"LATE_FEE\",\r\n  \"amount\": 200000,\r\n  \"referenceType\": \"RETURN_RECORD\",\r\n  \"referenceId\": 20,\r\n  \"description\": \"Phí trả trễ 1 ngày\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8086/internal/invoices/3/charges",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "internal",
+                "invoices",
+                "3",
+                "charges"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "91e1e4c7-0ad4-4dd2-b4e0-dc0ce3a40aeb"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 07:23:10 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"id\": 3,\n    \"organizationId\": 1,\n    \"branchId\": 1,\n    \"customerId\": 10,\n    \"rentalOrderId\": 100,\n    \"rentalContractId\": 50,\n    \"invoiceType\": \"RENTAL\",\n    \"status\": \"DRAFT\",\n    \"subtotal\": 1700000,\n    \"totalAmount\": 1700000,\n    \"dueAt\": \"2026-08-20T23:59:59\",\n    \"items\": [\n        {\n            \"id\": 4,\n            \"itemType\": \"RENTAL_FEE\",\n            \"description\": \"RENTAL_FEE\",\n            \"quantity\": 1,\n            \"unitPrice\": 1500000,\n            \"amount\": 1500000,\n            \"referenceType\": null,\n            \"referenceId\": null\n        },\n        {\n            \"id\": 5,\n            \"itemType\": \"LATE_FEE\",\n            \"description\": \"Phí trả trễ 1 ngày\",\n            \"quantity\": 1,\n            \"unitPrice\": 200000,\n            \"amount\": 200000,\n            \"referenceType\": \"RETURN_RECORD\",\n            \"referenceId\": 20\n        }\n    ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "INTERNAL kiểm tra trạng thái Billing của Rental Order.",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "INTERNAL kiểm tra trạng thái Billing của Rental Order.",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/internal/rental-orders/100/billing-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "internal",
+                "rental-orders",
+                "100",
+                "billing-status"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "fca10560-5fad-45ce-9ff2-f7a663ed014a"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 07:27:12 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"rentalOrderId\": 100,\n    \"invoiceTotal\": 1700000,\n    \"paidAmount\": 0,\n    \"outstandingAmount\": 1700000,\n    \"depositHeld\": 0,\n    \"fullyPaid\": false\n}"
+        }
+      ]
+    },
+    {
+      "name": "INTERNAL kiểm tra khả năng thanh lý hợp đồng.",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "INTERNAL kiểm tra khả năng thanh lý hợp đồng.",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/internal/rental-contracts/50/settlement-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "internal",
+                "rental-contracts",
+                "50",
+                "settlement-status"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "e5955ce9-509d-49e2-8348-0b9fc36e1078"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 07:30:02 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"contractId\": 50,\n    \"outstandingAmount\": 1700000,\n    \"depositRemaining\": 0,\n    \"hasUnresolvedPayment\": false,\n    \"canLiquidate\": false\n}"
+        }
+      ]
+    },
+    {
+      "name": "INTERNAL lấy trạng thái công nợ của Customer.",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "INTERNAL lấy trạng thái công nợ của Customer.",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/internal/customers/10/debt-status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "internal",
+                "customers",
+                "10",
+                "debt-status"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "ac2c6d6a-021c-43eb-ba8c-e2f14bda44b5"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 07:35:20 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"customerId\": 10,\n    \"hasDebt\": true,\n    \"totalOutstanding\": 100000,\n    \"overdueAmount\": 0\n}"
+        }
+      ]
+    },
+    {
+      "name": "lịch sử Invoice.",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "lịch sử Invoice.",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/invoices/2/history",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "invoices",
+                "2",
+                "history"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "614c806d-5a0d-48ca-a189-c316a6cf3847"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 08:03:22 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[]"
+        }
+      ]
+    },
+    {
+      "name": "lịch sử Deposit.",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "lịch sử Deposit.",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/deposits/1/history",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "deposits",
+                "1",
+                "history"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "1b8d8197-cbd7-4e53-b228-ead4d7677710"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 08:06:48 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"id\": 1,\n        \"depositId\": 1,\n        \"action\": \"COLLECT\",\n        \"amount\": 2000000,\n        \"oldStatus\": null,\n        \"newStatus\": \"HELD\",\n        \"description\": \"Thu tiền đặt cọc\",\n        \"actorUserId\": 1,\n        \"createdAt\": \"2026-08-14T15:06:40\"\n    },\n    {\n        \"id\": 2,\n        \"depositId\": 1,\n        \"action\": \"DEDUCTION\",\n        \"amount\": 300000,\n        \"oldStatus\": \"HELD\",\n        \"newStatus\": \"PARTIALLY_DEDUCTED\",\n        \"description\": \"Khấu trừ do thiết bị bị trầy xước\",\n        \"actorUserId\": 1,\n        \"createdAt\": \"2026-08-14T15:06:40\"\n    },\n    {\n        \"id\": 3,\n        \"depositId\": 1,\n        \"action\": \"REFUND\",\n        \"amount\": 1700000,\n        \"oldStatus\": \"PARTIALLY_DEDUCTED\",\n        \"newStatus\": \"REFUNDED\",\n        \"description\": \"Hoàn lại tiền cọc còn lại\",\n        \"actorUserId\": 1,\n        \"createdAt\": \"2026-08-14T15:06:40\"\n    }\n]"
+        }
+      ]
+    },
+    {
+      "name": "lịch sử giao dịch Billing của Customer",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": [
+        {
+          "name": "lịch sử giao dịch Billing của Customer",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8086/api/v1/billing/customers/10/transactions",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8086",
+              "path": [
+                "api",
+                "v1",
+                "billing",
+                "customers",
+                "10",
+                "transactions"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": "X-Correlation-Id",
+              "value": "ff692559-3433-4e18-81b7-68fedd54fa27"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Fri, 14 Aug 2026 08:09:38 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "cookie": [],
+          "body": "[\n    {\n        \"transactionType\": \"INVOICE\",\n        \"referenceId\": 3,\n        \"amount\": 1700000,\n        \"status\": \"DRAFT\",\n        \"description\": \"Hóa đơn RENTAL\",\n        \"occurredAt\": \"2026-08-14T14:19:35\"\n    },\n    {\n        \"transactionType\": \"DEBT\",\n        \"referenceId\": 1,\n        \"amount\": 100000,\n        \"status\": \"PARTIALLY_SETTLED\",\n        \"description\": \"Gia hạn công nợ và cập nhật số tiền\",\n        \"occurredAt\": \"2026-08-13T20:59:49\"\n    },\n    {\n        \"transactionType\": \"PAYMENT_REFUND\",\n        \"referenceId\": 1,\n        \"amount\": 200000,\n        \"status\": \"REFUNDED\",\n        \"description\": \"Thu thừa tiền\",\n        \"occurredAt\": \"2026-08-13T20:47:59.247384\"\n    },\n    {\n        \"transactionType\": \"PAYMENT\",\n        \"referenceId\": 2,\n        \"amount\": 500000,\n        \"status\": \"CANCELLED\",\n        \"description\": \"Thanh toán hóa đơn 2\",\n        \"occurredAt\": \"2026-08-12T14:07:30\"\n    },\n    {\n        \"transactionType\": \"PAYMENT\",\n        \"referenceId\": 1,\n        \"amount\": 1500000,\n        \"status\": \"SUCCESS\",\n        \"description\": \"Thanh toán hóa đơn 2\",\n        \"occurredAt\": \"2026-08-12T14:04:35\"\n    },\n    {\n        \"transactionType\": \"INVOICE\",\n        \"referenceId\": 2,\n        \"amount\": 1500000,\n        \"status\": \"PAID\",\n        \"description\": \"Hóa đơn RENTAL\",\n        \"occurredAt\": \"2026-08-12T13:38:15\"\n    },\n    {\n        \"transactionType\": \"INVOICE\",\n        \"referenceId\": 1,\n        \"amount\": 1500000,\n        \"status\": \"CANCELLED\",\n        \"description\": \"Hóa đơn RENTAL\",\n        \"occurredAt\": \"2026-08-12T11:11:52\"\n    },\n    {\n        \"transactionType\": \"DEPOSIT\",\n        \"referenceId\": 1,\n        \"amount\": 2000000,\n        \"status\": \"REFUNDED\",\n        \"description\": \"Tiền đặt cọc\",\n        \"occurredAt\": \"2026-08-12T10:05:14.325409\"\n    }\n]"
+        }
+      ]
+    }
+  ]
+}

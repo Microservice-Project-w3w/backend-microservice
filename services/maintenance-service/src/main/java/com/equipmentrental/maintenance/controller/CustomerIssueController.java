@@ -23,7 +23,7 @@ public class CustomerIssueController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize(
-            "hasRole('CUSTOMER')"
+            "hasAuthority('maintenance.incident.create')"
     )
     public CustomerIssueResponse create(
             @Valid
@@ -36,7 +36,7 @@ public class CustomerIssueController {
 
     @GetMapping
     @PreAuthorize(
-            "hasRole('CUSTOMER')"
+            "hasAuthority('maintenance.incident.read')"
     )
     public List<CustomerIssueResponse> list() {
 
@@ -45,7 +45,7 @@ public class CustomerIssueController {
 
     @GetMapping("/{id}")
     @PreAuthorize(
-            "hasRole('CUSTOMER')"
+            "hasAuthority('maintenance.incident.read')"
     )
     public CustomerIssueResponse detail(
             @PathVariable Long id

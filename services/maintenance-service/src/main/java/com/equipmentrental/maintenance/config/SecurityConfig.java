@@ -5,14 +5,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
-import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Configuration
 @EnableMethodSecurity
@@ -26,7 +31,14 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
 
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
+                        )
+                )
+
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/health").permitAll()
                         .anyRequest().authenticated()
                 )
 
@@ -80,20 +92,59 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
-
-        JwtGrantedAuthoritiesConverter authorities =
-                new JwtGrantedAuthoritiesConverter();
-
-        authorities.setAuthoritiesClaimName("roles");
-        authorities.setAuthorityPrefix("ROLE_");
-
         JwtAuthenticationConverter converter =
                 new JwtAuthenticationConverter();
 
         converter.setJwtGrantedAuthoritiesConverter(
-                authorities
+                this::extractAuthorities
         );
 
         return converter;
+    }
+
+    private Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
+
+        Set<String> authorityNames = new LinkedHashSet<>();
+
+        toStringSet(jwt.getClaim("permissions"))
+                .forEach(authorityNames::add);
+
+        toStringSet(jwt.getClaim("roles"))
+                .forEach(role -> authorityNames.add(
+                        role.startsWith("ROLE_")
+                                ? role
+                                : "ROLE_" + role
+                ));
+
+        return authorityNames.stream()
+                .map(SimpleGrantedAuthority::new)
+                .map(GrantedAuthority.class::cast)
+                .toList();
+    }
+
+    private Set<String> toStringSet(Object claim) {
+
+        Set<String> values = new LinkedHashSet<>();
+
+        if (claim instanceof Collection<?> collection) {
+            collection.forEach(value -> addString(values, value));
+        } else {
+            addString(values, claim);
+        }
+
+        return values;
+    }
+
+    private void addString(Set<String> target, Object value) {
+
+        if (value == null) {
+            return;
+        }
+
+        String text = String.valueOf(value).trim();
+
+        if (!text.isEmpty()) {
+            target.add(text);
+        }
     }
 }

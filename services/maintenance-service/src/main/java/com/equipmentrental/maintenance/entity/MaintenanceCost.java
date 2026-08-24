@@ -37,7 +37,7 @@ public class MaintenanceCost {
     @Column(nullable = false, precision = 18, scale = 2)
     private BigDecimal amount;
 
-    @Column(name = "currency_code", nullable = false, length = 3)
+    @Column(name = "currency_code", nullable = false, columnDefinition = "CHAR(3) DEFAULT 'VND'")
     private String currencyCode;
 
     @Column(length = 1000)

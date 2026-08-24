@@ -21,14 +21,14 @@ public class RentalOwnershipService {
     public RentalOwnershipResponse verify(
             Long rentalOrderId,
             Long equipmentId,
-            Long currentUserId
+            Long currentCustomerId
     ) {
 
         log.info(
-                "OWNERSHIP CHECK - rentalOrderId={}, equipmentId={}, currentUserId={}",
+                "OWNERSHIP CHECK - rentalOrderId={}, equipmentId={}, currentCustomerId={}",
                 rentalOrderId,
                 equipmentId,
-                currentUserId
+                currentCustomerId
         );
 
         RentalOrder order =
@@ -49,7 +49,7 @@ public class RentalOwnershipService {
             return new RentalOwnershipResponse(
                     false,
                     rentalOrderId,
-                    currentUserId,
+                    currentCustomerId,
                     null,
                     null,
                     equipmentId
@@ -69,22 +69,22 @@ public class RentalOwnershipService {
          */
         boolean customerMatches =
                 order.getCustomerId() != null
-                        && currentUserId != null
-                        && order.getCustomerId().equals(currentUserId);
+                        && currentCustomerId != null
+                        && order.getCustomerId().equals(currentCustomerId);
 
         log.info(
-                "CUSTOMER CHECK - order.customerId={}, currentUserId={}, matches={}",
+                "CUSTOMER CHECK - order.customerId={}, currentCustomerId={}, matches={}",
                 order.getCustomerId(),
-                currentUserId,
+                currentCustomerId,
                 customerMatches
         );
 
         if (!customerMatches) {
 
             log.warn(
-                    "OWNERSHIP FAIL - Customer không khớp. order.customerId={}, currentUserId={}",
+                    "OWNERSHIP FAIL - Customer không khớp. order.customerId={}, currentCustomerId={}",
                     order.getCustomerId(),
-                    currentUserId
+                    currentCustomerId
             );
 
             return new RentalOwnershipResponse(

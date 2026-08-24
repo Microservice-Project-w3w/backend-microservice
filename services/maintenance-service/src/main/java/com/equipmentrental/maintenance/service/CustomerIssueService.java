@@ -49,6 +49,14 @@ public class CustomerIssueService {
                         dto.equipmentId()
                 );
 
+        currentUserService.requireOrganization(
+                ownership.organizationId()
+        );
+
+        currentUserService.requireCustomer(
+                ownership.customerId()
+        );
+
         CustomerIssue issue =
                 CustomerIssue.builder()
 
@@ -367,17 +375,18 @@ public class CustomerIssueService {
         return issue;
     }
 
-    /*
-     * Hiện hệ thống test đang quy ước:
-     *
-     * CUSTOMER userId == customerId
-     */
     private Long getCurrentCustomerId() {
 
         CurrentUser current =
                 currentUserService.getCurrentUser();
 
-        return current.userId();
+        if (current.customerId() == null) {
+            throw new com.equipmentrental.maintenance.exception.ForbiddenException(
+                    "JWT của CUSTOMER không có customerId"
+            );
+        }
+
+        return current.customerId();
     }
 
     private CustomerIssueResponse toResponse(

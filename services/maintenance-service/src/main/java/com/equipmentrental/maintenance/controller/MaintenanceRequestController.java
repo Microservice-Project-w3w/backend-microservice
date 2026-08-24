@@ -39,7 +39,7 @@ public class MaintenanceRequestController {
      */
     @PostMapping
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.create')"
     )
     public ResponseEntity<MaintenanceRequestResponse>
     create(
@@ -67,7 +67,7 @@ public class MaintenanceRequestController {
      */
     @GetMapping
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.read')"
     )
     public Page<MaintenanceRequestResponse>
     list(
@@ -120,7 +120,7 @@ public class MaintenanceRequestController {
      */
     @GetMapping("/{id}")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','MANAGER','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.read')"
     )
     public MaintenanceRequestResponse getById(
             @PathVariable Long id
@@ -134,7 +134,7 @@ public class MaintenanceRequestController {
      */
     @PatchMapping("/{id}")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.update')"
     )
     public MaintenanceRequestResponse update(
 
@@ -157,7 +157,7 @@ public class MaintenanceRequestController {
      */
     @PatchMapping("/{id}/cancel")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.ticket.update')"
     )
     public MaintenanceRequestResponse cancel(
 
@@ -180,7 +180,7 @@ public class MaintenanceRequestController {
      */
     @PostMapping("/{id}/work-order")
     @PreAuthorize(
-            "hasAnyRole('ADMIN','OPERATIONS_STAFF')"
+            "hasAuthority('maintenance.repair.create')"
     )
     public ResponseEntity<WorkOrderSummaryResponse>
     createWorkOrder(
