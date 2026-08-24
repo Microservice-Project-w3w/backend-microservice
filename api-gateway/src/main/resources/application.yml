@@ -116,6 +116,24 @@ spring:
           filters:
             - SetPath=/health
 
+        # ==================================================
+        # BILLING SERVICE - PORT 8086
+        # ==================================================
+
+        # Hóa đơn, thanh toán, tiền cọc, công nợ và báo cáo doanh thu
+        - id: billing-api
+          uri: ${BILLING_SERVICE_URL:http://localhost:8086}
+          predicates:
+            - Path=/api/v1/billing,/api/v1/billing/**,/api/v1/debts,/api/v1/debts/**
+
+        # Health của Billing
+        - id: billing-health
+          uri: ${BILLING_SERVICE_URL:http://localhost:8086}
+          predicates:
+            - Path=/gateway/health/billing
+          filters:
+            - SetPath=/health
+
       # Tránh lặp header CORS nếu service phía sau cũng trả CORS
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin RETAIN_UNIQUE

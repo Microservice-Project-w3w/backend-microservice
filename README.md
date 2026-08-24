@@ -36,15 +36,17 @@ equipment-rental-backend/
 cp .env.example .env
 ```
 
-Docker Compose tự đọc `.env` ở root. Khi chạy Spring Boot trực tiếp, cấu hình các biến cần thiết trong Run Configuration của IntelliJ hoặc môi trường terminal. Nếu không khai báo, cấu hình local mặc định trong `application.yml` sẽ được dùng.
+Vì file Compose nằm trong `infra`, hãy truyền rõ `.env` ở root bằng `--env-file .env`. Khi chạy Spring Boot trực tiếp, nạp các biến vào terminal hoặc cấu hình chúng trong Run Configuration của IntelliJ. Nếu không khai báo, cấu hình local mặc định trong `application.yml` sẽ được dùng.
+
+Nếu máy đã dùng cổng MySQL `3306` hoặc Redis `6379`, đổi `MYSQL_PORT`/`REDIS_PORT` trong `.env`. Sáu service nghiệp vụ bên dưới đều đọc `MYSQL_PORT`; `DB_URL` vẫn có thể được dùng để ghi đè toàn bộ JDBC URL.
 
 ## Chạy hạ tầng
 
 ```bash
-docker compose -f infra/docker-compose.yml up -d
+docker compose --env-file .env -f infra/docker-compose.yml up -d
 ```
 
-Hạ tầng local gồm MySQL, RabbitMQ Management và Redis. MySQL chỉ tạo tên bảy database, chưa tạo bảng nghiệp vụ.
+Hạ tầng local gồm MySQL, RabbitMQ Management và Redis. File `infra/mysql/init/01-create-databases.sql` tạo schema và bảng cho Identity, Organization/Customer, Inventory, Rental, Logistics và Billing. Maintenance hiện mới chỉ được tạo database, chưa có bảng nghiệp vụ.
 
 ## Build toàn bộ dự án
 
@@ -55,6 +57,10 @@ mvn clean install
 ## Chạy từng service
 
 ```bash
+set -a
+source .env
+set +a
+
 mvn spring-boot:run -pl services/identity-service
 mvn spring-boot:run -pl services/organization-customer-service
 mvn spring-boot:run -pl services/inventory-service
@@ -64,6 +70,8 @@ mvn spring-boot:run -pl services/billing-service
 mvn spring-boot:run -pl services/maintenance-service
 mvn spring-boot:run -pl api-gateway
 ```
+
+Mỗi lệnh trên chiếm terminal cho đến khi service dừng; khi chạy toàn bộ hệ thống, mở một terminal cho mỗi service. Có thể bỏ qua Maintenance trong giai đoạn hiện tại.
 
 ## Health endpoints
 

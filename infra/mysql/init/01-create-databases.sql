@@ -1661,6 +1661,9 @@ CREATE TABLE delivery_fee_rules (
 CREATE TABLE delivery_tasks (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
 
+    organization_id BIGINT NOT NULL,
+    branch_id BIGINT NOT NULL,
+
     rental_order_id BIGINT NOT NULL,
 
     -- DELIVERY / RETURN_PICKUP
@@ -1680,6 +1683,7 @@ CREATE TABLE delivery_tasks (
     updated_at DATETIME NULL DEFAULT NULL
         ON UPDATE CURRENT_TIMESTAMP,
 
+    INDEX idx_delivery_task_scope (organization_id, branch_id),
     INDEX idx_delivery_task_order (rental_order_id),
     INDEX idx_delivery_task_staff (delivery_staff_user_id),
     INDEX idx_delivery_task_schedule (scheduled_at),
@@ -1692,6 +1696,9 @@ CREATE TABLE delivery_tasks (
 -- =========================================================
 CREATE TABLE dispatch_notes (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    organization_id BIGINT NOT NULL,
+    branch_id BIGINT NOT NULL,
 
     dispatch_code VARCHAR(50) NOT NULL UNIQUE,
 
@@ -1718,6 +1725,7 @@ CREATE TABLE dispatch_notes (
         FOREIGN KEY (delivery_task_id)
         REFERENCES delivery_tasks(id),
 
+    INDEX idx_dispatch_scope (organization_id, branch_id),
     INDEX idx_dispatch_order (rental_order_id),
     INDEX idx_dispatch_customer (customer_id),
     INDEX idx_dispatch_task (delivery_task_id),
@@ -1854,6 +1862,9 @@ CREATE TABLE handover_checklists (
 CREATE TABLE return_requests (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
 
+    organization_id BIGINT NOT NULL,
+    branch_id BIGINT NOT NULL,
+
     -- ID từ rental-service
     rental_order_id BIGINT NOT NULL,
 
@@ -1875,6 +1886,7 @@ CREATE TABLE return_requests (
     updated_at DATETIME NULL DEFAULT NULL
         ON UPDATE CURRENT_TIMESTAMP,
 
+    INDEX idx_return_request_scope (organization_id, branch_id),
     INDEX idx_return_request_order (rental_order_id),
     INDEX idx_return_request_customer (customer_id),
     INDEX idx_return_request_status (status),
@@ -1883,7 +1895,37 @@ CREATE TABLE return_requests (
 
 
 -- =========================================================
--- 9. BIÊN BẢN NHẬN TRẢ
+-- 9. KIỂM TRA THIẾT BỊ KHI TRẢ
+-- =========================================================
+CREATE TABLE return_inspections (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    return_request_id BIGINT NOT NULL,
+    equipment_id BIGINT NOT NULL,
+    inspected_by_user_id BIGINT NOT NULL,
+    inspected_at DATETIME NOT NULL,
+
+    condition_status VARCHAR(50) NOT NULL,
+    missing_accessories VARCHAR(1000),
+    damage_description VARCHAR(2000),
+    is_damaged BOOLEAN NOT NULL DEFAULT FALSE,
+    is_late BOOLEAN NOT NULL DEFAULT FALSE,
+    late_minutes BIGINT,
+    status VARCHAR(30) NOT NULL DEFAULT 'COMPLETED',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT fk_return_inspection_request
+        FOREIGN KEY (return_request_id)
+        REFERENCES return_requests(id),
+
+    INDEX idx_return_inspection_request (return_request_id),
+    INDEX idx_return_inspection_equipment (equipment_id),
+    INDEX idx_return_inspection_status (status)
+);
+
+
+-- =========================================================
+-- 10. BIÊN BẢN NHẬN TRẢ
 -- =========================================================
 CREATE TABLE return_records (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -1930,7 +1972,7 @@ CREATE TABLE return_records (
 
 
 -- =========================================================
--- 10. CHI TIẾT KIỂM TRA THIẾT BỊ KHI TRẢ
+-- 11. CHI TIẾT KIỂM TRA THIẾT BỊ KHI TRẢ
 -- =========================================================
 CREATE TABLE return_record_items (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
