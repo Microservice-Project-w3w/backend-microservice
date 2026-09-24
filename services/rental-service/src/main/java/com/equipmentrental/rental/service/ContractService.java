@@ -4,6 +4,7 @@ import com.equipmentrental.rental.dto.request.AppendixCreateRequest;
 import com.equipmentrental.rental.dto.request.CancelContractRequest;
 import com.equipmentrental.rental.dto.request.ContractCreateRequest;
 import com.equipmentrental.rental.dto.request.ContractExtensionRequest;
+import com.equipmentrental.rental.dto.request.RejectContractRequest;
 import com.equipmentrental.rental.dto.response.ContractAppendixResponse;
 import com.equipmentrental.rental.dto.response.RentalContractResponse;
 import com.equipmentrental.rental.entity.*;
@@ -79,6 +80,15 @@ public class ContractService {
         if (contract.getStatus() != ContractStatus.PENDING_APPROVAL)
             throw ApiException.invalidStatus("Hợp đồng chưa ở trạng thái chờ phê duyệt");
         contract.approve();
+        return RentalResponseMapper.contract(contracts.save(contract));
+    }
+
+    public RentalContractResponse reject(Long id, RejectContractRequest request) {
+        RentalContract contract = contract(id);
+        if (contract.getStatus() != ContractStatus.PENDING_APPROVAL) {
+            throw ApiException.invalidStatus("Hợp đồng chưa ở trạng thái chờ phê duyệt");
+        }
+        contract.reject(request.reason().trim());
         return RentalResponseMapper.contract(contracts.save(contract));
     }
 

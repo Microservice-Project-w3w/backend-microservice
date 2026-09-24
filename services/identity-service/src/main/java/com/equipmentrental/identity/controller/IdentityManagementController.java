@@ -2,6 +2,7 @@ package com.equipmentrental.identity.controller;
 
 import com.equipmentrental.common.web.ApiResponse;
 import com.equipmentrental.identity.dto.request.PermissionRequest;
+import com.equipmentrental.identity.dto.request.AdminResetPasswordRequest;
 import com.equipmentrental.identity.dto.request.RolePermissionRequest;
 import com.equipmentrental.identity.dto.request.RoleRequest;
 import com.equipmentrental.identity.dto.request.UserRoleRequest;
@@ -16,6 +17,7 @@ import com.equipmentrental.identity.service.SessionService;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -128,6 +130,22 @@ public class IdentityManagementController {
     @PreAuthorize("hasAuthority('identity.user.unlock')")
     public ApiResponse<UserResponse> unlock(@PathVariable Long id) {
         return ApiResponse.success(service.unlockUser(id));
+    }
+
+    @PostMapping("/users/{id}/reset-password")
+    @PreAuthorize("hasAuthority('identity.user.update')")
+    public ApiResponse<Void> resetPassword(
+            @PathVariable Long id, @Valid @RequestBody AdminResetPasswordRequest request) {
+        service.resetUserPassword(id, request);
+        return ApiResponse.success(null, "Đặt lại mật khẩu thành công");
+    }
+
+    @DeleteMapping("/users/{id}")
+    @PreAuthorize("hasAuthority('identity.user.update')")
+    public ApiResponse<Void> deleteUser(
+            @PathVariable Long id, JwtAuthenticationToken authentication) {
+        service.deleteUser(id, Long.valueOf(authentication.getToken().getSubject()));
+        return ApiResponse.success(null, "Đã xóa tài khoản");
     }
 
     @GetMapping("/users/{id}/sessions")

@@ -100,6 +100,12 @@ public class RentalWorkflowController {
         return ApiResponse.success(s.getQuotations(organizationId, branchId));
     }
 
+    @GetMapping("/quotations/{id}")
+    @PreAuthorize("hasAuthority('rental.quotation.read')")
+    ApiResponse<QuotationResponse> quotation(@PathVariable Long id) {
+        return ApiResponse.success(s.getQuotation(id));
+    }
+
     @PatchMapping("/quotations/{id}/send")
     @PreAuthorize("hasAuthority('rental.quotation.send')")
     ApiResponse<QuotationResponse> send(@PathVariable Long id) {
@@ -140,6 +146,12 @@ public class RentalWorkflowController {
     @PreAuthorize("hasAuthority('rental.order.read')")
     ApiResponse<List<RentalOrderResponse>> orders(@RequestParam Long organizationId, @RequestParam Long branchId) {
         return ApiResponse.success(s.getOrders(organizationId, branchId));
+    }
+
+    @GetMapping("/rental-orders/{id}")
+    @PreAuthorize("hasAuthority('rental.order.read')")
+    ApiResponse<RentalOrderResponse> order(@PathVariable Long id) {
+        return ApiResponse.success(s.getOrder(id));
     }
 
     @PatchMapping("/rental-orders/{id}/reserve")

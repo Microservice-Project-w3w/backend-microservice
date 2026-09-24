@@ -30,6 +30,8 @@ equipment-rental-backend/
 └── docs/
 ```
 
+AI là một FastAPI service độc lập, nằm tại `/mnt/e/equipment-rental-AI` trên máy local (không thuộc Maven monorepo này). Gateway chuyển tiếp các request AI đến service này qua `AI_SERVICE_URL`.
+
 ## Cấu hình môi trường
 
 ```bash
@@ -73,6 +75,35 @@ mvn spring-boot:run -pl api-gateway
 
 Mỗi lệnh trên chiếm terminal cho đến khi service dừng; khi chạy toàn bộ hệ thống, mở một terminal cho mỗi service.
 
+## Chạy AI service
+
+Trong một terminal riêng, chạy AI service. Repository AI hiện dùng virtual environment Windows, do đó dùng lệnh phù hợp với terminal:
+
+PowerShell:
+
+```powershell
+cd E:\equipment-rental-AI
+.\.venv\Scripts\python.exe run.py
+```
+
+WSL:
+
+```bash
+cd /mnt/e/equipment-rental-AI
+./.venv/Scripts/python.exe run.py
+```
+
+AI mặc định lắng nghe tại `http://127.0.0.1:8090` và gọi nghiệp vụ qua Gateway tại `http://localhost:8080`. Gateway cung cấp các endpoint sau cho frontend:
+
+```text
+POST   http://localhost:8080/api/v1/ai/chat
+DELETE http://localhost:8080/api/v1/ai/chat/{conversationId}
+GET    http://localhost:8080/api/v1/ai/models
+GET    http://localhost:8080/gateway/health/ai
+```
+
+Các endpoint chat yêu cầu header `Authorization: Bearer <JWT>`. Cần cấu hình và chạy Ollama theo `.env` của repository AI.
+
 Hướng dẫn dành cho frontend, phân quyền và cách sử dụng các Postman collection nằm tại [document-for-frontend/README.md](document-for-frontend/README.md).
 
 ## Health endpoints
@@ -86,6 +117,7 @@ http://localhost:8084/health  rental-service
 http://localhost:8085/health  logistics-service
 http://localhost:8086/health  billing-service
 http://localhost:8087/health  maintenance-service
+http://localhost:8080/gateway/health/ai  ai-service (qua gateway)
 ```
 
 Mỗi service chỉ sở hữu source code và database của chính nó. Tích hợp đồng bộ qua HTTP; tích hợp bất đồng bộ qua event/RabbitMQ.

@@ -54,6 +54,9 @@ public class RentalContract {
     @Column(length = 500)
     private String cancelReason;
 
+    @Column(length = 500)
+    private String rejectionReason;
+
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
@@ -188,5 +191,14 @@ public class RentalContract {
     public void cancel(String reason) {
         status = ContractStatus.CANCELLED;
         cancelReason = reason;
+    }
+
+    public String getRejectionReason() {
+        return rejectionReason;
+    }
+
+    public void reject(String reason) {
+        status = ContractStatus.REJECTED;
+        rejectionReason = reason;
     }
 }

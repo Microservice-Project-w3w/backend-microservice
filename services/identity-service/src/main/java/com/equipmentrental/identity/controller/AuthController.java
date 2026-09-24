@@ -4,11 +4,13 @@ import com.equipmentrental.common.web.ApiResponse;
 import com.equipmentrental.identity.dto.auth.AuthResponse;
 import com.equipmentrental.identity.dto.auth.ChangePasswordRequest;
 import com.equipmentrental.identity.dto.auth.ConfirmResetPasswordRequest;
+import com.equipmentrental.identity.dto.auth.CurrentUserProfileResponse;
 import com.equipmentrental.identity.dto.auth.LoginRequest;
 import com.equipmentrental.identity.dto.auth.RefreshTokenRequest;
 import com.equipmentrental.identity.dto.auth.RegisterRequest;
 import com.equipmentrental.identity.dto.auth.RegisterResponse;
 import com.equipmentrental.identity.dto.auth.ResetPasswordRequest;
+import com.equipmentrental.identity.dto.auth.UpdateProfileRequest;
 import com.equipmentrental.identity.dto.auth.VerificationCodeRequest;
 import com.equipmentrental.identity.dto.auth.VerifyEmailRequest;
 import com.equipmentrental.identity.service.AuthService;
@@ -106,15 +108,16 @@ public class AuthController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<ApiResponse<Map<String, Object>>> getCurrentUser(JwtAuthenticationToken authentication) {
-        Map<String, Object> response = new LinkedHashMap<>();
+    public ResponseEntity<ApiResponse<CurrentUserProfileResponse>> getCurrentUser(
+            JwtAuthenticationToken authentication) {
+        return ResponseEntity.ok(ApiResponse.success(
+                authService.currentProfile(Long.valueOf(authentication.getToken().getSubject()))));
+    }
 
-        response.put("email", authentication.getToken().getClaimAsString("preferred_username"));
-
-        response.put("userId", authentication.getToken().getSubject());
-
-        response.put("roles", authentication.getToken().getClaim("roles"));
-
-        return ResponseEntity.ok(ApiResponse.success(response));
+    @PutMapping("/me")
+    public ApiResponse<CurrentUserProfileResponse> updateCurrentUser(
+            JwtAuthenticationToken authentication, @Valid @RequestBody UpdateProfileRequest request) {
+        return ApiResponse.success(authService.updateProfile(
+                Long.valueOf(authentication.getToken().getSubject()), request), "Cập nhật hồ sơ thành công");
     }
 }

@@ -165,6 +165,11 @@ public class RentalWorkflowService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public QuotationResponse getQuotation(Long id) {
+        return RentalResponseMapper.quotation(findQuotation(id));
+    }
+
     public QuotationResponse sendQuotation(Long id) {
         Quotation q = findQuotation(id);
         if (q.getStatus() != QuotationStatus.DRAFT) throw ApiException.invalidStatus("Chỉ gửi được báo giá DRAFT");
@@ -275,6 +280,11 @@ public class RentalWorkflowService {
         return values.stream()
                 .map(RentalResponseMapper::order)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public RentalOrderResponse getOrder(Long id) {
+        return RentalResponseMapper.order(findOrder(id));
     }
 
     private RentalRequest findRequest(Long id) {

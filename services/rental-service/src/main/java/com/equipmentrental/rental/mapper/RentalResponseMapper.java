@@ -115,7 +115,8 @@ public final class RentalResponseMapper {
                 source.getApprovedAt(),
                 source.getSignedAt(),
                 source.getLiquidatedAt(),
-                source.getCancelReason());
+                source.getCancelReason(),
+                source.getRejectionReason());
     }
 
     public static ContractAppendixResponse appendix(ContractAppendix source) {

@@ -152,6 +152,29 @@ spring:
           filters:
             - SetPath=/health
 
+        # ==================================================
+        # AI SERVICE - PORT 8090
+        # ==================================================
+
+        # AI chạy độc lập trong repository equipment-rental-AI.
+        # Public API được namespace để không trùng với API nghiệp vụ hiện có.
+        # /api/v1/ai/chat -> AI service: /api/v1/chat
+        - id: ai-api
+          uri: ${AI_SERVICE_URL:http://localhost:8090}
+          predicates:
+            - Path=/api/v1/ai,/api/v1/ai/**
+          filters:
+            - StripPrefix=3
+            - PrefixPath=/api/v1
+
+        # Kiểm tra cả Ollama và kết nối AI -> API Gateway.
+        - id: ai-health
+          uri: ${AI_SERVICE_URL:http://localhost:8090}
+          predicates:
+            - Path=/gateway/health/ai
+          filters:
+            - SetPath=/api/v1/health/dependencies
+
       # Tránh lặp header CORS nếu service phía sau cũng trả CORS
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin RETAIN_UNIQUE

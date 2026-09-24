@@ -1,9 +1,11 @@
 package com.equipmentrental.identity.service;
 
 import com.equipmentrental.identity.dto.auth.AuthResponse;
+import com.equipmentrental.identity.dto.auth.CurrentUserProfileResponse;
 import com.equipmentrental.identity.dto.auth.LoginRequest;
 import com.equipmentrental.identity.dto.auth.RegisterRequest;
 import com.equipmentrental.identity.dto.auth.RegisterResponse;
+import com.equipmentrental.identity.dto.auth.UpdateProfileRequest;
 import com.equipmentrental.identity.entity.PasswordHistory;
 import com.equipmentrental.identity.entity.Role;
 import com.equipmentrental.identity.entity.User;
@@ -229,6 +231,21 @@ public class AuthService {
         sessionService.revokeAllForUser(user.getId(), "PASSWORD_CHANGED");
     }
 
+    @Transactional(readOnly = true)
+    public CurrentUserProfileResponse currentProfile(Long userId) {
+        return profile(user(userId));
+    }
+
+    @Transactional
+    public CurrentUserProfileResponse updateProfile(Long userId, UpdateProfileRequest request) {
+        User user = user(userId);
+        user.setFullName(request.fullName().trim());
+        user.setPhone(normalizeOptional(request.phone()));
+        user.setCompanyName(normalizeOptional(request.companyName()));
+        user.setTaxCode(normalizeOptional(request.taxCode()));
+        return profile(userRepository.save(user));
+    }
+
     private AuthResponse issueTokens(User user, SessionService.IssuedSession issued) {
         return new AuthResponse(
                 jwtService.generateAccessToken(user, issued.session().getId()),
@@ -273,5 +290,34 @@ public class AuthService {
 
     private String normalizeEmail(String email) {
         return email.trim().toLowerCase(Locale.ROOT);
+    }
+
+    private User user(Long userId) {
+        User user = userRepository
+                .findDetailedById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Tài khoản không tồn tại"));
+        if (user.getDeletedAt() != null || user.getStatus() == UserStatus.DELETED) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Tài khoản không còn hoạt động");
+        }
+        return user;
+    }
+
+    private CurrentUserProfileResponse profile(User user) {
+        return new CurrentUserProfileResponse(
+                user.getId(),
+                user.getFullName(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getCompanyName(),
+                user.getTaxCode(),
+                java.util.List.of(user.getRole().getCode()));
+    }
+
+    private String normalizeOptional(String value) {
+        if (value == null) {
+            return null;
+        }
+        String normalized = value.trim();
+        return normalized.isEmpty() ? null : normalized;
     }
 }

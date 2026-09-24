@@ -3,6 +3,7 @@ package com.equipmentrental.identity.service;
 import com.equipmentrental.common.web.BusinessException;
 import com.equipmentrental.common.web.CommonErrorCode;
 import com.equipmentrental.identity.dto.request.PermissionRequest;
+import com.equipmentrental.identity.dto.request.AdminResetPasswordRequest;
 import com.equipmentrental.identity.dto.request.RolePermissionRequest;
 import com.equipmentrental.identity.dto.request.RoleRequest;
 import com.equipmentrental.identity.dto.request.UserCreateRequest;
@@ -20,6 +21,7 @@ import com.equipmentrental.identity.repository.PermissionRepository;
 import com.equipmentrental.identity.repository.RoleRepository;
 import com.equipmentrental.identity.repository.UserRepository;
 import com.equipmentrental.identity.repository.PasswordHistoryRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -217,6 +219,31 @@ public class IdentityManagementService {
         user.setLockedUntil(null);
         user.setFailedLoginAttempts(0);
         return userResponse(userRepository.save(user));
+    }
+
+    public void resetUserPassword(Long id, AdminResetPasswordRequest request) {
+        User user = user(id);
+        user.setPasswordHash(passwordEncoder.encode(request.newPassword()));
+        user.setFailedLoginAttempts(0);
+        user.setLockedUntil(null);
+        if (user.getStatus() == UserStatus.LOCKED) {
+            user.setStatus(UserStatus.ACTIVE);
+        }
+        User saved = userRepository.save(user);
+        passwordHistoryRepository.save(new PasswordHistory(saved, saved.getPasswordHash(), "ADMIN_RESET"));
+        sessionService.revokeAllForUser(id, "ADMIN_PASSWORD_RESET");
+    }
+
+    public void deleteUser(Long id, Long actorUserId) {
+        if (id.equals(actorUserId)) {
+            throw new BusinessException(CommonErrorCode.VALIDATION_FAILED, "Không thể tự xóa tài khoản đang đăng nhập");
+        }
+        User user = user(id);
+        user.setStatus(UserStatus.DELETED);
+        user.setDeletedAt(LocalDateTime.now());
+        user.setLockedUntil(null);
+        sessionService.revokeAllForUser(id, "ACCOUNT_DELETED_BY_ADMIN");
+        userRepository.save(user);
     }
 
     public void revokeSession(Long sessionId) {

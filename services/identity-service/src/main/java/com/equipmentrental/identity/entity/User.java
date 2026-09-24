@@ -47,6 +47,15 @@ public class User {
     @Column(name = "email", nullable = false, length = 150)
     private String email;
 
+    @Column(length = 30)
+    private String phone;
+
+    @Column(name = "company_name", length = 200)
+    private String companyName;
+
+    @Column(name = "tax_code", length = 50)
+    private String taxCode;
+
     @Column(name = "password_hash", nullable = false, length = 255)
     private String passwordHash;
 
@@ -140,6 +149,18 @@ public class User {
         return email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public String getTaxCode() {
+        return taxCode;
+    }
+
     public String getPasswordHash() {
         return passwordHash;
     }
@@ -172,6 +193,10 @@ public class User {
         return updatedAt;
     }
 
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
+    }
+
     public void setRole(Role role) {
         this.role = role;
     }
@@ -197,6 +222,22 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public void setTaxCode(String taxCode) {
+        this.taxCode = taxCode;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
     }
 
     public void setPasswordHash(String passwordHash) {
