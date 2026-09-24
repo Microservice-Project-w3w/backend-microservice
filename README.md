@@ -30,21 +30,25 @@ equipment-rental-backend/
 └── docs/
 ```
 
+AI là một FastAPI service độc lập, nằm tại `/mnt/e/equipment-rental-AI` trên máy local (không thuộc Maven monorepo này). Gateway chuyển tiếp các request AI đến service này qua `AI_SERVICE_URL`.
+
 ## Cấu hình môi trường
 
 ```bash
 cp .env.example .env
 ```
 
-Docker Compose tự đọc `.env` ở root. Khi chạy Spring Boot trực tiếp, cấu hình các biến cần thiết trong Run Configuration của IntelliJ hoặc môi trường terminal. Nếu không khai báo, cấu hình local mặc định trong `application.yml` sẽ được dùng.
+Vì file Compose nằm trong `infra`, hãy truyền rõ `.env` ở root bằng `--env-file .env`. Khi chạy Spring Boot trực tiếp, nạp các biến vào terminal hoặc cấu hình chúng trong Run Configuration của IntelliJ. Nếu không khai báo, cấu hình local mặc định trong `application.yml` sẽ được dùng.
+
+Nếu máy đã dùng cổng MySQL `3306` hoặc Redis `6379`, đổi `MYSQL_PORT`/`REDIS_PORT` trong `.env`. Sáu service nghiệp vụ bên dưới đều đọc `MYSQL_PORT`; `DB_URL` vẫn có thể được dùng để ghi đè toàn bộ JDBC URL.
 
 ## Chạy hạ tầng
 
 ```bash
-docker compose -f infra/docker-compose.yml up -d
+docker compose --env-file .env -f infra/docker-compose.yml up -d
 ```
 
-Hạ tầng local gồm MySQL, RabbitMQ Management và Redis. MySQL chỉ tạo tên bảy database, chưa tạo bảng nghiệp vụ.
+Hạ tầng local gồm MySQL, RabbitMQ Management và Redis. File `infra/mysql/init/01-create-databases.sql` tạo schema và bảng cho Identity, Organization/Customer, Inventory, Rental, Logistics, Billing và Maintenance.
 
 ## Build toàn bộ dự án
 
@@ -55,6 +59,10 @@ mvn clean install
 ## Chạy từng service
 
 ```bash
+set -a
+source .env
+set +a
+
 mvn spring-boot:run -pl services/identity-service
 mvn spring-boot:run -pl services/organization-customer-service
 mvn spring-boot:run -pl services/inventory-service
@@ -64,6 +72,39 @@ mvn spring-boot:run -pl services/billing-service
 mvn spring-boot:run -pl services/maintenance-service
 mvn spring-boot:run -pl api-gateway
 ```
+
+Mỗi lệnh trên chiếm terminal cho đến khi service dừng; khi chạy toàn bộ hệ thống, mở một terminal cho mỗi service.
+
+## Chạy AI service
+
+Trong một terminal riêng, chạy AI service. Repository AI hiện dùng virtual environment Windows, do đó dùng lệnh phù hợp với terminal:
+
+PowerShell:
+
+```powershell
+cd E:\equipment-rental-AI
+.\.venv\Scripts\python.exe run.py
+```
+
+WSL:
+
+```bash
+cd /mnt/e/equipment-rental-AI
+./.venv/Scripts/python.exe run.py
+```
+
+AI mặc định lắng nghe tại `http://127.0.0.1:8090` và gọi nghiệp vụ qua Gateway tại `http://localhost:8080`. Gateway cung cấp các endpoint sau cho frontend:
+
+```text
+POST   http://localhost:8080/api/v1/ai/chat
+DELETE http://localhost:8080/api/v1/ai/chat/{conversationId}
+GET    http://localhost:8080/api/v1/ai/models
+GET    http://localhost:8080/gateway/health/ai
+```
+
+Các endpoint chat yêu cầu header `Authorization: Bearer <JWT>`. Cần cấu hình và chạy Ollama theo `.env` của repository AI.
+
+Hướng dẫn dành cho frontend, phân quyền và cách sử dụng các Postman collection nằm tại [document-for-frontend/README.md](document-for-frontend/README.md).
 
 ## Health endpoints
 
@@ -76,6 +117,7 @@ http://localhost:8084/health  rental-service
 http://localhost:8085/health  logistics-service
 http://localhost:8086/health  billing-service
 http://localhost:8087/health  maintenance-service
+http://localhost:8080/gateway/health/ai  ai-service (qua gateway)
 ```
 
 Mỗi service chỉ sở hữu source code và database của chính nó. Tích hợp đồng bộ qua HTTP; tích hợp bất đồng bộ qua event/RabbitMQ.
